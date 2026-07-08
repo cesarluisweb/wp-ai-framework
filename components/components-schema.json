@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WP-AI Component Library Schema",
+  "description": "Estructura estricta para los componentes base del Render Engine",
+  "type": "object",
+  "properties": {
+    "hero": {
+      "type": "object",
+      "properties": {
+        "variant": { "type": "string", "enum": ["premium-dark", "minimal-light", "split-image-right"] },
+        "content": {
+          "type": "object",
+          "properties": {
+            "kicker": { "type": "string", "description": "Texto pequeño arriba del H1 (ej. 'Partner Técnico')" },
+            "h1": { "type": "string", "description": "Titular principal de alto impacto" },
+            "subtitle": { "type": "string", "description": "Subtítulo descriptivo que refuerza el H1" },
+            "primary_cta": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" },
+                "url": { "type": "string" }
+              }
+            },
+            "secondary_cta": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" },
+                "url": { "type": "string" }
+              }
+            }
+          },
+          "required": ["h1", "subtitle", "primary_cta"]
+        }
+      },
+      "required": ["variant", "content"]
+    },
+    "services_overview": {
+      "type": "object",
+      "properties": {
+        "variant": { "type": "string", "enum": ["cards-glass", "list-minimal"] },
+        "content": {
+          "type": "object",
+          "properties": {
+            "section_title": { "type": "string" },
+            "services": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "icon": { "type": "string", "description": "Nombre del icono de Lucide" }
+                }
+              },
+              "minItems": 1,
+              "maxItems": 4
+            }
+          }
+        }
+      }
+    },
+    "cta_footer": {
+      "type": "object",
+      "properties": {
+        "variant": { "type": "string", "enum": ["centered-massive", "split-minimal"] },
+        "content": {
+          "type": "object",
+          "properties": {
+            "h2": { "type": "string" },
+            "body": { "type": "string" },
+            "button_label": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,366 @@
+<?php
+/**
+ * WP-AI Framework - Front Page Template (Dynamic Integration)
+ */
+get_header();
+?>
+
+<?php
+// Utility: Obtener campo ACF con fallback si está vacío o no existe
+function wp_ai_get_field_fallback($field_name, $fallback) {
+    if (function_exists('get_field')) {
+        $val = get_field($field_name);
+        return !empty($val) ? $val : $fallback;
+    }
+    return $fallback;
+}
+
+// 1. HEADER — Inyectado por get_header() arriba. No redefinir aquí.
+// El header.php ya incluye el componente con los enlaces a las páginas reales.
+
+// 2. HERO
+$hero_data = [
+    'kicker' => wp_ai_get_field_fallback('hero_kicker', 'PARTNER TÉCNICO'),
+    'headline' => wp_ai_get_field_fallback('hero_headline', 'Desarrollo<br>WordPress<br>que funciona.'),
+    'subheadline' => wp_ai_get_field_fallback('hero_subheadline', 'Creo, optimizo y doy soporte a sitios web para agencias y empresas que necesitan rendimiento, fidelidad al diseño y entregas impecables.'),
+    'cta_primary' => [
+        'label' => wp_ai_get_field_fallback('hero_cta_label', '¿Hablamos?'),
+        'url' => wp_ai_get_field_fallback('hero_cta_url', '#cta'),
+    ],
+    'cta_secondary' => [
+        'label' => 'Ver mi trabajo',
+        'url' => '#portfolio'
+    ],
+    'hero_image' => ''
+];
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('hero', 'premium-dark', $hero_data);
+
+// 3. METRICS
+$metrics_arr = [];
+for ($i = 1; $i <= 3; $i++) {
+    $val = wp_ai_get_field_fallback('metric_'.$i.'_val', '');
+    $lab = wp_ai_get_field_fallback('metric_'.$i.'_lab', '');
+    if (!empty($val) && !empty($lab)) {
+        $metrics_arr[] = ['value' => $val, 'label' => $lab];
+    }
+}
+if (empty($metrics_arr)) {
+    $metrics_arr = [
+        ['value' => '+7', 'label' => 'Años de experiencia'],
+        ['value' => '+100', 'label' => 'Proyectos entregados'],
+        ['value' => '5.0', 'label' => 'Calificación en Google']
+    ];
+}
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('metrics', 'premium-dark', ['metrics' => $metrics_arr]);
+
+// 4. ABOUT
+$bio_text = wp_ai_get_field_fallback('about_bio', '');
+$bio_paragraphs = [];
+if (!empty($bio_text)) {
+    $bio_paragraphs = array_filter(array_map('trim', explode("\n", strip_tags($bio_text))));
+} else {
+    $bio_paragraphs = [
+        "Soy ingeniero en electrónica con más de 7 años dedicados al desarrollo web. Desde hace años trabajo en remoto para agencias de marketing digital y empresas en Latinoamérica y Europa, lo que me ha permitido participar en proyectos innovadores y desafiantes de todo tipo.",
+        "Mi enfoque combina la resolución de problemas reales con un estándar de calidad alto. No me limito a ejecutar tareas: entiendo el contexto del proyecto, propongo soluciones y me aseguro de que todo funcione correctamente antes de entregar.",
+        "Trabajo tanto solo como en equipo, adaptándome a las herramientas y flujos de trabajo de cada cliente. Si buscas un desarrollador WordPress confiable que entregue resultados sólidos, estás en el lugar correcto."
+    ];
+}
+
+$about_data = [
+    'headline' => wp_ai_get_field_fallback('about_headline', 'César Luis, desarrollador web WordPress'),
+    'bio_paragraphs' => $bio_paragraphs
+];
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('about', 'premium-dark', $about_data);
+
+// 5. PORTFOLIO (CPT)
+$portfolio_limit = (int) wp_ai_get_field_fallback('home_portfolio_limit', 4);
+$projects_arr = [];
+$featured_ids = function_exists('get_field') ? get_field('home_featured_projects') : false;
+
+$args_p = ['post_type' => 'proyecto', 'posts_per_page' => $portfolio_limit];
+
+if (!empty($featured_ids) && is_array($featured_ids)) {
+    // Si el campo devuelve objetos (Post Object) extraemos los IDs
+    if (isset($featured_ids[0]->ID)) {
+        $featured_ids = array_map(function($p) { return $p->ID; }, $featured_ids);
+    }
+    $args_p['post__in'] = $featured_ids;
+    $args_p['orderby'] = 'post__in';
+    // Ignoramos el límite de $portfolio_limit si el usuario seleccionó manualmente
+    $args_p['posts_per_page'] = count($featured_ids); 
+}
+
+$q_p = new WP_Query($args_p);
+if ($q_p->have_posts()) {
+    while($q_p->have_posts()) {
+        $q_p->the_post();
+        $terms = wp_get_post_terms(get_the_ID(), 'categoria_proyecto', ['fields' => 'names']);
+        $cat = (!empty($terms) && !is_wp_error($terms)) ? $terms[0] : 'Desarrollo Web';
+        
+        $tech_terms = wp_get_post_terms(get_the_ID(), 'tech_stack', ['fields' => 'names']);
+        $techs = (!empty($tech_terms) && !is_wp_error($tech_terms)) ? $tech_terms : ['WordPress'];
+        
+        $projects_arr[] = [
+            'title' => get_the_title(),
+            'description' => get_the_excerpt() ?: apply_filters('the_content', get_the_content()),
+            'category' => $cat,
+            'tech_stack' => $techs,
+            'image_url' => get_the_post_thumbnail_url(get_the_ID(), 'large'),
+            'url' => get_permalink(),
+            'image_gradient' => function_exists('get_field') ? get_field('css_gradient') : 'linear-gradient(135deg, #0a1f2a 0%, #144257 50%, #287799 100%)'
+        ];
+    }
+    wp_reset_postdata();
+}
+
+if (empty($projects_arr)) {
+    $projects_arr = [
+        [
+            'title' => 'Plataforma E-learning Corporativa',
+            'description' => 'Sistema de formación online con LMS personalizado, pasarela de pagos y panel de reportes. Integración con APIs externas.',
+            'category' => 'Plataforma Web',
+            'tech_stack' => ['WordPress', 'LearnDash', 'PHP'],
+            'url' => '#',
+            'image_gradient' => 'linear-gradient(135deg, #0a1f2a 0%, #144257 50%, #287799 100%)'
+        ]
+    ];
+}
+
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('portfolio', 'premium-dark', [
+    'section_kicker' => 'Portafolio',
+    'section_title' => 'Proyectos recientes',
+    'section_description' => 'Una selección de trabajos donde la calidad del código y el resultado final hablan por sí solos.',
+    'projects' => $projects_arr
+]);
+
+// 6. SERVICES (CPT)
+$services_arr = [];
+$featured_services_ids = function_exists('get_field') ? get_field('home_featured_services') : false;
+
+$args_s = ['post_type' => 'servicio', 'posts_per_page' => -1, 'order' => 'ASC'];
+
+if (!empty($featured_services_ids) && is_array($featured_services_ids)) {
+    if (isset($featured_services_ids[0]->ID)) {
+        $featured_services_ids = array_map(function($s) { return $s->ID; }, $featured_services_ids);
+    }
+    $args_s['post__in'] = $featured_services_ids;
+    $args_s['orderby'] = 'post__in';
+}
+
+$q = new WP_Query($args_s);
+if ($q->have_posts()) {
+    while($q->have_posts()) {
+        $q->the_post();
+        $icon = function_exists('get_field') ? get_field('icon') : '';
+        $desc = function_exists('get_field') ? get_field('desc') : '';
+        $features_raw = function_exists('get_field') ? get_field('features') : '';
+        $features = array_filter(array_map('trim', explode("\n", $features_raw)));
+        
+        $services_arr[] = [
+            'title' => get_the_title(),
+            'description' => $desc,
+            'icon' => $icon ?: 'code',
+            'features' => $features
+        ];
+    }
+    wp_reset_postdata();
+}
+
+if (empty($services_arr)) {
+    $services_arr = [
+        [
+            'title' => 'Desarrollo Web',
+            'description' => 'Construcción de temas y plugins de WordPress a medida, píxel perfect desde Figma. Plataformas escalables.',
+            'icon' => 'code',
+            'features' => ['Desarrollo a Medida', 'Plataformas E-commerce']
+        ],
+        [
+            'title' => 'Mantenimiento Web',
+            'description' => 'Soporte premium para que tu negocio digital nunca se detenga.',
+            'icon' => 'shield',
+            'features' => ['Actualizaciones', 'Copias de seguridad']
+        ],
+        [
+            'title' => 'Soporte y Reparaciones',
+            'description' => 'Resolución de incidencias críticas y optimización extrema.',
+            'icon' => 'puzzle',
+            'features' => ['Optimización WPO', 'Auditorías Técnicas']
+        ]
+    ];
+}
+
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('services', 'premium-dark', [
+    'section_title' => 'Mis Soluciones',
+    'services' => $services_arr
+]);
+
+// 7. TESTIMONIALS (CPT)
+$testi_arr = [];
+$featured_testimonials_ids = function_exists('get_field') ? get_field('home_featured_testimonials') : false;
+
+$args_t = ['post_type' => 'testimonio', 'posts_per_page' => 6];
+
+if (!empty($featured_testimonials_ids) && is_array($featured_testimonials_ids)) {
+    if (isset($featured_testimonials_ids[0]->ID)) {
+        $featured_testimonials_ids = array_map(function($t) { return $t->ID; }, $featured_testimonials_ids);
+    }
+    $args_t['post__in'] = $featured_testimonials_ids;
+    $args_t['orderby'] = 'post__in';
+    $args_t['posts_per_page'] = count($featured_testimonials_ids);
+}
+
+$q_t = new WP_Query($args_t);
+if ($q_t->have_posts()) {
+    while($q_t->have_posts()) {
+        $q_t->the_post();
+        $testi_arr[] = [
+            'author' => get_the_title(),
+            'quote' => get_post_meta(get_the_ID(), 'testimonial_content', true),
+            'role' => '',
+            'company' => get_post_meta(get_the_ID(), 'testimonial_country', true),
+            'link' => get_post_meta(get_the_ID(), 'testimonial_link', true),
+            'rating' => 5,
+            'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'),
+        ];
+    }
+    wp_reset_postdata();
+}
+
+if (empty($testi_arr)) {
+    $testi_arr = [
+        [
+            'quote' => 'César se integró a nuestro equipo como si siempre hubiera estado allí. Entiende el negocio, propone soluciones y cumple con los plazos.',
+            'author' => 'María García',
+            'role' => 'Directora de Proyectos',
+            'company' => 'Iddium',
+            'rating' => 5
+        ]
+    ];
+}
+
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('testimonials', 'premium-dark', [
+    'section_kicker' => 'Opiniones',
+    'section_title' => 'Lo que dicen mis clientes',
+    'testimonials' => $testi_arr
+]);
+
+// 8. FAQ (CPT)
+$faq_arr = [];
+$args_f = ['post_type' => 'faq', 'posts_per_page' => -1];
+$q_f = new WP_Query($args_f);
+if ($q_f->have_posts()) {
+    while($q_f->have_posts()) {
+        $q_f->the_post();
+        $faq_arr[] = [
+            'question' => get_the_title(),
+            'answer' => apply_filters('the_content', get_the_content())
+        ];
+    }
+    wp_reset_postdata();
+}
+
+if (empty($faq_arr)) {
+    $faq_arr = [
+        [
+            'question' => '¿Qué tipo de proyectos WordPress haces?',
+            'answer' => '<p>Desarrollo temas a medida, plugins personalizados, tiendas con WooCommerce, plataformas e-learning y sitios corporativos.</p>'
+        ]
+    ];
+}
+
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('faq', 'premium-dark', [
+    'section_kicker' => 'Preguntas frecuentes',
+    'section_title' => 'Resolvamos tus dudas',
+    'section_description' => 'Las preguntas más comunes que recibo de agencias y empresas antes de trabajar juntos.',
+    'questions' => $faq_arr
+]);
+
+// 9. METHODOLOGY
+$method_steps = [];
+for ($i = 1; $i <= 5; $i++) {
+    $l = wp_ai_get_field_fallback('step_'.$i.'_letter', '');
+    $t = wp_ai_get_field_fallback('step_'.$i.'_title', '');
+    $d = wp_ai_get_field_fallback('step_'.$i.'_desc', '');
+    if (!empty($l)) {
+        $method_steps[] = ['letter' => $l, 'title' => $t, 'description' => $d];
+    }
+}
+if (empty($method_steps)) {
+    $method_steps = [
+        ['letter' => 'S', 'title' => 'Scope', 'description' => 'Definición exacta del alcance y arquitectura del proyecto antes de escribir código.'],
+        ['letter' => 'C', 'title' => 'Code Architecture', 'description' => 'Diseño de base de datos y elección del stack técnico adecuado.'],
+        ['letter' => 'A', 'title' => 'Automation', 'description' => 'Implementación de CI/CD, pruebas y despliegues automatizados.'],
+        ['letter' => 'L', 'title' => 'Load Testing', 'description' => 'Pruebas de estrés y cuellos de botella.'],
+        ['letter' => 'E', 'title' => 'Evolution', 'description' => 'Monitoreo continuo y optimización iterativa.']
+    ];
+}
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('methodology', 'premium-dark', [
+    'section_kicker' => wp_ai_get_field_fallback('method_kicker', 'Metodología'),
+    'section_title' => wp_ai_get_field_fallback('method_title', 'Framework SCALE™'),
+    'section_description' => wp_ai_get_field_fallback('method_desc', 'Mi proceso estandarizado para garantizar que los proyectos complejos no fracasen. Predecible, seguro y escalable.'),
+    'steps' => $method_steps
+]);
+
+// 10. BLOG (Native WP Posts)
+$blog_arr = [];
+$args_b = ['post_type' => 'post', 'posts_per_page' => 3];
+$q_b = new WP_Query($args_b);
+if ($q_b->have_posts()) {
+    while($q_b->have_posts()) {
+        $q_b->the_post();
+        $cats = get_the_category();
+        $cat_name = !empty($cats) ? $cats[0]->name : 'Blog';
+        
+        $blog_arr[] = [
+            'title' => get_the_title(),
+            'excerpt' => get_the_excerpt() ?: wp_trim_words(get_the_content(), 15),
+            'date' => get_the_date(),
+            'category' => $cat_name,
+            'read_time' => '5 min',
+            'url' => get_permalink(),
+            'gradient' => 'linear-gradient(135deg, #0a1f2a 0%, #144257 100%)'
+        ];
+    }
+    wp_reset_postdata();
+}
+
+if (!empty($blog_arr)) {
+    if(function_exists('wp_ai_render_component')) wp_ai_render_component('blog', 'premium-dark', [
+        'section_kicker' => 'Blog',
+        'section_title' => 'Últimos artículos',
+        'posts' => $blog_arr
+    ]);
+}
+
+// 11. CTA
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('cta', 'premium-dark', [
+    'headline' => '¿Tienes un proyecto en mente?',
+    'subheadline' => 'Cuéntame qué necesitas y te digo cómo puedo ayudarte. Sin compromiso.',
+    'button' => ['label' => 'Hablemos', 'url' => '#contacto'],
+    'guarantee' => 'Respuesta en menos de 24 horas'
+]);
+
+// 12. FOOTER
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('footer', 'premium-dark', [
+    'headline' => '¿Listo para escalar?',
+    'email' => wp_ai_get_field_fallback('footer_email', 'hola@cesarluis.com'),
+    'description' => 'Desarrollo web a medida para agencias y empresas que buscan resultados, rendimiento y código limpio.',
+    'quick_links' => [
+        ['label' => 'Sobre mí',   'url' => site_url('/sobre-mi')],
+        ['label' => 'Portafolio', 'url' => site_url('/portafolio')],
+        ['label' => 'Servicios',  'url' => site_url('/servicios')],
+        ['label' => 'Preguntas',  'url' => site_url('/servicios/#faq')]
+    ],
+    'social_links' => [
+        ['platform' => 'LinkedIn', 'url' => 'https://linkedin.com'],
+        ['platform' => 'GitHub', 'url' => 'https://github.com']
+    ],
+    'legal_links' => [
+        ['label' => 'Privacidad', 'url' => '#'],
+        ['label' => 'Aviso Legal', 'url' => '#']
+    ],
+    'copyright' => wp_ai_get_field_fallback('footer_copy', '© 2026 César Luis Amundaray. Todos los derechos reservados.')
+]);
+
+get_footer();
+?>

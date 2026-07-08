@@ -1,0 +1,5 @@
+# Ignorar archivos generados y de sistema
+node_modules/
+*.zip
+.DS_Store
+*.log
