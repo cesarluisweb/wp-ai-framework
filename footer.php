@@ -26,6 +26,25 @@ if(function_exists('wp_ai_render_component')) wp_ai_render_component('footer', '
 ]);
 ?>
 
+    <!-- Lenis Smooth Scrolling (Inertial Scroll) -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const lenis = new Lenis({
+                lerp: 0.07, // Menor es más suave y mantequilla
+                wheelMultiplier: 1, // Velocidad de la rueda
+                smoothWheel: true,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+        });
+    </script>
+
     <?php wp_footer(); ?>
 </body>
 </html>

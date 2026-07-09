@@ -63,14 +63,14 @@ if ( ! empty( $questions ) ) :
         <?php if ( ! empty( $questions ) ) : ?>
             <div class="max-w-4xl mx-auto space-y-4">
                 <?php foreach ( $questions as $index => $item ) : ?>
-                    <details class="group bg-gray-900/30 border border-gray-800/80 rounded-3xl p-6 transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:bg-gray-900/80 open:border-brand-500/30">
-                        <summary class="flex justify-between items-center font-bold text-white text-lg md:text-xl cursor-pointer select-none">
+                    <details class="group bg-gray-900/30 border border-gray-800/80 rounded-3xl transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:bg-gray-900/80 open:border-brand-500/30">
+                        <summary class="p-6 flex justify-between items-center font-bold text-white text-lg md:text-xl cursor-pointer select-none">
                             <span><?php echo esc_html( $item['question'] ); ?></span>
                             <span class="ml-4 transition-transform duration-300 group-open:-rotate-180 shrink-0">
                                 <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </summary>
-                        <div class="mt-4 text-gray-400 leading-relaxed text-base md:text-lg border-t border-gray-800/60 pt-4 [&>p]:mb-4 [&>p:last-child]:mb-0">
+                        <div class="px-6 pb-6 text-gray-400 leading-relaxed text-base md:text-lg border-t border-gray-800/60 pt-4 [&>p]:mb-4 [&>p:last-child]:mb-0">
                             <?php echo wp_kses_post( $item['answer'] ); ?>
                         </div>
                     </details>

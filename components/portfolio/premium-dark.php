@@ -25,7 +25,7 @@ $projects   = $data['projects']           ?? [];
   <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8">
 
     <!-- Section Header -->
-    <div class="mx-auto max-w-2xl text-center mb-16 lg:mb-24">
+    <div class="mx-auto max-w-2xl text-center mb-8 lg:mb-24">
       <?php if ( $kicker ) : ?>
         <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">
           <?php echo esc_html( $kicker ); ?>
@@ -60,14 +60,14 @@ $projects   = $data['projects']           ?? [];
           // Calcula el offset superior para el efecto de apilamiento (sticky top)
           $top_offset = 6 + ($index * 2); // rem units
         ?>
-          <div class="sticky flex w-full"
-               style="top: <?php echo esc_attr( $top_offset ); ?>rem; z-index: <?php echo esc_attr( 10 + $index ); ?>;">
+          <div class="relative md:sticky flex w-full md:[top:var(--sticky-top)]"
+               style="--sticky-top: <?php echo esc_attr( $top_offset ); ?>rem; z-index: <?php echo esc_attr( 10 + $index ); ?>;">
             
             <a href="<?php echo esc_url( $p_url ); ?>"
                class="group flex flex-col md:flex-row w-full md:h-[650px] bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-brand-500/50">
 
               <!-- Left Side: Content -->
-              <div class="w-full md:w-5/12 p-8 md:p-10 lg:p-12 flex flex-col border-b md:border-b-0 md:border-r border-gray-800 relative overflow-hidden">
+              <div class="w-full md:w-5/12 p-8 md:p-10 lg:p-12 flex flex-col border-t md:border-t-0 md:border-r border-gray-800 relative overflow-hidden order-2 md:order-1">
                 <!-- Subtle glow on hover -->
                 <div class="absolute inset-0 bg-gradient-to-br from-brand-500/0 to-brand-500/0 group-hover:from-brand-500/5 transition-all duration-500 pointer-events-none"></div>
 
@@ -78,7 +78,7 @@ $projects   = $data['projects']           ?? [];
                 <?php endif; ?>
 
                 <?php if ( $p_title ) : ?>
-                  <h3 class="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight group-hover:text-brand-300 transition-colors duration-300">
+                  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight group-hover:text-brand-300 transition-colors duration-300">
                     <?php echo esc_html( $p_title ); ?>
                   </h3>
                 <?php endif; ?>
@@ -86,8 +86,18 @@ $projects   = $data['projects']           ?? [];
                 <!-- Checkmarks from screenshot -->
                 <div class="mb-8 flex-grow overflow-hidden">
                   <?php if ( $p_desc ) : 
-                    // Eliminar corchetes de excerpt para que el line-clamp CSS actúe con puntos suspensivos limpios
+                    // Eliminar corchetes de excerpt
                     $clean_desc = str_replace( ['[&hellip;]', '[...]', '&hellip;'], '', $p_desc );
+                    
+                    // Auto-formateo inteligente: Convertir frases clave en viñetas (bullets)
+                    $clean_desc = str_replace('Contexto del Proyecto', '<ul class="mt-4 space-y-3"><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-white font-semibold">Contexto:</strong>', $clean_desc);
+                    $clean_desc = str_replace('El Problema a Resolver', '</li><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-white font-semibold">Problema:</strong>', $clean_desc);
+                    $clean_desc = str_replace('La Solución Implementada', '</li><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-white font-semibold">Solución:</strong>', $clean_desc);
+                    
+                    // Cerrar la lista si se abrió
+                    if (strpos($clean_desc, '<ul') !== false) {
+                        $clean_desc .= '</li></ul>';
+                    }
                   ?>
                     <div class="text-gray-400 text-lg leading-relaxed [&>strong]:text-gray-200 [&>strong]:font-semibold [&>p]:mb-3 [&>p:last-child]:mb-0 line-clamp-5 xl:line-clamp-6">
                       <?php echo wp_kses_post( trim($clean_desc) ); ?>
@@ -108,14 +118,14 @@ $projects   = $data['projects']           ?? [];
                   <?php endif; ?>
                   
                   <div class="flex items-center text-brand-300 font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                    Ver proyecto 
+                    Ver detalles del proyecto 
                     <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                   </div>
                 </div>
               </div>
 
               <!-- Right Side: Visual -->
-              <div class="w-full md:w-7/12 relative min-h-[300px] md:min-h-full flex flex-col p-8 lg:p-16 items-center justify-center overflow-hidden" style="background: <?php echo esc_attr( $p_gradient ); ?>;">
+              <div class="w-full md:w-7/12 relative min-h-[300px] md:min-h-full flex flex-col p-8 lg:p-16 items-center justify-center overflow-hidden order-1 md:order-2" style="background: <?php echo esc_attr( $p_gradient ); ?>;">
                 
                 <!-- Client Pill (Top Right) -->
                 <?php 

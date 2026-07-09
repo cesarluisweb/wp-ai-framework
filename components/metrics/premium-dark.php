@@ -12,36 +12,38 @@ $metrics = $data['metrics'] ?? [];
 ?>
 
 <?php if (!empty($metrics)): ?>
-<section class="bg-[#0a0a0f] border-y border-gray-800/60 py-16 lg:py-20 relative overflow-hidden" id="metrics-section">
+<section class="bg-[#0a0a0f] border-y border-gray-800/60 py-2 lg:py-20 relative overflow-hidden" id="metrics-section">
     <!-- Glows sutiles -->
     <div class="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-brand-500/30 to-transparent"></div>
     <div class="absolute bottom-0 left-1/3 w-1/3 h-px bg-gradient-to-r from-transparent via-brand-400/20 to-transparent"></div>
 
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 max-w-7xl">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 divide-y md:divide-y-0 md:divide-x divide-gray-800/50">
+        <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-800/50">
             <?php foreach($metrics as $index => $metric): ?>
-            <div class="flex items-center justify-center gap-5 <?php echo $index > 0 ? 'pt-8 md:pt-0' : ''; ?>">
-                <!-- Valor de la métrica (Número a la izquierda) -->
-                <div class="metric-value-container relative">
-                    <span class="text-5xl lg:text-7xl font-black text-white tracking-tighter" data-metric-value="<?php echo esc_attr($metric['value']); ?>">
-                        <?php echo esc_html($metric['value']); ?>
-                    </span>
-                    <div class="absolute -inset-4 bg-brand-400/20 blur-xl rounded-full opacity-0 metric-glow transition-opacity duration-300"></div>
-                </div>
-                
-                <!-- Etiqueta (Texto a la derecha) -->
-                <div class="flex flex-col text-left">
-                    <?php 
-                        $words = explode(' ', $metric['label']);
-                        if (count($words) >= 2) {
-                            $half = ceil(count($words) / 2);
-                            $line1 = implode(' ', array_slice($words, 0, $half));
-                            $line2 = implode(' ', array_slice($words, $half));
-                            echo '<span class="text-gray-400 font-medium text-sm md:text-base leading-snug uppercase tracking-wide">' . esc_html($line1) . '<br><span class="text-brand-300">' . esc_html($line2) . '</span></span>';
-                        } else {
-                            echo '<span class="text-gray-400 font-medium text-sm md:text-base leading-snug uppercase tracking-wide">' . esc_html($metric['label']) . '</span>';
-                        }
-                    ?>
+            <div class="flex items-center justify-center py-8 md:py-0">
+                <div class="grid grid-cols-[100px_1fr] md:flex md:items-center justify-start gap-4 md:gap-5 w-[280px] md:w-auto">
+                    <!-- Valor de la métrica (Número a la izquierda) -->
+                    <div class="metric-value-container relative shrink-0 text-center md:text-left">
+                        <span class="text-5xl lg:text-7xl font-black text-white tracking-tighter" data-metric-value="<?php echo esc_attr($metric['value']); ?>">
+                            <?php echo esc_html($metric['value']); ?>
+                        </span>
+                        <div class="absolute -inset-4 bg-brand-400/20 blur-xl rounded-full opacity-0 metric-glow transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <!-- Etiqueta (Texto a la derecha) -->
+                    <div class="flex flex-col text-left">
+                        <?php 
+                            $words = explode(' ', $metric['label']);
+                            if (count($words) >= 2) {
+                                $half = ceil(count($words) / 2);
+                                $line1 = implode(' ', array_slice($words, 0, $half));
+                                $line2 = implode(' ', array_slice($words, $half));
+                                echo '<span class="text-gray-400 font-medium text-sm md:text-base leading-snug uppercase tracking-wide">' . esc_html($line1) . '<br><span class="text-brand-300">' . esc_html($line2) . '</span></span>';
+                            } else {
+                                echo '<span class="text-gray-400 font-medium text-sm md:text-base leading-snug uppercase tracking-wide">' . esc_html($metric['label']) . '</span>';
+                            }
+                        ?>
+                    </div>
                 </div>
             </div>
             <?php endforeach; ?>

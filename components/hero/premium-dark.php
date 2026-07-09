@@ -66,7 +66,7 @@ $metrics = $data['metrics'] ?? [];
 .hero-glow { animation: pulse-glow 5s ease-in-out infinite; }
 </style>
 
-<section class="relative bg-gray-950 text-white overflow-hidden min-h-screen flex items-center pt-20" id="hero">
+<section class="relative bg-gray-950 text-white overflow-hidden lg:min-h-screen flex items-center pt-24 pb-12 lg:pt-20 lg:pb-0" id="hero">
     <!-- Fondo: gradientes múltiples, simétricos y sutiles -->
     <div class="absolute inset-0">
         <!-- Grid sutil -->
@@ -86,7 +86,7 @@ $metrics = $data['metrics'] ?? [];
     </div>
 
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 relative z-10 py-12 lg:py-0">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[calc(100vh-80px)]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center lg:min-h-[calc(100vh-80px)]">
             
             <!-- Columna Izquierda: Contenido -->
             <div class="lg:col-span-7 py-12 lg:py-0 text-center lg:text-left flex flex-col items-center lg:items-start">
