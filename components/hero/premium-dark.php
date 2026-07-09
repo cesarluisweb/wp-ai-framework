@@ -89,7 +89,7 @@ $metrics = $data['metrics'] ?? [];
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[calc(100vh-80px)]">
             
             <!-- Columna Izquierda: Contenido -->
-            <div class="lg:col-span-7 py-12 lg:py-0">
+            <div class="lg:col-span-7 py-12 lg:py-0 text-center lg:text-left flex flex-col items-center lg:items-start">
                 <?php if ($kicker): ?>
                 <div class="mb-8 inline-flex items-center px-4 py-1.5 rounded-full border border-brand-500/40 bg-brand-900/30 text-sm font-medium text-brand-300 backdrop-blur-sm">
                     <span class="flex w-2 h-2 rounded-full bg-brand-300 mr-2.5 animate-pulse"></span>
@@ -100,18 +100,18 @@ $metrics = $data['metrics'] ?? [];
                 <?php 
                     $headline_safe = wp_kses($headline, ['br' => []]);
                 ?>
-                <h1 class="text-[clamp(2.5rem,5.5vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05]">
+                <h1 class="text-[clamp(3.2rem,7vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05]">
                     <span class="block text-white"><?php echo $headline_safe; ?></span>
                 </h1>
 
-                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-xl leading-relaxed">
+                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                     <?php echo esc_html($subheadline); ?>
                 </p>
 
                 <!-- CTAs -->
-                <div class="flex flex-col sm:flex-row items-center gap-6 mb-14">
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 mb-14 w-full sm:w-auto px-6 sm:px-0">
                     <?php if ($cta_primary): ?>
-                    <a href="<?php echo esc_url($cta_primary['url']); ?>" class="btn-primary group">
+                    <a href="<?php echo esc_url($cta_primary['url']); ?>" class="btn-primary group w-full sm:w-auto flex justify-center">
                         <span class="flex items-center">
                             <?php echo esc_html($cta_primary['label']); ?>
                             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -120,7 +120,7 @@ $metrics = $data['metrics'] ?? [];
                     <?php endif; ?>
                     
                     <?php if ($cta_secondary): ?>
-                    <a href="<?php echo esc_url($cta_secondary['url']); ?>" class="group inline-flex items-center text-white font-semibold text-lg transition-colors duration-300 hover:text-brand-300 relative py-2">
+                    <a href="<?php echo esc_url($cta_secondary['url']); ?>" class="group inline-flex items-center justify-center text-white font-semibold text-lg transition-colors duration-300 hover:text-brand-300 relative py-2 w-full sm:w-auto">
                         <span class="relative">
                             <?php echo esc_html($cta_secondary['label']); ?>
                             <span class="absolute left-0 bottom-0 w-full h-0.5 bg-brand-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>

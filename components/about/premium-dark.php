@@ -18,11 +18,11 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
 
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8">
         <!-- Two-column grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-start lg:items-center">
 
-            <!-- LEFT — Dashboard Mockup Image (lg:col-span-5) -->
-            <div class="lg:col-span-5 flex justify-center lg:justify-start">
-                <div class="relative w-full aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+            <!-- LEFT — Dashboard Mockup Image -->
+            <div class="md:col-span-4 lg:col-span-5 flex justify-center lg:justify-start">
+                <div class="relative w-full max-w-[220px] sm:max-w-[260px] md:max-w-[240px] lg:max-w-none aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl mx-auto md:mx-0">
                     <!-- Glow behind image -->
                     <div class="absolute inset-0 bg-brand-400/20 blur-2xl rounded-full pointer-events-none"></div>
                     
@@ -40,8 +40,8 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
                 </div>
             </div>
 
-            <!-- RIGHT — Content (lg:col-span-7) -->
-            <div class="lg:col-span-7 flex flex-col justify-center">
+            <!-- RIGHT — Content -->
+            <div class="md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left mt-6 md:mt-0">
 
                 <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Sobre mí</span>
                 <?php if ( ! empty( $headline ) ) : ?>

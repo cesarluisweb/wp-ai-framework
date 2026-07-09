@@ -35,21 +35,27 @@ $steps = $data['steps'] ?? [];
         </div>
 
         <!-- SCALE Steps -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
             <?php foreach($steps as $index => $step): ?>
-                <div class="bg-gray-900/50 border border-gray-800 rounded-3xl p-8 hover:bg-gray-800/50 transition-colors duration-300 group">
-                    <div class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-gray-700 to-gray-900 group-hover:from-brand-500 group-hover:to-brand-900 transition-all duration-500 mb-6">
+                <div class="bg-gray-900/50 border border-gray-800 rounded-3xl p-6 md:p-8 hover:bg-gray-800/50 transition-colors duration-300 group flex flex-row lg:flex-col items-center lg:items-start text-left gap-6 lg:gap-0">
+                    <!-- Letra Izquierda (Mobile) / Arriba (Desktop) -->
+                    <div class="text-6xl md:text-7xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-gray-700 to-gray-900 group-hover:from-brand-500 group-hover:to-brand-900 transition-all duration-500 lg:mb-6 shrink-0 w-16 md:w-20 lg:w-auto text-center lg:text-left">
                         <?php echo esc_html($step['letter']); ?>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-4">
-                        <?php echo esc_html($step['title']); ?>
-                    </h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        <?php echo esc_html($step['description']); ?>
-                    </p>
+                    <!-- Texto Derecha (Mobile) / Abajo (Desktop) -->
+                    <div>
+                        <h3 class="text-xl md:text-2xl lg:text-xl font-bold text-white mb-2 lg:mb-4">
+                            <?php echo esc_html($step['title']); ?>
+                        </h3>
+                        <p class="text-gray-400 text-sm md:text-base lg:text-sm leading-relaxed">
+                            <?php echo esc_html($step['description']); ?>
+                        </p>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>
 
     </div>
 </section>
+
+

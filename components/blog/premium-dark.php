@@ -45,9 +45,11 @@ $posts          = $data['posts']          ?? [];
                     $read_time = $post['read_time'] ?? '';
                     $url       = $post['url']       ?? '#';
                     $gradient  = $post['gradient']  ?? 'linear-gradient(135deg, #287799, #144257)';
+                    $is_fourth = $post['is_fourth'] ?? false;
+                    $visibility = $is_fourth ? 'hidden md:block lg:hidden' : 'block';
                 ?>
                     <a href="<?php echo esc_url( $url ); ?>"
-                       class="blog-card group block rounded-xl overflow-hidden border border-gray-800/50 bg-white/[0.03] backdrop-blur-md">
+                       class="blog-card group <?php echo $visibility; ?> rounded-xl overflow-hidden border border-gray-800/50 bg-white/[0.03] backdrop-blur-md">
 
                         <!-- Gradient header / image placeholder -->
                         <div class="relative h-48 rounded-t-xl overflow-hidden">

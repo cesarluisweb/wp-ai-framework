@@ -38,10 +38,10 @@ $testimonials = $data['testimonials'] ?? [];
             <?php endif; ?>
         </div>
 
-        <!-- Carrusel / Grid (Scroll Snap on Mobile, Grid on Desktop) -->
-        <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-8 pb-8 lg:grid lg:grid-cols-3 lg:overflow-visible lg:snap-none lg:pb-0" style="scrollbar-width: none;">
+        <!-- Grid de Testimonios -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             <?php foreach($testimonials as $index => $testimonial): ?>
-            <div class="snap-center shrink-0 w-[85vw] md:w-[60vw] lg:w-auto flex flex-col justify-between bg-gray-900/40 backdrop-blur-sm border border-gray-800/60 rounded-3xl p-8 hover:bg-gray-900/80 transition-all duration-500 hover:border-brand-500/30 group">
+            <div class="flex flex-col justify-between bg-gray-900/40 backdrop-blur-sm border border-gray-800/60 rounded-3xl p-8 hover:bg-gray-900/80 transition-all duration-500 hover:border-brand-500/30 group">
                 
                 <div>
                     <!-- Estrellas -->

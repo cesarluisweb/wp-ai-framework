@@ -35,23 +35,7 @@ $hero_data = [
 ];
 if(function_exists('wp_ai_render_component')) wp_ai_render_component('hero', 'premium-dark', $hero_data);
 
-// 3. METRICS
-$metrics_arr = [];
-for ($i = 1; $i <= 3; $i++) {
-    $val = wp_ai_get_field_fallback('metric_'.$i.'_val', '');
-    $lab = wp_ai_get_field_fallback('metric_'.$i.'_lab', '');
-    if (!empty($val) && !empty($lab)) {
-        $metrics_arr[] = ['value' => $val, 'label' => $lab];
-    }
-}
-if (empty($metrics_arr)) {
-    $metrics_arr = [
-        ['value' => '+7', 'label' => 'Años de experiencia'],
-        ['value' => '+100', 'label' => 'Proyectos entregados'],
-        ['value' => '5.0', 'label' => 'Calificación en Google']
-    ];
-}
-if(function_exists('wp_ai_render_component')) wp_ai_render_component('metrics', 'premium-dark', ['metrics' => $metrics_arr]);
+
 
 // 4. ABOUT
 $bio_text = wp_ai_get_field_fallback('about_bio', '');
@@ -194,6 +178,24 @@ if(function_exists('wp_ai_render_component')) wp_ai_render_component('services',
     'services' => $services_arr
 ]);
 
+// --- METRICS (Movido aquí para separar las grillas de Servicios y Testimonios) ---
+$metrics_arr = [];
+for ($i = 1; $i <= 3; $i++) {
+    $val = wp_ai_get_field_fallback('metric_'.$i.'_val', '');
+    $lab = wp_ai_get_field_fallback('metric_'.$i.'_lab', '');
+    if (!empty($val) && !empty($lab)) {
+        $metrics_arr[] = ['value' => $val, 'label' => $lab];
+    }
+}
+if (empty($metrics_arr)) {
+    $metrics_arr = [
+        ['value' => '+7', 'label' => 'Años de experiencia'],
+        ['value' => '+100', 'label' => 'Proyectos entregados'],
+        ['value' => '5.0', 'label' => 'Calificación en Google']
+    ];
+}
+if(function_exists('wp_ai_render_component')) wp_ai_render_component('metrics', 'premium-dark', ['metrics' => $metrics_arr]);
+
 // 7. TESTIMONIALS (CPT)
 $testi_arr = [];
 $featured_testimonials_ids = function_exists('get_field') ? get_field('home_featured_testimonials') : false;
@@ -303,11 +305,13 @@ if(function_exists('wp_ai_render_component')) wp_ai_render_component('methodolog
 
 // 10. BLOG (Native WP Posts)
 $blog_arr = [];
-$args_b = ['post_type' => 'post', 'posts_per_page' => 3];
+$args_b = ['post_type' => 'post', 'posts_per_page' => 4];
 $q_b = new WP_Query($args_b);
+$count = 0;
 if ($q_b->have_posts()) {
     while($q_b->have_posts()) {
         $q_b->the_post();
+        $count++;
         $cats = get_the_category();
         $cat_name = !empty($cats) ? $cats[0]->name : 'Blog';
         
@@ -318,7 +322,8 @@ if ($q_b->have_posts()) {
             'category' => $cat_name,
             'read_time' => '5 min',
             'url' => get_permalink(),
-            'gradient' => 'linear-gradient(135deg, #0a1f2a 0%, #144257 100%)'
+            'gradient' => 'linear-gradient(135deg, #0a1f2a 0%, #144257 100%)',
+            'is_fourth' => ($count === 4)
         ];
     }
     wp_reset_postdata();
@@ -341,26 +346,7 @@ if(function_exists('wp_ai_render_component')) wp_ai_render_component('cta', 'pre
 ]);
 
 // 12. FOOTER
-if(function_exists('wp_ai_render_component')) wp_ai_render_component('footer', 'premium-dark', [
-    'headline' => '¿Listo para escalar?',
-    'email' => wp_ai_get_field_fallback('footer_email', 'hola@cesarluis.com'),
-    'description' => 'Desarrollo web a medida para agencias y empresas que buscan resultados, rendimiento y código limpio.',
-    'quick_links' => [
-        ['label' => 'Sobre mí',   'url' => site_url('/sobre-mi')],
-        ['label' => 'Portafolio', 'url' => site_url('/portafolio')],
-        ['label' => 'Servicios',  'url' => site_url('/servicios')],
-        ['label' => 'Preguntas',  'url' => site_url('/servicios/#faq')]
-    ],
-    'social_links' => [
-        ['platform' => 'LinkedIn', 'url' => 'https://linkedin.com'],
-        ['platform' => 'GitHub', 'url' => 'https://github.com']
-    ],
-    'legal_links' => [
-        ['label' => 'Privacidad', 'url' => '#'],
-        ['label' => 'Aviso Legal', 'url' => '#']
-    ],
-    'copyright' => wp_ai_get_field_fallback('footer_copy', '© 2026 César Luis Amundaray. Todos los derechos reservados.')
-]);
+// Eliminado renderizado manual redundante. get_footer() se encarga globalmente.
 
 get_footer();
 ?>

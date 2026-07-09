@@ -64,10 +64,10 @@ $projects   = $data['projects']           ?? [];
                style="top: <?php echo esc_attr( $top_offset ); ?>rem; z-index: <?php echo esc_attr( 10 + $index ); ?>;">
             
             <a href="<?php echo esc_url( $p_url ); ?>"
-               class="group flex flex-col lg:flex-row w-full lg:h-[650px] bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-brand-500/50">
+               class="group flex flex-col md:flex-row w-full md:h-[650px] bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-brand-500/50">
 
               <!-- Left Side: Content -->
-              <div class="w-full lg:w-5/12 p-8 lg:p-12 flex flex-col border-b lg:border-b-0 lg:border-r border-gray-800 relative overflow-hidden">
+              <div class="w-full md:w-5/12 p-8 md:p-10 lg:p-12 flex flex-col border-b md:border-b-0 md:border-r border-gray-800 relative overflow-hidden">
                 <!-- Subtle glow on hover -->
                 <div class="absolute inset-0 bg-gradient-to-br from-brand-500/0 to-brand-500/0 group-hover:from-brand-500/5 transition-all duration-500 pointer-events-none"></div>
 
@@ -115,7 +115,7 @@ $projects   = $data['projects']           ?? [];
               </div>
 
               <!-- Right Side: Visual -->
-              <div class="w-full lg:w-7/12 relative min-h-[300px] lg:min-h-full flex flex-col pt-12 px-8 lg:px-16 items-center justify-end overflow-hidden" style="background: <?php echo esc_attr( $p_gradient ); ?>;">
+              <div class="w-full md:w-7/12 relative min-h-[300px] md:min-h-full flex flex-col p-8 lg:p-16 items-center justify-center overflow-hidden" style="background: <?php echo esc_attr( $p_gradient ); ?>;">
                 
                 <!-- Client Pill (Top Right) -->
                 <?php 
@@ -128,13 +128,13 @@ $projects   = $data['projects']           ?? [];
                 }
                 
                 if ( $client_name ) : ?>
-                    <div class="absolute top-6 right-6 lg:top-8 lg:right-8 bg-gray-950/80 backdrop-blur-md border border-gray-700/50 rounded-full px-4 py-2 z-10 shadow-lg flex items-center justify-center">
+                    <div class="absolute top-6 right-6 md:top-8 md:right-8 bg-gray-950/80 backdrop-blur-md border border-gray-700/50 rounded-full px-4 py-2 z-10 shadow-lg flex items-center justify-center">
                         <span class="text-xs font-bold text-gray-300 tracking-wide leading-none"><?php echo esc_html( $client_name ); ?></span>
                     </div>
                 <?php endif; ?>
 
                 <!-- Browser Mockup Window -->
-                <div class="relative w-full h-[120%] bg-gray-950 border border-gray-700/50 rounded-t-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-md group-hover:-translate-y-4 transition-transform duration-700 z-0">
+                <div class="relative w-full bg-gray-950 border border-gray-700/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-md group-hover:-translate-y-4 transition-transform duration-700 z-0">
                     <!-- Browser Header -->
                     <div class="h-8 lg:h-10 bg-gray-900 border-b border-white/10 flex items-center px-4 gap-2 shrink-0">
                         <div class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-red-500/80"></div>
@@ -142,7 +142,7 @@ $projects   = $data['projects']           ?? [];
                         <div class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-green-500/80"></div>
                     </div>
                     <!-- Browser Content (Image) -->
-                    <div class="flex-1 relative overflow-hidden bg-gray-950">
+                    <div class="relative w-full aspect-video overflow-hidden bg-gray-950">
                         <?php if ( $p_image ) : ?>
                             <img src="<?php echo esc_url( $p_image ); ?>" alt="<?php echo esc_attr( $p_title ); ?>" class="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-700">
                         <?php else : ?>
