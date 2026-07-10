@@ -67,7 +67,27 @@ require_once get_template_directory() . '/includes/acf-fields.php';
 require_once get_template_directory() . '/includes/cron-portfolio-check.php';
 require_once get_template_directory() . '/includes/admin-options.php';
 
-// 4. Ocultar el editor nativo de WordPress en la página de inicio (Home)
+// 4. Global Core Tech Stack Helper
+function wp_ai_get_core_tech_stack() {
+    return [
+        ['name' => 'WordPress', 'icon' => 'wordpress'],
+        ['name' => 'PHP', 'icon' => 'php'],
+        ['name' => 'JavaScript', 'icon' => 'javascript'],
+        ['name' => 'Tailwind CSS', 'icon' => 'tailwindcss'],
+        ['name' => 'CSS', 'icon' => 'css'],
+        ['name' => 'WooCommerce', 'icon' => 'woocommerce'],
+        ['name' => 'LearnDash', 'icon' => 'learndash'],
+        ['name' => 'MySQL', 'icon' => 'mysql'],
+        ['name' => 'Python', 'icon' => 'python'],
+        ['name' => 'cPanel', 'icon' => 'cpanel'],
+        ['name' => 'Git / GitHub', 'icon' => 'git'],
+        ['name' => 'HTML5', 'icon' => 'html5'],
+        ['name' => 'Cloudflare', 'icon' => 'cloudflare'],
+        ['name' => 'Figma', 'icon' => 'figma']
+    ];
+}
+
+// 5. Ocultar el editor nativo de WordPress en la página de inicio (Home)
 add_action('admin_init', function() {
     $post_id = $_GET['post'] ?? ($_POST['post_ID'] ?? null);
     if (!isset($post_id)) return;

@@ -29,7 +29,7 @@ get_header();
 
 <main class="pt-24 pb-20 bg-gray-950">
     <!-- Hero Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Text Content -->
             <div>
@@ -42,18 +42,18 @@ get_header();
                 </p>
                 
                 <!-- Metrics -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-                        <div class="text-3xl font-bold text-white mb-1">+8</div>
-                        <div class="text-sm text-gray-400">Años de experiencia</div>
+                <div class="grid grid-cols-3 gap-2 sm:gap-4">
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
+                        <div class="text-xl sm:text-3xl font-bold text-white mb-1">+8</div>
+                        <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Años de exp.</div>
                     </div>
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-                        <div class="text-3xl font-bold text-white mb-1">+100</div>
-                        <div class="text-sm text-gray-400">Proyectos entregados</div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
+                        <div class="text-xl sm:text-3xl font-bold text-white mb-1">+100</div>
+                        <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Proyectos</div>
                     </div>
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-                        <div class="text-3xl font-bold text-white mb-1">5.0</div>
-                        <div class="text-sm text-gray-400">Calificación</div>
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
+                        <div class="text-xl sm:text-3xl font-bold text-white mb-1">5.0</div>
+                        <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Calificación</div>
                     </div>
                 </div>
             </div>
@@ -80,10 +80,10 @@ get_header();
     </section>
 
     <!-- Bio Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 border-t border-gray-800/50 pt-24">
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-32 border-t border-gray-800/50 pt-24">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             <div class="lg:col-span-5">
-                <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight sticky top-32">
+                <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight lg:sticky lg:top-32">
                     De ingeniero electrónico a <span class="text-brand-400">Arquitecto IA</span>
                 </h2>
             </div>
@@ -109,29 +109,27 @@ get_header();
     </section>
 
     <!-- Stack Tecnológico -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32">
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-32">
         <div class="bg-gray-900/50 border border-gray-800 rounded-3xl p-8 md:p-12">
-            <h2 class="text-2xl font-bold text-white mb-8">Ecosistema & Stack Core</h2>
-            <div class="flex flex-wrap gap-4">
+            <h2 class="text-2xl font-bold text-white mb-8 text-center">Ecosistema & Stack Core</h2>
+            <div class="flex flex-wrap gap-4 justify-center">
                 <?php
-                $tech_stack = [
-                    ['name' => 'WordPress', 'icon' => 'wordpress'],
-                    ['name' => 'PHP', 'icon' => 'php'],
-                    ['name' => 'JavaScript', 'icon' => 'javascript'],
-                    ['name' => 'Tailwind CSS', 'icon' => 'tailwindcss'],
-                    ['name' => 'CSS', 'icon' => 'css'],
-                    ['name' => 'WooCommerce', 'icon' => 'woocommerce'],
-                    ['name' => 'LearnDash', 'icon' => 'learndash'],
-                    ['name' => 'MySQL', 'icon' => 'mysql'],
-                    ['name' => 'Python', 'icon' => 'python'],
-                    ['name' => 'Gemini', 'icon' => 'googlegemini']
-                ];
+                $tech_stack = function_exists('wp_ai_get_core_tech_stack') ? wp_ai_get_core_tech_stack() : [];
                 
                 foreach ($tech_stack as $tech) : ?>
                     <div class="bg-gray-950 border border-gray-800 rounded-full px-6 py-3 flex items-center gap-3 hover:border-brand-500/50 transition-colors">
                         <?php if ($tech['icon'] === 'learndash') : ?>
                             <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.905 59.905 0 0 1 12 3.493a59.902 59.902 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                            </svg>
+                        <?php elseif ($tech['icon'] === 'cloud') : ?>
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
+                            </svg>
+                        <?php elseif ($tech['icon'] === 'antigravity') : ?>
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0L7 10m5-5l5 5" />
+                                <ellipse cx="12" cy="15" rx="6" ry="2" stroke="currentColor" />
                             </svg>
                         <?php else : ?>
                             <img src="https://cdn.simpleicons.org/<?php echo $tech['icon']; ?>/ffffff" alt="<?php echo $tech['name']; ?>" class="h-6 w-auto object-contain max-w-[24px]" width="24" height="24" />
@@ -144,7 +142,7 @@ get_header();
     </section>
 
     <!-- Experiencia Laboral -->
-    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+    <section class="max-w-4xl mx-auto px-6 lg:px-8 mb-24">
         <h2 class="text-3xl font-bold text-white text-center mb-16">Mi Trayectoria</h2>
         
         <div class="relative border-l-2 border-brand-500/30 ml-4 md:ml-0">
@@ -181,7 +179,7 @@ get_header();
     </section>
 
     <!-- Valores Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         <div class="flex flex-col md:flex-row gap-12 items-center bg-gray-900/30 border border-gray-800/50 rounded-3xl p-8 lg:p-12">
             <div class="max-w-2xl">
                 <h2 class="text-3xl font-bold text-white mb-6">Mis Valores</h2>
@@ -205,7 +203,7 @@ get_header();
     </section>
 
     <!-- CTA Section -->
-    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="max-w-4xl mx-auto px-6 lg:px-8">
         <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 lg:p-12 text-center">
             <h2 class="text-3xl font-bold text-white mb-4">¿Listo para trabajar juntos?</h2>
             <p class="text-gray-400 mb-8 max-w-2xl mx-auto">

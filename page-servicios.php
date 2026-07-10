@@ -41,7 +41,7 @@ if ($servicios_query->have_posts()) {
 </script>
 
 <main class="pt-24 pb-20 bg-gray-950 min-h-screen">
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         
         <!-- Hero Section -->
         <div class="mb-16">
@@ -182,7 +182,7 @@ if ($servicios_query->have_posts()) {
     </section>
 
     <!-- Methodology / Process -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 border-t border-gray-900 pt-24">
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24 border-t border-gray-900 pt-24">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Cómo Trabajo</h2>
             <p class="text-gray-400 max-w-2xl mx-auto">Un proceso claro y transparente de principio a fin, diseñado para agencias y proyectos serios.</p>
@@ -223,7 +223,7 @@ if ($servicios_query->have_posts()) {
     </section>
 
     <!-- CTA Section -->
-    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="max-w-4xl mx-auto px-6 lg:px-8">
         <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-gray-800 rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
             <!-- decorative blur -->
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-brand-500/10 blur-[100px] rounded-full pointer-events-none"></div>

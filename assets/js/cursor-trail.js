@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     interactables.forEach(el => {
         el.addEventListener('mouseenter', () => {
             gsap.to(aura, { 
-                scale: 1.3,
-                opacity: 0.5, // Se vuelve un poco más sutil al enfocar
-                duration: 0.6, 
+                scale: 0.6, // Concentra la luz para acentuar el elemento
+                opacity: 1, // Mantiene el brillo completo
+                duration: 0.3, 
                 ease: "power2.out"
             });
         });

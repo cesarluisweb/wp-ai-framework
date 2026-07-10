@@ -32,9 +32,9 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 relative z-10">
         
         <!-- Middle Section: Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-20 text-left">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-20 text-left">
             <!-- Brand / Bio -->
-            <div class="lg:col-span-2">
+            <div class="col-span-2 md:col-span-3 lg:col-span-2">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-white tracking-tight hover:text-brand-300 transition-colors duration-300 mb-6">
                     <div class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
                         <span class="text-brand-300 font-black text-xl leading-none mt-0.5">C</span>
@@ -44,41 +44,100 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
                 <p class="text-gray-400 text-lg max-w-sm leading-relaxed">
                     <?php echo esc_html($description); ?>
                 </p>
+                <?php if (!empty($social_links)): ?>
+                <div class="flex items-center gap-4 mt-6">
+                    <?php foreach ($social_links as $social): ?>
+                    <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-300 transition-all duration-300 hover:scale-110" aria-label="<?php echo esc_attr($social['platform']); ?>">
+                        <?php echo $social['icon']; ?>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
             </div>
 
-            <!-- Links Grid Container (Side-by-side on mobile, separate columns on desktop) -->
-            <div class="grid grid-cols-2 gap-8 lg:col-span-2">
-                <!-- Quick Links -->
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Navegación</h3>
-                    <ul class="flex flex-col gap-4">
-                        <?php foreach ($quick_links as $link): ?>
-                        <li>
-                            <a href="<?php echo esc_url($link['url']); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
-                                <?php echo esc_html($link['label']); ?>
-                            </a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+            <!-- Column 2: Navegación -->
+            <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Navegación</h3>
+                <ul class="flex flex-col gap-4">
+                    <li>
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
+                            Inicio
+                        </a>
+                    </li>
+                    <?php foreach ($quick_links as $link): ?>
+                    <li>
+                        <a href="<?php echo esc_url($link['url']); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
+                            <?php echo esc_html($link['label']); ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
 
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Redes</h3>
-                    <ul class="flex flex-col gap-4">
-                        <?php foreach ($social_links as $social): ?>
-                        <li>
-                            <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center gap-3 group">
-                                <span class="text-gray-500 group-hover:text-brand-300 transition-colors duration-300">
-                                    <?php echo $social['icon']; // SVG ?>
-                                </span>
-                                <span class="font-medium"><?php echo esc_html($social['platform']); ?></span>
-                            </a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+            <!-- Column 3: Contacto -->
+            <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Contacto</h3>
+                <ul class="flex flex-col gap-4 text-sm">
+                    <?php 
+                    $contact_email = get_option('wp_ai_contact_email', 'hello@example.com');
+                    $contact_phone = get_option('wp_ai_contact_phone');
+                    
+                    if (!empty($contact_email)): ?>
+                    <li>
+                        <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300 break-all">
+                            <?php echo esc_html($contact_email); ?>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                    <?php if (!empty($contact_phone)): ?>
+                    <li>
+                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
+                            <?php echo esc_html($contact_phone); ?>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                    <li>
+                        <a href="<?php echo site_url('/contacto'); ?>" class="text-brand-400 font-semibold hover:text-brand-300 transition-colors duration-300 flex items-center gap-1">
+                            ¿Hablamos? <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="col-span-2 md:col-span-1 lg:col-span-1">
+                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Newsletter</h3>
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                    Recibe ideas de desarrollo web a medida e inteligencia artificial.
+                </p>
+                <form action="#" method="POST" class="space-y-3" id="newsletter-form">
+                    <div class="relative">
+                        <input type="email" name="newsletter_email" placeholder="Tu email corporativo" required 
+                            class="w-full bg-gray-950 border border-gray-800 hover:border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:border-brand-500 focus:outline-none transition-colors duration-300">
+                    </div>
+                    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 shadow-lg shadow-brand-500/10 cursor-pointer">
+                        Suscribirme
+                    </button>
+                </form>
+                <div id="newsletter-message" class="text-xs mt-2 hidden"></div>
             </div>
         </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('newsletter-form');
+            const msg = document.getElementById('newsletter-message');
+            if (form && msg) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    msg.textContent = '¡Gracias por suscribirte!';
+                    msg.className = 'text-xs mt-2 text-green-400 font-medium';
+                    msg.classList.remove('hidden');
+                    form.reset();
+                });
+            }
+        });
+        </script>
 
         <!-- Bottom Section: Legal -->
         <div class="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -98,4 +157,21 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
         </div>
 
     </div>
+<?php
+    // WhatsApp floating button if link is set
+    $whatsapp_option = get_option('wp_ai_social_whatsapp');
+    $whatsapp_url = '';
+    if (!empty($whatsapp_option)) {
+        if (strpos($whatsapp_option, 'http') === 0) {
+            $whatsapp_url = $whatsapp_option;
+        } else {
+            $clean = preg_replace('/[^0-9]/', '', $whatsapp_option);
+            $whatsapp_url = 'https://wa.me/' . $clean;
+        }
+    }
+    if (!empty($whatsapp_url)) : ?>
+    <a href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-brand-500 hover:bg-brand-400 text-white rounded-full p-4 shadow-lg flex items-center justify-center transition-colors duration-300" aria-label="WhatsApp">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946C.056 5.348 5.399.01 12.01.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.731-1.464L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.451 5.424 0 9.835-4.409 9.838-9.832.002-2.628-1.022-5.097-2.883-6.958C16.474 1.954 14.008 1.93 11.98 1.93c-5.422 0-9.832 4.409-9.835 9.832-.001 1.765.483 3.42 1.4 4.9L2.52 21.05l4.127-1.896zm12.39-7.397c-.328-.164-1.94-.959-2.242-1.07-.301-.109-.522-.164-.74.164-.219.329-.848 1.07-1.066 1.399-.177.23-.356.246-.684.082-.328-.164-1.386-.51-2.64-1.627-.974-.871-1.632-1.947-1.823-2.275-.192-.329-.02-.507.144-.671.148-.148.328-.383.493-.575.164-.192.219-.328.328-.548.11-.219.055-.411-.027-.575-.083-.164-.74-1.782-1.013-2.44-.266-.64-.56-.554-.74-.564-.17-.008-.37-.01-.57-.01-.2 0-.523.074-.797.373-.273.3-1.045 1.02-1.045 2.487 0 1.468 1.07 2.885 1.218 3.085.149.2 2.11 3.22 5.11 4.517.714.31 1.272.494 1.707.633.717.227 1.37.195 1.887.118.577-.087 1.777-.726 2.025-1.428.248-.702.248-1.302.174-1.428-.074-.127-.273-.2-.601-.365z"/></svg>
+    </a>
+<?php endif; ?>
 </footer>

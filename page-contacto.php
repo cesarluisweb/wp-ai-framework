@@ -64,7 +64,7 @@ get_header();
 </script>
 
 <main class="pt-24 pb-20 bg-gray-950">
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8">
         
         <!-- Hero Section -->
         <div class="text-center mb-16">
@@ -336,7 +336,7 @@ get_header();
 
         <section id="faq" class="py-24 lg:py-32 bg-gray-950 relative border-t border-gray-900 mt-24">
             <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(0,169,204,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
-            <div class="w-full max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10">
+            <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 relative z-10">
                 <div class="max-w-3xl mb-16 lg:mb-20 text-center mx-auto">
                     <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Preguntas Frecuentes</span>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">Preguntas habituales antes de empezar</h2>

@@ -36,7 +36,6 @@ $hero_data = [
 if(function_exists('wp_ai_render_component')) wp_ai_render_component('hero', 'premium-dark', $hero_data);
 
 
-
 // 4. ABOUT
 $bio_text = wp_ai_get_field_fallback('about_bio', '');
 $bio_paragraphs = [];
@@ -145,17 +144,10 @@ if (!empty($services_arr)) {
     ]);
 }
 
-// --- METRICS (Movido aquí para separar las grillas de Servicios y Testimonios) ---
-$metrics_arr = [];
-for ($i = 1; $i <= 3; $i++) {
-    $val = wp_ai_get_field_fallback('metric_'.$i.'_val', '');
-    $lab = wp_ai_get_field_fallback('metric_'.$i.'_lab', '');
-    if (!empty($val) && !empty($lab)) {
-        $metrics_arr[] = ['value' => $val, 'label' => $lab];
-    }
-}
-if (!empty($metrics_arr)) {
-    if(function_exists('wp_ai_render_component')) wp_ai_render_component('metrics', 'premium-dark', ['metrics' => $metrics_arr]);
+// 3. MARQUEE STACK (Trust Bar)
+$tech_stack = function_exists('wp_ai_get_core_tech_stack') ? wp_ai_get_core_tech_stack() : [];
+if(!empty($tech_stack) && function_exists('wp_ai_render_component')) {
+    wp_ai_render_component('marquee', 'premium-dark', ['items' => $tech_stack]);
 }
 
 // 7. TESTIMONIALS (CPT)
@@ -196,6 +188,19 @@ if (!empty($testi_arr)) {
         'section_title' => 'Lo que dicen mis clientes',
         'testimonials' => $testi_arr
     ]);
+}
+
+// --- METRICS ---
+$metrics_arr = [];
+for ($i = 1; $i <= 3; $i++) {
+    $val = wp_ai_get_field_fallback('metric_'.$i.'_val', '');
+    $lab = wp_ai_get_field_fallback('metric_'.$i.'_lab', '');
+    if (!empty($val) && !empty($lab)) {
+        $metrics_arr[] = ['value' => $val, 'label' => $lab];
+    }
+}
+if (!empty($metrics_arr)) {
+    if(function_exists('wp_ai_render_component')) wp_ai_render_component('metrics', 'premium-dark', ['metrics' => $metrics_arr]);
 }
 
 // 8. FAQ (CPT)
