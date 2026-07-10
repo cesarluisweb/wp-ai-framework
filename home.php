@@ -6,7 +6,7 @@
 get_header();
 ?>
 
-<main class="pt-32 pb-24 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
+<main class="pt-32 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
     <div class="max-w-[1400px] mx-auto px-6 lg:px-8">
         
         <!-- Header Section -->
@@ -149,20 +149,21 @@ get_header();
             ?>
         </div>
 
-        <!-- CTA Section Bottom -->
-        <div class="mt-32 text-center bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 rounded-3xl p-12 lg:p-20 relative overflow-hidden">
-            <!-- Decorative Glow -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-            
-            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 relative z-10">¿Listo para escalar tu web?</h2>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto relative z-10">Deja que aplique todas estas técnicas de desarrollo en tu próximo proyecto para asegurar su éxito.</p>
-            <a href="<?php echo esc_url(site_url('/contacto')); ?>" class="relative z-10 inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-950 bg-brand-400 hover:bg-brand-300 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-[0_0_30px_rgba(var(--brand-400-rgb),0.3)] hover:shadow-[0_0_40px_rgba(var(--brand-400-rgb),0.5)]">
-                Hablemos de tu proyecto
-                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
-        </div>
+    </div> <!-- Close max-w container -->
 
-    </div>
+    <!-- CTA Section Bottom -->
+    <?php
+    if(function_exists('wp_ai_render_component')) {
+        wp_ai_render_component('cta', 'premium-dark', [
+            'headline' => '¿Listo para escalar tu web?',
+            'subheadline' => 'Deja que aplique todas estas técnicas de desarrollo en tu próximo proyecto para asegurar su éxito.',
+            'button' => [
+                'label' => 'Hablemos de tu proyecto',
+                'url' => '/contacto'
+            ]
+        ]);
+    }
+    ?>
 </main>
 
 <script>

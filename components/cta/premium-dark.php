@@ -46,7 +46,7 @@ $btn_url   = $button['url']   ?? '#';
         <?php if ( $btn_label ) : ?>
             <div class="relative">
                 <a href="<?php echo esc_url( $btn_url ); ?>"
-                   class="cta-btn inline-block bg-brand-300 text-gray-950 font-bold px-10 py-5 text-xl rounded-xl">
+                   class="cta-btn inline-block bg-brand-300 text-gray-950 font-bold px-8 py-4 text-lg md:px-10 md:py-5 md:text-xl rounded-xl">
                     <?php echo esc_html( $btn_label ); ?>
                 </a>
             </div>

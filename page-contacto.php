@@ -63,7 +63,7 @@ get_header();
 }
 </script>
 
-<main class="pt-24 pb-20 bg-gray-950">
+<main class="pt-24 bg-gray-950">
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8">
         
         <!-- Hero Section -->

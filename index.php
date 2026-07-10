@@ -5,7 +5,7 @@
 get_header();
 ?>
 
-<main class="pt-32 pb-24 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
+<main class="pt-32 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
     <div class="max-w-[1000px] mx-auto px-6 lg:px-8">
         <?php if (have_posts()) : ?>
             

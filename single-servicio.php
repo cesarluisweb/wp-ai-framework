@@ -33,7 +33,7 @@ $schema = [
 <?php echo json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
 </script>
 
-<main class="bg-gray-950 min-h-screen pt-24 pb-20 selection:bg-brand-500 selection:text-white">
+<main class="bg-gray-950 min-h-screen pt-24 selection:bg-brand-500 selection:text-white">
     
     <!-- Hero Section -->
     <section class="relative w-full overflow-hidden border-b border-gray-800 bg-gray-900 pb-20 pt-16">
@@ -93,17 +93,6 @@ $schema = [
                     ?>
                 </div>
 
-                <!-- CTA Inline para Contacto rápido -->
-                <div class="mt-16 bg-gray-900 border border-gray-800 rounded-3xl p-10 flex flex-col sm:flex-row items-center justify-between gap-8 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 to-transparent pointer-events-none"></div>
-                    <div class="relative z-10">
-                        <h3 class="text-2xl font-bold text-white mb-2">¿Preparado para escalar?</h3>
-                        <p class="text-gray-400">Hablemos de tu proyecto y veamos cómo este servicio encaja en tu infraestructura.</p>
-                    </div>
-                    <a href="/contacto" class="relative z-10 shrink-0 bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-full transition-colors whitespace-nowrap">
-                        Agendar Diagnóstico
-                    </a>
-                </div>
             </article>
 
             <!-- Sidebar: Características del Servicio -->
@@ -143,6 +132,20 @@ $schema = [
 
         </div>
     </section>
+
+    <!-- Unified CTA -->
+    <?php
+    if(function_exists('wp_ai_render_component')) {
+        wp_ai_render_component('cta', 'premium-dark', [
+            'headline' => '¿Preparado para escalar?',
+            'subheadline' => 'Hablemos de tu proyecto y veamos cómo este servicio encaja en tu infraestructura.',
+            'button' => [
+                'label' => 'Agendar Diagnóstico',
+                'url' => '/contacto'
+            ]
+        ]);
+    }
+    ?>
 
 </main>
 

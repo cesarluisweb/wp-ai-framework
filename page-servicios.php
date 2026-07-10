@@ -40,7 +40,7 @@ if ($servicios_query->have_posts()) {
 }
 </script>
 
-<main class="pt-24 pb-20 bg-gray-950 min-h-screen">
+<main class="pt-24 bg-gray-950 min-h-screen">
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         
         <!-- Hero Section -->
@@ -222,24 +222,19 @@ if ($servicios_query->have_posts()) {
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="max-w-4xl mx-auto px-6 lg:px-8">
-        <div class="bg-gradient-to-br from-gray-900 to-gray-950 border border-gray-800 rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
-            <!-- decorative blur -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-brand-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-            
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">¿Necesitas alguno de estos servicios?</h2>
-            <p class="text-gray-400 mb-10 max-w-2xl mx-auto relative z-10 text-lg">
-                El trabajo de mantenimiento web y desarrollo se vuelve sencillo cuando trabajas con el aliado técnico correcto.
-            </p>
-            <a href="/contacto" class="relative z-10 inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-10 rounded-full transition-colors text-lg">
-                Contáctame
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-            </a>
-        </div>
-    </section>
+    <!-- Unified CTA -->
+    <?php
+    if(function_exists('wp_ai_render_component')) {
+        wp_ai_render_component('cta', 'premium-dark', [
+            'headline' => '¿Necesitas alguno de estos servicios?',
+            'subheadline' => 'El trabajo de mantenimiento web y desarrollo se vuelve sencillo cuando trabajas con el aliado técnico correcto.',
+            'button' => [
+                'label' => 'Contáctame',
+                'url' => '/contacto'
+            ]
+        ]);
+    }
+    ?>
 
 </main>
 

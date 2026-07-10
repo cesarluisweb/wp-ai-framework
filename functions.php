@@ -87,13 +87,15 @@ function wp_ai_get_core_tech_stack() {
     ];
 }
 
-// 5. Ocultar el editor nativo de WordPress en la página de inicio (Home)
+// 5. Ocultar el editor nativo de WordPress en ciertas páginas administradas por ACF
 add_action('admin_init', function() {
     $post_id = $_GET['post'] ?? ($_POST['post_ID'] ?? null);
     if (!isset($post_id)) return;
 
     $frontpage_id = get_option('page_on_front');
-    if (intval($post_id) === intval($frontpage_id)) {
+    $template = get_post_meta($post_id, '_wp_page_template', true);
+    
+    if (intval($post_id) === intval($frontpage_id) || $template === 'page-sobre-mi.php') {
         remove_post_type_support('page', 'editor');
     }
 });

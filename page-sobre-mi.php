@@ -27,35 +27,52 @@ get_header();
 }
 </script>
 
-<main class="pt-24 pb-20 bg-gray-950">
+<main class="pt-24 bg-gray-950">
     <!-- Hero Section -->
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <!-- Text Content -->
             <div>
-                <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block">Sobre Mí</span>
+                <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html(get_field('sobre_mi_hero_kicker') ?: 'Sobre Mí'); ?></span>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                    César Luis <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500">Amundaray</span>
+                    <?php echo nl2br(esc_html(get_field('sobre_mi_hero_headline_prefix') ?: 'César Luis')); ?> <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html(get_field('sobre_mi_hero_headline_highlight') ?: 'Amundaray'); ?></span>
                 </h1>
                 <p class="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed">
-                    Ingeniero, Desarrollador Web y Arquitecto de Soluciones IA. Transformo diseños en sitios web rápidos, fiables y escalables.
+                    <?php echo esc_html(get_field('sobre_mi_hero_description') ?: 'Ingeniero, Desarrollador Web y Arquitecto de Soluciones IA. Transformo diseños en sitios web rápidos, fiables y escalables.'); ?>
                 </p>
                 
                 <!-- Metrics -->
-                <div class="grid grid-cols-3 gap-2 sm:gap-4">
-                    <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
-                        <div class="text-xl sm:text-3xl font-bold text-white mb-1">+8</div>
-                        <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Años de exp.</div>
+                <?php 
+                $metric_1_num = get_field('sobre_mi_metric_1_number');
+                if ($metric_1_num) : ?>
+                    <div class="grid grid-cols-3 gap-2 sm:gap-4">
+                        <?php for($i=1; $i<=3; $i++) { 
+                            $num = get_field('sobre_mi_metric_'.$i.'_number');
+                            $lbl = get_field('sobre_mi_metric_'.$i.'_label');
+                            if ($num) {
+                        ?>
+                            <div class="border border-gray-800 bg-gray-900/50 rounded-2xl p-4 sm:p-6 text-center hover:bg-gray-800/50 transition-colors">
+                                <span class="block text-2xl sm:text-4xl font-bold text-white mb-1"><?php echo esc_html($num); ?></span>
+                                <span class="text-xs sm:text-sm text-gray-400"><?php echo esc_html($lbl); ?></span>
+                            </div>
+                        <?php } } ?>
                     </div>
-                    <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
-                        <div class="text-xl sm:text-3xl font-bold text-white mb-1">+100</div>
-                        <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Proyectos</div>
+                <?php else : ?>
+                    <div class="grid grid-cols-3 gap-2 sm:gap-4">
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
+                            <div class="text-xl sm:text-3xl font-bold text-white mb-1">+8</div>
+                            <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Años de exp.</div>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
+                            <div class="text-xl sm:text-3xl font-bold text-white mb-1">+100</div>
+                            <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Proyectos</div>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
+                            <div class="text-xl sm:text-3xl font-bold text-white mb-1">5.0</div>
+                            <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Calificación</div>
+                        </div>
                     </div>
-                    <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
-                        <div class="text-xl sm:text-3xl font-bold text-white mb-1">5.0</div>
-                        <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Calificación</div>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
             
             <!-- Visual Content -->
@@ -84,25 +101,41 @@ get_header();
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             <div class="lg:col-span-5">
                 <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight lg:sticky lg:top-32">
-                    De ingeniero electrónico a <span class="text-brand-400">Arquitecto IA</span>
+                    <?php echo esc_html(get_field('sobre_mi_bio_headline_prefix') ?: 'De ingeniero electrónico a'); ?> <span class="text-brand-400"><?php echo esc_html(get_field('sobre_mi_bio_headline_highlight') ?: 'Arquitecto IA'); ?></span>
                 </h2>
             </div>
             <div class="lg:col-span-7">
                 <div class="prose prose-lg prose-invert text-gray-300 leading-relaxed space-y-8">
-                    <p class="text-xl text-white font-medium">
-                        Soy ingeniero en electrónica de formación, originario de Venezuela. Hace más de 8 años descubrí mi verdadera pasión en el desarrollo web, y desde entonces no he dejado de construir. He trabajado en remoto para agencias de marketing digital y empresas en Latinoamérica y Europa, participando en proyectos de todo tipo: desde landing pages hasta plataformas e-learning con miles de usuarios.
-                    </p>
-                    <p>
-                        En 2026, el desarrollo web cambió por completo. Hoy no escribo código línea por línea de forma manual: utilizo herramientas de inteligencia artificial de última generación para acelerar los procesos de desarrollo, garantizar la calidad del código y entregar resultados que antes habrían tomado semanas en cuestión de días. Esta evolución no reemplaza la experiencia técnica; la potencia. Mi conocimiento profundo de WordPress, PHP, JavaScript y arquitecturas web me permite dirigir estas herramientas con precisión quirúrgica.
-                    </p>
-                    <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
-                        <p class="text-white italic m-0">
-                            "Mi enfoque combina la resolución de problemas reales con un estándar de calidad implacable. No me limito a ejecutar tareas: entiendo el contexto del proyecto, propongo soluciones y me aseguro de que todo funcione correctamente antes de entregar."
+                    <?php if (get_field('sobre_mi_bio_text_1')) : ?>
+                        <?php echo get_field('sobre_mi_bio_text_1'); ?>
+                    <?php else : ?>
+                        <p class="text-xl text-white font-medium">
+                            Soy ingeniero en electrónica de formación, originario de Venezuela. Hace más de 8 años descubrí mi verdadera pasión en el desarrollo web, y desde entonces no he dejado de construir. He trabajado en remoto para agencias de marketing digital y empresas en Latinoamérica y Europa, participando en proyectos de todo tipo: desde landing pages hasta plataformas e-learning con miles de usuarios.
                         </p>
-                    </div>
-                    <p>
-                        Trabajo tanto solo como integrado en equipos de agencia, adaptándome a las herramientas y flujos de trabajo de cada cliente. Creo firmemente que el trabajo bien hecho es una forma de servicio. Cada proyecto es una oportunidad de crear algo útil, funcional y que genere resultados reales para mis clientes. Si buscas un desarrollador WordPress que combine experiencia sólida con las herramientas más avanzadas del mercado, estás en el lugar correcto.
-                    </p>
+                        <p>
+                            En 2026, el desarrollo web cambió por completo. Hoy no escribo código línea por línea de forma manual: utilizo herramientas de inteligencia artificial de última generación para acelerar los procesos de desarrollo, garantizar la calidad del código y entregar resultados que antes habrían tomado semanas en cuestión de días. Esta evolución no reemplaza la experiencia técnica; la potencia. Mi conocimiento profundo de WordPress, PHP, JavaScript y arquitecturas web me permite dirigir estas herramientas con precisión quirúrgica.
+                        </p>
+                    <?php endif; ?>
+
+                    <?php if (get_field('sobre_mi_bio_quote')) : ?>
+                        <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
+                            <p class="text-white italic m-0">"<?php echo esc_html(get_field('sobre_mi_bio_quote')); ?>"</p>
+                        </div>
+                    <?php else : ?>
+                        <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
+                            <p class="text-white italic m-0">
+                                "Mi enfoque combina la resolución de problemas reales con un estándar de calidad implacable. No me limito a ejecutar tareas: entiendo el contexto del proyecto, propongo soluciones y me aseguro de que todo funcione correctamente antes de entregar."
+                            </p>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (get_field('sobre_mi_bio_text_2')) : ?>
+                        <?php echo get_field('sobre_mi_bio_text_2'); ?>
+                    <?php else : ?>
+                        <p>
+                            Trabajo tanto solo como integrado en equipos de agencia, adaptándome a las herramientas y flujos de trabajo de cada cliente. Creo firmemente que el trabajo bien hecho es una forma de servicio. Cada proyecto es una oportunidad de crear algo útil, funcional y que genere resultados reales para mis clientes. Si buscas un desarrollador WordPress que combine experiencia sólida con las herramientas más avanzadas del mercado, estás en el lugar correcto.
+                        </p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -110,7 +143,7 @@ get_header();
 
     <!-- Stack Tecnológico -->
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-32">
-        <div class="bg-gray-900/50 border border-gray-800 rounded-3xl p-8 md:p-12">
+        <div class="bg-gray-900/50 border border-gray-800 rounded-3xl p-8 lg:p-12">
             <h2 class="text-2xl font-bold text-white mb-8 text-center">Ecosistema & Stack Core</h2>
             <div class="flex flex-wrap gap-4 justify-center">
                 <?php
@@ -143,38 +176,67 @@ get_header();
 
     <!-- Experiencia Laboral -->
     <section class="max-w-4xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 class="text-3xl font-bold text-white text-center mb-16">Mi Trayectoria</h2>
+        <h2 class="text-3xl font-bold text-white text-center mb-16"><?php echo esc_html(get_field('sobre_mi_trayectoria_headline') ?: 'Mi Trayectoria'); ?></h2>
         
-        <div class="relative border-l-2 border-brand-500/30 ml-4 md:ml-0">
-            <!-- Item 1 -->
-            <div class="relative pl-8 pb-12">
-                <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
-                <div class="text-brand-400 font-bold mb-2">2025 — Presente</div>
-                <h3 class="text-2xl font-bold text-white mb-3">Arquitecto de Soluciones IA & WordPress</h3>
-                <p class="text-gray-400 leading-relaxed">
-                    Especialización en orquestación de LLMs, agentes autónomos y arquitectura web GEO para agencias y empresas. Desarrollo acelerado con IA, entregando en días lo que antes tomaba semanas sin comprometer la calidad.
-                </p>
+        <?php 
+        $tray_1_period = get_field('sobre_mi_trayectoria_1_period');
+        if ($tray_1_period) : ?>
+            <div class="space-y-12">
+                <?php for($i=1; $i<=3; $i++) { 
+                    $period = get_field('sobre_mi_trayectoria_'.$i.'_period');
+                    $role = get_field('sobre_mi_trayectoria_'.$i.'_role');
+                    $desc = get_field('sobre_mi_trayectoria_'.$i.'_description');
+                    if ($period) {
+                ?>
+                    <div class="relative pl-8 md:pl-0">
+                        <div class="md:flex flex-col md:flex-row gap-8">
+                            <div class="md:w-1/4 shrink-0">
+                                <span class="text-brand-400 font-medium block mb-2 md:mb-0">
+                                    <?php echo esc_html($period); ?>
+                                </span>
+                            </div>
+                            <div class="md:w-3/4">
+                                <h3 class="text-2xl font-bold text-white mb-4"><?php echo esc_html($role); ?></h3>
+                                <p class="text-gray-400 leading-relaxed">
+                                    <?php echo wp_kses_post($desc); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <?php } } ?>
             </div>
-            
-            <!-- Item 2 -->
-            <div class="relative pl-8 pb-12">
-                <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
-                <div class="text-brand-400 font-bold mb-2">2021 — 2025</div>
-                <h3 class="text-2xl font-bold text-white mb-3">Desarrollador WordPress Senior (Freelance)</h3>
-                <p class="text-gray-400 leading-relaxed">
-                    Descubrí lo que quería hacer en los próximos años y me enfoqué al 100% en aumentar mis conocimientos técnicos y mejorar mis habilidades para ser un excelente desarrollador web. Más de 100 proyectos entregados para agencias en España, Colombia, Argentina, México y otros países. Especialización en WooCommerce, LearnDash y constructores visuales, enfocándome en velocidad y fiabilidad.
-                </p>
-            </div>
-            
-            <!-- Item 3 -->
-            <div class="relative pl-8">
-                <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
-                <div class="text-brand-400 font-bold mb-2">2019 — 2021</div>
-                <h3 class="text-2xl font-bold text-white mb-3">Inicios Digitales</h3>
-                <p class="text-gray-400 leading-relaxed">
-                    Incursioné en el trabajo desde casa, como community manager, copywriter y diseñador gráfico para diferentes corporaciones de negocio estadounidenses. Transición exitosa desde la ingeniería electrónica hacia el mundo digital.
-                </p>
-            </div>
+        <?php else : ?>
+            <div class="relative border-l-2 border-brand-500/30 ml-4 md:ml-0">
+                <!-- Item 1 -->
+                <div class="relative pl-8 pb-12">
+                    <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
+                    <div class="text-brand-400 font-bold mb-2">2025 — Presente</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Arquitecto de Soluciones IA & WordPress</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Especialización en orquestación de LLMs, agentes autónomos y arquitectura web GEO para agencias y empresas. Desarrollo acelerado con IA, entregando en días lo que antes tomaba semanas sin comprometer la calidad.
+                    </p>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="relative pl-8 pb-12">
+                    <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
+                    <div class="text-brand-400 font-bold mb-2">2021 — 2025</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Desarrollador WordPress Senior (Freelance)</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Descubrí lo que quería hacer en los próximos años y me enfoqué al 100% en aumentar mis conocimientos técnicos y mejorar mis habilidades para ser un excelente desarrollador web. Más de 100 proyectos entregados para agencias en España, Colombia, Argentina, México y otros países. Especialización en WooCommerce, LearnDash y constructores visuales, enfocándome en velocidad y fiabilidad.
+                    </p>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="relative pl-8">
+                    <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
+                    <div class="text-brand-400 font-bold mb-2">2019 — 2021</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Inicios Digitales</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Incursioné en el trabajo desde casa, como community manager, copywriter y diseñador gráfico para diferentes corporaciones de negocio estadounidenses. Transición exitosa desde la ingeniería electrónica hacia el mundo digital.
+                    </p>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -182,14 +244,18 @@ get_header();
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         <div class="flex flex-col md:flex-row gap-12 items-center bg-gray-900/30 border border-gray-800/50 rounded-3xl p-8 lg:p-12">
             <div class="max-w-2xl">
-                <h2 class="text-3xl font-bold text-white mb-6">Mis Valores</h2>
+                <h2 class="text-3xl font-bold text-white mb-6"><?php echo esc_html(get_field('sobre_mi_valores_headline') ?: 'Mis Valores'); ?></h2>
                 <div class="prose prose-invert text-gray-300">
-                    <p>
-                        Tengo valores cristianos desde mi niñez. Aquel que dijo ser el Camino, la Verdad y la Vida, mi Señor Jesucristo, es el pilar fundamental de mi vida. Todo lo que hago, procuro hacerlo con excelencia para Su gloria.
-                    </p>
-                    <p>
-                        Como esposo, padre y profesional, prometo entregar mi máximo esfuerzo en cada proyecto. Mi compromiso es la calidad técnica y humana; no daré por terminado el trabajo hasta que el resultado funcione impecablemente para tu negocio.
-                    </p>
+                    <?php if (get_field('sobre_mi_valores_text')) : ?>
+                        <?php echo get_field('sobre_mi_valores_text'); ?>
+                    <?php else : ?>
+                        <p>
+                            Tengo valores cristianos desde mi niñez. Aquel que dijo ser el Camino, la Verdad y la Vida, mi Señor Jesucristo, es el pilar fundamental de mi vida. Todo lo que hago, procuro hacerlo con excelencia para Su gloria.
+                        </p>
+                        <p>
+                            Como esposo, padre y profesional, prometo entregar mi máximo esfuerzo en cada proyecto. Mi compromiso es la calidad técnica y humana; no daré por terminado el trabajo hasta que el resultado funcione impecablemente para tu negocio.
+                        </p>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="flex-1 flex justify-center">
@@ -203,17 +269,19 @@ get_header();
     </section>
 
     <!-- CTA Section -->
-    <section class="max-w-4xl mx-auto px-6 lg:px-8">
-        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 lg:p-12 text-center">
-            <h2 class="text-3xl font-bold text-white mb-4">¿Listo para trabajar juntos?</h2>
-            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
-                Cuéntame sobre tu proyecto y veamos cómo puedo ayudarte a alcanzar tus objetivos con tecnología de primer nivel.
-            </p>
-            <a href="/contacto" class="inline-block bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-full transition-colors">
-                ¿Hablamos?
-            </a>
-        </div>
-    </section>
+    <?php
+    if(function_exists('wp_ai_render_component')) {
+        wp_ai_render_component('cta', 'premium-dark', [
+            'headline' => get_field('sobre_mi_cta_headline') ?: '¿Listo para trabajar juntos?',
+            'subheadline' => get_field('sobre_mi_cta_subheadline') ?: 'Cuéntame sobre tu proyecto y veamos cómo puedo ayudarte a alcanzar tus objetivos con tecnología de primer nivel.',
+            'button' => [
+                'label' => get_field('sobre_mi_cta_btn_label') ?: '¿Hablamos?',
+                'url' => get_field('sobre_mi_cta_btn_url') ?: '/contacto'
+            ],
+            'guarantee' => get_field('sobre_mi_cta_guarantee') ?: 'Respuesta en menos de 24 horas'
+        ]);
+    }
+    ?>
 </main>
 
 <?php get_footer(); ?>
