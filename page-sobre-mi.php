@@ -32,51 +32,19 @@ get_header();
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <!-- Text Content -->
-            <div>
+            <div class="order-2 md:order-1">
                 <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html(get_field('sobre_mi_hero_kicker') ?: 'Sobre Mí'); ?></span>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                     <?php echo nl2br(esc_html(get_field('sobre_mi_hero_headline_prefix') ?: 'César Luis')); ?> <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html(get_field('sobre_mi_hero_headline_highlight') ?: 'Amundaray'); ?></span>
                 </h1>
                 <p class="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed">
-                    <?php echo esc_html(get_field('sobre_mi_hero_description') ?: 'Ingeniero, Desarrollador Web y Arquitecto de Soluciones IA. Transformo diseños en sitios web rápidos, fiables y escalables.'); ?>
+                    <?php echo esc_html(get_field('sobre_mi_hero_description') ?: 'Ingeniero en Electrónica convertido en Arquitecto de Soluciones Web e Inteligencia Artificial. Ayudo a agencias y empresas a construir infraestructuras digitales escalables, resolver cuellos de botella técnicos y automatizar flujos de trabajo con código a medida. Si buscas rendimiento extremo, fiabilidad y cero deuda técnica, estás en el lugar correcto.'); ?>
                 </p>
-                
-                <!-- Metrics -->
-                <?php 
-                $metric_1_num = get_field('sobre_mi_metric_1_number');
-                if ($metric_1_num) : ?>
-                    <div class="grid grid-cols-3 gap-2 sm:gap-4">
-                        <?php for($i=1; $i<=3; $i++) { 
-                            $num = get_field('sobre_mi_metric_'.$i.'_number');
-                            $lbl = get_field('sobre_mi_metric_'.$i.'_label');
-                            if ($num) {
-                        ?>
-                            <div class="border border-gray-800 bg-gray-900/50 rounded-2xl p-4 sm:p-6 text-center hover:bg-gray-800/50 transition-colors">
-                                <span class="block text-2xl sm:text-4xl font-bold text-white mb-1"><?php echo esc_html($num); ?></span>
-                                <span class="text-xs sm:text-sm text-gray-400"><?php echo esc_html($lbl); ?></span>
-                            </div>
-                        <?php } } ?>
-                    </div>
-                <?php else : ?>
-                    <div class="grid grid-cols-3 gap-2 sm:gap-4">
-                        <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
-                            <div class="text-xl sm:text-3xl font-bold text-white mb-1">+8</div>
-                            <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Años de exp.</div>
-                        </div>
-                        <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
-                            <div class="text-xl sm:text-3xl font-bold text-white mb-1">+100</div>
-                            <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Proyectos</div>
-                        </div>
-                        <div class="bg-gray-900 border border-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center sm:text-left">
-                            <div class="text-xl sm:text-3xl font-bold text-white mb-1">5.0</div>
-                            <div class="text-[10px] sm:text-sm text-gray-400 leading-tight">Calificación</div>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                <!-- Removed inline metrics to use full-width component below -->
             </div>
             
             <!-- Visual Content -->
-            <div class="relative">
+            <div class="relative order-1 md:order-2">
                 <div class="aspect-square rounded-3xl bg-gradient-to-br from-brand-500/20 to-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden relative group">
                     <?php if (has_post_thumbnail()) : ?>
                         <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105']); ?>
@@ -96,16 +64,41 @@ get_header();
         </div>
     </section>
 
+    <!-- Metrics Component -->
+    <?php
+    $metrics_arr = [];
+    for ($i = 1; $i <= 3; $i++) {
+        $val = function_exists('get_field') ? get_field('sobre_mi_metric_'.$i.'_number') : '';
+        $lab = function_exists('get_field') ? get_field('sobre_mi_metric_'.$i.'_label') : '';
+        if (!empty($val) && !empty($lab)) {
+            $metrics_arr[] = ['value' => $val, 'label' => $lab];
+        }
+    }
+    
+    // Fallback if ACF is empty
+    if (empty($metrics_arr)) {
+        $metrics_arr = [
+            ['value' => '+8', 'label' => 'Años de<br>experiencia'],
+            ['value' => '+100', 'label' => 'Proyectos<br>entregados'],
+            ['value' => '5.0', 'label' => 'Opiniones de<br>Google'],
+        ];
+    }
+
+    if(function_exists('wp_ai_render_component')) {
+        wp_ai_render_component('metrics', 'premium-dark', ['metrics' => $metrics_arr]);
+    }
+    ?>
+
     <!-- Bio Section -->
-    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-32 border-t border-gray-800/50 pt-24">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-            <div class="lg:col-span-5">
-                <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight lg:sticky lg:top-32">
-                    <?php echo esc_html(get_field('sobre_mi_bio_headline_prefix') ?: 'De ingeniero electrónico a'); ?> <span class="text-brand-400"><?php echo esc_html(get_field('sobre_mi_bio_headline_highlight') ?: 'Arquitecto IA'); ?></span>
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-32 border-t border-gray-800/50 pt-16 md:pt-24">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+            <div class="md:col-span-5">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight md:sticky md:top-32 pr-4">
+                    <?php echo esc_html(get_field('sobre_mi_bio_headline_prefix') ?: 'De ingeniero electrónico a'); ?> <span class="text-brand-400 block mt-2"><?php echo esc_html(get_field('sobre_mi_bio_headline_highlight') ?: 'Arquitecto IA'); ?></span>
                 </h2>
             </div>
-            <div class="lg:col-span-7">
-                <div class="prose prose-lg prose-invert text-gray-300 leading-relaxed space-y-8">
+            <div class="md:col-span-7">
+                <div class="prose prose-base md:prose-lg prose-invert text-gray-300 leading-relaxed space-y-6 md:space-y-8">
                     <?php if (get_field('sobre_mi_bio_text_1')) : ?>
                         <?php echo get_field('sobre_mi_bio_text_1'); ?>
                     <?php else : ?>
@@ -179,64 +172,83 @@ get_header();
         <h2 class="text-3xl font-bold text-white text-center mb-16"><?php echo esc_html(get_field('sobre_mi_trayectoria_headline') ?: 'Mi Trayectoria'); ?></h2>
         
         <?php 
-        $tray_1_period = get_field('sobre_mi_trayectoria_1_period');
-        if ($tray_1_period) : ?>
-            <div class="space-y-12">
-                <?php for($i=1; $i<=3; $i++) { 
-                    $period = get_field('sobre_mi_trayectoria_'.$i.'_period');
-                    $role = get_field('sobre_mi_trayectoria_'.$i.'_role');
-                    $desc = get_field('sobre_mi_trayectoria_'.$i.'_description');
-                    if ($period) {
-                ?>
-                    <div class="relative pl-8 md:pl-0">
-                        <div class="md:flex flex-col md:flex-row gap-8">
-                            <div class="md:w-1/4 shrink-0">
-                                <span class="text-brand-400 font-medium block mb-2 md:mb-0">
-                                    <?php echo esc_html($period); ?>
-                                </span>
-                            </div>
-                            <div class="md:w-3/4">
-                                <h3 class="text-2xl font-bold text-white mb-4"><?php echo esc_html($role); ?></h3>
-                                <p class="text-gray-400 leading-relaxed">
-                                    <?php echo wp_kses_post($desc); ?>
-                                </p>
-                            </div>
-                        </div>
+        $trayectoria = [];
+        for ($i=1; $i<=5; $i++) {
+            $period = function_exists('get_field') ? get_field('sobre_mi_trayectoria_'.$i.'_period') : '';
+            $role = function_exists('get_field') ? get_field('sobre_mi_trayectoria_'.$i.'_role') : '';
+            $desc = function_exists('get_field') ? get_field('sobre_mi_trayectoria_'.$i.'_description') : '';
+            if ($period) {
+                $trayectoria[] = ['period' => $period, 'role' => $role, 'desc' => $desc];
+            }
+        }
+        
+        if (empty($trayectoria)) {
+            $trayectoria = [
+                ['period' => '2025 — Presente', 'role' => 'Arquitecto de Soluciones IA & WordPress', 'desc' => 'Especialización en orquestación de LLMs, agentes autónomos y arquitectura web GEO para agencias y empresas. Desarrollo acelerado con IA, entregando en días lo que antes tomaba semanas sin comprometer la calidad.'],
+                ['period' => '2021 — 2025', 'role' => 'Desarrollador WordPress Senior (Freelance)', 'desc' => 'Descubrí lo que quería hacer en los próximos años y me enfoqué al 100% en aumentar mis conocimientos técnicos y mejorar mis habilidades para ser un excelente desarrollador web. Más de 100 proyectos entregados para agencias en España, Colombia, Argentina, México y otros países. Especialización en WooCommerce, LearnDash y constructores visuales, enfocándome en velocidad y fiabilidad.'],
+                ['period' => '2019 — 2021', 'role' => 'Inicios Digitales', 'desc' => 'Incursioné en el trabajo desde casa, como community manager, copywriter y diseñador gráfico para diferentes corporaciones de negocio estadounidenses. Transición exitosa desde la ingeniería electrónica hacia el mundo digital.'],
+            ];
+        }
+        ?>
+
+        <div class="relative border-l-2 border-gray-800 ml-4 md:ml-12" id="trayectoria-container">
+            <!-- Animated Line -->
+            <div class="absolute left-[-2px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-brand-400 to-transparent scale-y-0 origin-top transition-transform duration-1000 ease-out" id="timeline-line"></div>
+            
+            <?php foreach($trayectoria as $index => $item): 
+                $is_last = ($index === count($trayectoria) - 1);
+            ?>
+                <div class="relative pl-8 md:pl-16 <?php echo $is_last ? '' : 'pb-16 md:pb-24'; ?> timeline-item opacity-0 translate-y-8 transition-all duration-700 ease-out group">
+                    <!-- Timeline Dot -->
+                    <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950 shadow-[0_0_10px_rgba(59,130,246,0.5)] transition-all duration-500 timeline-dot scale-0 group-hover:scale-125 group-hover:bg-brand-400"></div>
+                    
+                    <div class="text-brand-400 font-bold mb-2"><?php echo esc_html($item['period']); ?></div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-300 transition-colors"><?php echo esc_html($item['role']); ?></h3>
+                    <div class="text-gray-400 leading-relaxed">
+                        <?php echo wp_kses_post($item['desc']); ?>
                     </div>
-                <?php } } ?>
-            </div>
-        <?php else : ?>
-            <div class="relative border-l-2 border-brand-500/30 ml-4 md:ml-0">
-                <!-- Item 1 -->
-                <div class="relative pl-8 pb-12">
-                    <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
-                    <div class="text-brand-400 font-bold mb-2">2025 — Presente</div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Arquitecto de Soluciones IA & WordPress</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        Especialización en orquestación de LLMs, agentes autónomos y arquitectura web GEO para agencias y empresas. Desarrollo acelerado con IA, entregando en días lo que antes tomaba semanas sin comprometer la calidad.
-                    </p>
                 </div>
-                
-                <!-- Item 2 -->
-                <div class="relative pl-8 pb-12">
-                    <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
-                    <div class="text-brand-400 font-bold mb-2">2021 — 2025</div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Desarrollador WordPress Senior (Freelance)</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        Descubrí lo que quería hacer en los próximos años y me enfoqué al 100% en aumentar mis conocimientos técnicos y mejorar mis habilidades para ser un excelente desarrollador web. Más de 100 proyectos entregados para agencias en España, Colombia, Argentina, México y otros países. Especialización en WooCommerce, LearnDash y constructores visuales, enfocándome en velocidad y fiabilidad.
-                    </p>
-                </div>
-                
-                <!-- Item 3 -->
-                <div class="relative pl-8">
-                    <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950"></div>
-                    <div class="text-brand-400 font-bold mb-2">2019 — 2021</div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Inicios Digitales</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        Incursioné en el trabajo desde casa, como community manager, copywriter y diseñador gráfico para diferentes corporaciones de negocio estadounidenses. Transición exitosa desde la ingeniería electrónica hacia el mundo digital.
-                    </p>
-                </div>
-            <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-0', 'translate-y-8');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        
+                        const dot = entry.target.querySelector('.timeline-dot');
+                        if (dot) {
+                            setTimeout(() => {
+                                dot.classList.remove('scale-0');
+                                dot.classList.add('scale-100');
+                            }, 200);
+                        }
+                    }
+                });
+            }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+
+            const lineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.getElementById('timeline-line').classList.remove('scale-y-0');
+                        document.getElementById('timeline-line').classList.add('scale-y-100');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            const timelineContainer = document.getElementById('timeline-line');
+            if (timelineContainer) {
+                lineObserver.observe(timelineContainer.parentElement);
+            }
+        });
+        </script>
         </div>
     </section>
 

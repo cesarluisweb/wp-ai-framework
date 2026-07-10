@@ -12,7 +12,13 @@ $metrics = $data['metrics'] ?? [];
 ?>
 
 <?php if (!empty($metrics)): ?>
-<section class="bg-[#0a0a0f] border-y border-gray-800/60 py-2 lg:py-20 relative overflow-hidden" id="metrics-section">
+<!-- 
+  El padding vertical de la sección se maneja de forma responsiva:
+  - En móvil (py-2): Cada métrica ya tiene "py-8" para separarse de los divisores (divide-y), por lo que la sección solo necesita 8px extra.
+  - En tablet (md:py-10): Como las métricas pieriden su padding vertical al alinearse en horizontal (md:py-0), la sección asume el padding de 40px.
+  - En escritorio (lg:py-14): Se da un respiro mayor (56px) para pantallas amplias.
+-->
+<section class="bg-[#0a0a0f] border-y border-gray-800/60 py-2 md:py-10 lg:py-14 relative overflow-hidden" id="metrics-section">
     <!-- Glows sutiles -->
     <div class="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-brand-500/30 to-transparent"></div>
     <div class="absolute bottom-0 left-1/3 w-1/3 h-px bg-gradient-to-r from-transparent via-brand-400/20 to-transparent"></div>
