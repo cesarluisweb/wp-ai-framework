@@ -78,7 +78,7 @@ if ($servicios_query->have_posts()) {
                         $col_span = 'lg:col-span-2';
                     }
             ?>
-            <div class="<?php echo $col_span; ?> bg-gray-900/40 border border-gray-800/80 rounded-3xl p-8 hover:bg-gray-900/80 transition-all duration-300 group hover:border-brand-500/30 flex flex-col">
+            <a href="<?php the_permalink(); ?>" class="<?php echo $col_span; ?> bg-gray-900/40 border border-gray-800/80 rounded-3xl p-8 hover:bg-gray-900/80 transition-all duration-300 group hover:border-brand-500/30 flex flex-col block">
                 
                 <!-- Icon -->
                 <div class="mb-6 bg-gray-950 inline-flex items-center justify-center w-16 h-16 shrink-0 rounded-2xl border border-gray-800 group-hover:border-brand-500/50 transition-colors">
@@ -113,7 +113,7 @@ if ($servicios_query->have_posts()) {
                     </ul>
                 <?php endif; ?>
                 
-            </div>
+            </a>
             <?php
                 $index++;
                 endwhile;

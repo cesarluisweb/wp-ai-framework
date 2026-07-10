@@ -1,7 +1,6 @@
 <?php
 /**
- * Template Name: Blog Archive (home.php)
- * This file is automatically used by WordPress to display the blog posts index.
+ * Template Name: Blog
  */
 get_header();
 ?>
@@ -45,8 +44,17 @@ get_header();
         <!-- Blog Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="blog-grid">
             <?php
-            if (have_posts()) :
-                while (have_posts()) : the_post();
+            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+            $blog_args = [
+                'post_type'      => 'post',
+                'posts_per_page' => 9,
+                'paged'          => $paged,
+                'post_status'    => 'publish'
+            ];
+            $blog_query = new WP_Query($blog_args);
+
+            if ($blog_query->have_posts()) :
+                while ($blog_query->have_posts()) : $blog_query->the_post();
                     
                     // Categorías para el filtro
                     $cats = get_the_category();
@@ -62,7 +70,7 @@ get_header();
             <div class="blog-card group flex flex-col bg-gray-900/40 backdrop-blur-sm border border-gray-800/60 rounded-3xl overflow-hidden hover:border-brand-500/50 hover:bg-gray-900 transition-all duration-500 hover:-translate-y-2 shadow-xl hover:shadow-brand-500/10" data-categories="<?php echo esc_attr(implode(',', $cat_slugs)); ?>">
                 <a href="<?php the_permalink(); ?>" class="flex flex-col h-full">
                     
-                    <!-- Visual Area -->
+                    <!-- Visual Area (Mismo estilo que portafolio) -->
                     <div class="relative w-full aspect-[16/10] bg-gray-950 overflow-hidden flex-shrink-0">
                         <!-- Decorative Pattern -->
                         <div class="absolute inset-0 opacity-20 z-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 24px 24px;"></div>
@@ -128,19 +136,17 @@ get_header();
             </div>
             <?php
                 endwhile;
-            else :
             ?>
-                <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
-                    <h3 class="text-2xl font-bold text-white mb-2">No se encontraron artículos</h3>
-                    <p class="text-gray-400">Aún no hay contenido publicado en el blog.</p>
-                </div>
-            <?php endif; ?>
         </div>
         
         <!-- Pagination -->
         <div class="mt-16 flex justify-center">
             <?php 
             echo paginate_links([
+                'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
+                'format' => '?paged=%#%',
+                'current' => max(1, get_query_var('paged')),
+                'total' => $blog_query->max_num_pages,
                 'prev_text' => '&laquo; Anterior',
                 'next_text' => 'Siguiente &raquo;',
                 'type' => 'list',
@@ -148,6 +154,15 @@ get_header();
             ]); 
             ?>
         </div>
+        <?php
+            wp_reset_postdata();
+            else :
+        ?>
+            <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
+                <h3 class="text-2xl font-bold text-white mb-2">No se encontraron artículos</h3>
+                <p class="text-gray-400">Aún no hay contenido publicado en el blog.</p>
+            </div>
+        <?php endif; ?>
 
         <!-- CTA Section Bottom -->
         <div class="mt-32 text-center bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 rounded-3xl p-12 lg:p-20 relative overflow-hidden">

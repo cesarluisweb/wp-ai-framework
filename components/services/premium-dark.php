@@ -61,7 +61,11 @@ foreach($services as $svc) {
         <!-- Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php foreach($services as $index => $service): ?>
+            <?php if (!empty($service['url'])): ?>
+            <a href="<?php echo esc_url($service['url']); ?>" class="group relative bg-gray-900/40 backdrop-blur-sm border border-gray-800/60 rounded-2xl p-8 hover:bg-gray-900/80 transition-all duration-500 hover:-translate-y-2 hover:border-brand-500/30 overflow-hidden block">
+            <?php else: ?>
             <div class="group relative bg-gray-900/40 backdrop-blur-sm border border-gray-800/60 rounded-2xl p-8 hover:bg-gray-900/80 transition-all duration-500 hover:-translate-y-2 hover:border-brand-500/30 overflow-hidden">
+            <?php endif; ?>
                 
                 <!-- Efecto hover resplandor -->
                 <div class="absolute inset-0 bg-gradient-to-br from-brand-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -105,7 +109,11 @@ foreach($services as $svc) {
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
+            <?php if (!empty($service['url'])): ?>
+            </a>
+            <?php else: ?>
             </div>
+            <?php endif; ?>
             <?php endforeach; ?>
         </div>
     </div>

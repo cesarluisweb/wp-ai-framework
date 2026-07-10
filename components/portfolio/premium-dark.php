@@ -173,5 +173,16 @@ $projects   = $data['projects']           ?? [];
       </div>
     <?php endif; ?>
 
+    <!-- Button "Ver todos los proyectos" -->
+    <div class="mt-20 text-center relative z-20">
+      <a href="<?php echo esc_url(site_url('/portafolio')); ?>" 
+         class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group">
+        Ver portafolio completo
+        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+
   </div>
 </section>

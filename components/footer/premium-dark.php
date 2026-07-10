@@ -14,9 +14,12 @@
 
 $headline = $data['headline'] ?? '¿Listo para escalar?';
 $email = $data['email'] ?? 'hello@example.com';
-$description = $data['description'] ?? 'Desarrollo web a medida para empresas que buscan resultados.';
+$description = $data['description'] ?? 'Desarrollo WordPress a medida y arquitectura de alto rendimiento para agencias y empresas.';
 $quick_links = $data['quick_links'] ?? [];
 $social_links = $data['social_links'] ?? [];
+if (empty($social_links) && function_exists('wp_ai_get_social_links')) {
+    $social_links = wp_ai_get_social_links();
+}
 $legal_links = $data['legal_links'] ?? [];
 $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos reservados.';
 ?>
@@ -28,56 +31,52 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
 
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 relative z-10">
         
-        <!-- Top Section: Huge CTA -->
-        <div class="mb-24 text-center md:text-left">
-            <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
-                <?php echo esc_html($headline); ?>
-            </h2>
-            <a href="mailto:<?php echo esc_attr($email); ?>" class="inline-block text-2xl md:text-4xl font-bold text-brand-400 hover:text-brand-300 transition-colors duration-300 group relative">
-                <?php echo esc_html($email); ?>
-                <span class="absolute -bottom-2 left-0 w-full h-1 bg-brand-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-            </a>
-        </div>
-
         <!-- Middle Section: Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-20 text-left">
             <!-- Brand / Bio -->
-            <div class="md:col-span-2">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="text-2xl font-black text-white tracking-tight block mb-6">
-                    César Luis <span class="text-brand-400">Amundaray</span>
+            <div class="lg:col-span-2">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-white tracking-tight hover:text-brand-300 transition-colors duration-300 mb-6">
+                    <div class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
+                        <span class="text-brand-300 font-black text-xl leading-none mt-0.5">C</span>
+                    </div>
+                    <span>César Luis</span>
                 </a>
                 <p class="text-gray-400 text-lg max-w-sm leading-relaxed">
                     <?php echo esc_html($description); ?>
                 </p>
             </div>
 
-            <!-- Quick Links -->
-            <div>
-                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Navegación</h3>
-                <ul class="flex flex-col gap-4">
-                    <?php foreach ($quick_links as $link): ?>
-                    <li>
-                        <a href="<?php echo esc_url($link['url']); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
-                            <?php echo esc_html($link['label']); ?>
-                        </a>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            <!-- Links Grid Container (Side-by-side on mobile, separate columns on desktop) -->
+            <div class="grid grid-cols-2 gap-8 lg:col-span-2">
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Navegación</h3>
+                    <ul class="flex flex-col gap-4">
+                        <?php foreach ($quick_links as $link): ?>
+                        <li>
+                            <a href="<?php echo esc_url($link['url']); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
+                                <?php echo esc_html($link['label']); ?>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
 
-            <!-- Social / Professional Links -->
-            <div>
-                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Redes</h3>
-                <ul class="flex flex-col gap-4">
-                    <?php foreach ($social_links as $social): ?>
-                    <li>
-                        <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center group">
-                            <span class="mr-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
-                            <?php echo esc_html($social['platform']); ?>
-                        </a>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Redes</h3>
+                    <ul class="flex flex-col gap-4">
+                        <?php foreach ($social_links as $social): ?>
+                        <li>
+                            <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center gap-3 group">
+                                <span class="text-gray-500 group-hover:text-brand-300 transition-colors duration-300">
+                                    <?php echo $social['icon']; // SVG ?>
+                                </span>
+                                <span class="font-medium"><?php echo esc_html($social['platform']); ?></span>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
         </div>
 

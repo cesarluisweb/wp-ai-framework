@@ -192,29 +192,46 @@ get_header();
                     <h3 class="text-xl font-bold text-white mb-6">Información Directa</h3>
                     
                     <div class="space-y-4">
+                        <?php
+                        $contact_email = get_option('wp_ai_contact_email', 'info@cesarluis.com');
+                        if (!empty($contact_email)):
+                        ?>
                         <div class="flex items-start gap-4 py-4 border-b border-gray-800">
-                            <div class="bg-brand-500/10 p-3 rounded-full shrink-0">
-                                <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-brand-500/10 p-3 rounded-full shrink-0 text-brand-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                             </div>
                             <div>
                                 <div class="text-sm text-gray-500 mb-1">Email</div>
-                                <a href="mailto:info@cesarluis.com" class="text-white hover:text-brand-400 transition-colors font-medium">info@cesarluis.com</a>
+                                <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="text-white hover:text-brand-400 transition-colors font-medium"><?php echo esc_html($contact_email); ?></a>
                             </div>
                         </div>
+                        <?php endif; ?>
 
-                        <div class="flex items-start gap-4 py-4 border-b border-gray-800">
-                            <div class="bg-brand-500/10 p-3 rounded-full shrink-0">
-                                <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500 mb-1">LinkedIn</div>
-                                <a href="https://linkedin.com/in/cesarluis" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brand-400 transition-colors font-medium">linkedin.com/in/cesarluis</a>
-                            </div>
-                        </div>
+                        <?php 
+                        if (function_exists('wp_ai_get_social_links')) {
+                            $socials = wp_ai_get_social_links();
+                            foreach ($socials as $key => $social) {
+                                ?>
+                                <div class="flex items-start gap-4 py-4 border-b border-gray-800">
+                                    <div class="bg-brand-500/10 p-3 rounded-full shrink-0 text-brand-400">
+                                        <?php echo $social['icon']; // SVG ?>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-gray-500 mb-1"><?php echo esc_html($social['platform']); ?></div>
+                                        <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brand-400 transition-colors font-medium">
+                                            <?php 
+                                            $display_url = str_replace(['https://', 'http://', 'www.'], '', $social['url']);
+                                            echo esc_html(rtrim($display_url, '/')); 
+                                            ?>
+                                        </a>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
 
                         <div class="flex items-start gap-4 py-4 border-b border-gray-800">
                             <div class="bg-brand-500/10 p-3 rounded-full shrink-0">

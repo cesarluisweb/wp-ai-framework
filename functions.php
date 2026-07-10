@@ -9,14 +9,36 @@ add_action('after_setup_theme', function() {
     add_theme_support('title-tag');
 });
 
-// 1. Enqueue Tailwind CSS compilado
+// 1. Enqueue Scripts y Tailwind CSS compilado
 add_action('wp_enqueue_scripts', function() {
+    // Tailwind CSS
     wp_enqueue_style(
         'wp-ai-tailwind', 
         get_template_directory_uri() . '/assets/css/style.css', 
         [], 
         filemtime(get_template_directory() . '/assets/css/style.css')
     );
+
+    // GSAP Core
+    wp_enqueue_script(
+        'gsap', 
+        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js', 
+        [], 
+        '3.12.5', 
+        true
+    );
+
+    // Custom Cursor Trail
+    $cursor_script_path = get_template_directory() . '/assets/js/cursor-trail.js';
+    if (file_exists($cursor_script_path)) {
+        wp_enqueue_script(
+            'wp-ai-cursor-trail', 
+            get_template_directory_uri() . '/assets/js/cursor-trail.js', 
+            ['gsap'], 
+            filemtime($cursor_script_path),
+            true
+        );
+    }
 });
 
 // 2. Definir Render Engine 
@@ -43,3 +65,15 @@ function wp_ai_render_component($component_id, $variant, $data) {
 require_once get_template_directory() . '/includes/post-types.php';
 require_once get_template_directory() . '/includes/acf-fields.php';
 require_once get_template_directory() . '/includes/cron-portfolio-check.php';
+require_once get_template_directory() . '/includes/admin-options.php';
+
+// 4. Ocultar el editor nativo de WordPress en la página de inicio (Home)
+add_action('admin_init', function() {
+    $post_id = $_GET['post'] ?? ($_POST['post_ID'] ?? null);
+    if (!isset($post_id)) return;
+
+    $frontpage_id = get_option('page_on_front');
+    if (intval($post_id) === intval($frontpage_id)) {
+        remove_post_type_support('page', 'editor');
+    }
+});

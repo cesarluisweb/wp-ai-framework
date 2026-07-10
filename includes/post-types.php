@@ -112,13 +112,14 @@ function wp_ai_register_post_types() {
             'edit_item'             => 'Editar Servicio',
             'all_items'             => 'Todos los Servicios',
         ),
-        'public'             => false,
-        'publicly_queryable' => false,
+        'public'             => true,
+        'publicly_queryable' => true,
         'show_ui'            => true,
         'show_in_menu'       => true,
         'menu_position'      => 7,
         'menu_icon'          => 'dashicons-hammer',
-        'supports'           => array( 'title' ), // ACF para la desc, icono y features
+        'supports'           => array( 'title', 'editor' ),
+        'show_in_rest'       => true,
     );
 
     register_post_type( 'servicio', $args_services );

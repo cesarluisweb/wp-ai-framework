@@ -1,0 +1,149 @@
+<?php
+/**
+ * Plantilla individual para Servicios (Landing Page)
+ * Diseño Premium Dark B2B
+ */
+
+get_header();
+
+// Datos básicos del servicio
+$post_id = get_the_ID();
+$title = get_the_title();
+$content = get_the_content();
+$desc = get_post_meta($post_id, 'desc', true);
+$icon_name = get_post_meta($post_id, 'icon', true);
+$features_raw = get_post_meta($post_id, 'features', true);
+$features = array_filter(array_map('trim', explode("\n", $features_raw)));
+
+// GEO/SEO: Schema Markup para el Servicio
+$schema = [
+    "@context" => "https://schema.org",
+    "@type" => "Service",
+    "name" => $title,
+    "description" => $desc ?: wp_trim_words(strip_tags($content), 30),
+    "provider" => [
+        "@type" => "Organization",
+        "name" => "César Luis Amundaray",
+        "url" => home_url()
+    ]
+];
+?>
+
+<script type="application/ld+json">
+<?php echo json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
+</script>
+
+<main class="bg-gray-950 min-h-screen pt-24 pb-20 selection:bg-brand-500 selection:text-white">
+    
+    <!-- Hero Section -->
+    <section class="relative w-full overflow-hidden border-b border-gray-800 bg-gray-900 pb-20 pt-16">
+        <!-- Background Glow -->
+        <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
+                
+                <!-- Icon -->
+                <?php if ($icon_name): ?>
+                <div class="mb-8 bg-gray-950 border border-gray-800 w-20 h-20 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.15)] relative">
+                    <div class="absolute inset-0 bg-brand-400/10 rounded-2xl animate-pulse"></div>
+                    <svg class="w-10 h-10 text-brand-400 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <?php
+                        switch ($icon_name) {
+                            case 'code': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>'; break;
+                            case 'shield': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>'; break;
+                            case 'cpu': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>'; break;
+                            case 'robot': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>'; break;
+                            case 'globe': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>'; break;
+                            case 'server': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>'; break;
+                            default: echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>';
+                        }
+                        ?>
+                    </svg>
+                </div>
+                <?php endif; ?>
+
+                <span class="inline-block text-brand-300 font-bold uppercase tracking-[0.2em] mb-4 text-sm">Servicio Especializado</span>
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-8">
+                    <?php echo esc_html($title); ?>
+                </h1>
+                
+                <?php if ($desc): ?>
+                <p class="text-xl text-gray-400 max-w-3xl leading-relaxed">
+                    <?php echo esc_html($desc); ?>
+                </p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenido y Sidebar -->
+    <section class="container mx-auto px-6 py-20">
+        <div class="flex flex-col lg:flex-row gap-16 max-w-7xl mx-auto">
+            
+            <!-- Principal: Contenido SEO / Copywriting Larga -->
+            <article class="w-full lg:w-8/12">
+                <div class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-gray-200 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
+                    <?php 
+                        if (!empty($content)) {
+                            echo wp_kses_post(apply_filters('the_content', $content)); 
+                        } else {
+                            echo '<p class="text-gray-500 italic">Aquí irá la descripción larga del servicio...</p>';
+                        }
+                    ?>
+                </div>
+
+                <!-- CTA Inline para Contacto rápido -->
+                <div class="mt-16 bg-gray-900 border border-gray-800 rounded-3xl p-10 flex flex-col sm:flex-row items-center justify-between gap-8 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 to-transparent pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold text-white mb-2">¿Preparado para escalar?</h3>
+                        <p class="text-gray-400">Hablemos de tu proyecto y veamos cómo este servicio encaja en tu infraestructura.</p>
+                    </div>
+                    <a href="/contacto" class="relative z-10 shrink-0 bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-full transition-colors whitespace-nowrap">
+                        Agendar Diagnóstico
+                    </a>
+                </div>
+            </article>
+
+            <!-- Sidebar: Características del Servicio -->
+            <aside class="w-full lg:w-4/12">
+                <div class="sticky top-32">
+                    <?php if (!empty($features)): ?>
+                    <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-2xl mb-8">
+                        <h3 class="text-xl font-bold text-white mb-6 border-b border-gray-800 pb-4">¿Qué incluye?</h3>
+                        
+                        <ul class="space-y-4">
+                            <?php foreach ($features as $feature): ?>
+                                <li class="flex items-start gap-3 group">
+                                    <div class="mt-1 bg-gray-950 p-1 rounded border border-gray-800 group-hover:border-brand-500/50 transition-colors shrink-0">
+                                        <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-300 text-sm leading-relaxed"><?php echo esc_html($feature); ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <!-- Tarjeta de Confianza -->
+                    <div class="bg-gray-950 border border-brand-500/20 rounded-3xl p-8 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                        <h4 class="text-lg font-bold text-white mb-3">Enfoque B2B Técnico</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Soluciones diseñadas específicamente para agencias que necesitan resolver cuellos de botella técnicos sin acumular deuda técnica a futuro.</p>
+                        <div class="flex items-center gap-3 text-sm font-semibold text-brand-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            Garantía de Código Limpio
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </section>
+
+</main>
+
+<?php get_footer(); ?>
