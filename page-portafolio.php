@@ -10,14 +10,20 @@ get_header();
         
         <!-- Header Section -->
         <div class="text-center max-w-3xl mx-auto mb-20">
+            <?php
+            $hero_kicker = get_field('hero_kicker') ?: 'Portafolio de Casos';
+            $hero_h1_normal = get_field('hero_h1_normal') ?: 'Ingeniería web orientada a';
+            $hero_h1_highlight = get_field('hero_h1_highlight') ?: 'resultados.';
+            $hero_description = get_field('hero_description') ?: 'Explora cómo he resuelto problemas técnicos complejos y escalado negocios mediante código estructurado, rendimiento extremo y automatización.';
+            ?>
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6">
-                Portafolio de Casos
+                <?php echo esc_html($hero_kicker); ?>
             </span>
             <h1 class="text-4xl md:text-6xl font-black text-white mb-8 leading-tight tracking-tight">
-                Ingeniería web orientada a <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">resultados</span>.
+                <?php echo esc_html($hero_h1_normal); ?> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 leading-relaxed">
-                Explora cómo he resuelto problemas técnicos complejos y escalado negocios mediante código estructurado, rendimiento extremo y automatización.
+                <?php echo esc_html($hero_description); ?>
             </p>
         </div>
 
@@ -43,11 +49,13 @@ get_header();
         </div>
 
         <!-- Portfolio Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="portfolio-grid">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 relative z-20" id="portfolio-grid">
             <?php
+            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
             $portfolio_args = [
                 'post_type' => 'proyecto',
-                'posts_per_page' => -1,
+                'posts_per_page' => 9,
+                'paged' => $paged,
                 'orderby' => 'menu_order date',
                 'order' => 'DESC'
             ];
@@ -79,14 +87,14 @@ get_header();
                     
                     <!-- Visual Area -->
                     <!-- Visual Area -->
-                    <div class="relative h-64 w-full bg-gray-950 flex flex-col pt-8 px-8 items-center justify-end overflow-hidden">
+                    <div class="relative w-full bg-gray-950 flex flex-col p-8 items-center justify-center overflow-hidden">
                         <!-- Simulated Gradient Background -->
                         <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-950 group-hover:scale-105 transition-transform duration-700"></div>
                         <!-- Decorative Pattern -->
                         <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 24px 24px;"></div>
                         
                         <!-- Browser Mockup Window -->
-                        <div class="relative w-full h-[115%] bg-gray-900 border border-gray-700/50 rounded-t-xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-md group-hover:-translate-y-3 transition-transform duration-500 z-0">
+                        <div class="relative w-full bg-gray-900 border border-gray-700/50 rounded-xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-md group-hover:-translate-y-3 transition-transform duration-500 z-0">
                             <!-- Browser Header -->
                             <div class="h-6 border-b border-gray-700/50 flex items-center px-3 gap-1.5 bg-gray-950/50 shrink-0">
                                 <div class="w-2 h-2 rounded-full bg-red-500/50"></div>
@@ -94,7 +102,7 @@ get_header();
                                 <div class="w-2 h-2 rounded-full bg-green-500/50"></div>
                             </div>
                             <!-- Browser Content (Image) -->
-                            <div class="flex-1 relative overflow-hidden bg-gray-950">
+                            <div class="relative w-full aspect-video overflow-hidden bg-gray-950">
                                 <?php if (has_post_thumbnail()) : ?>
                                     <?php the_post_thumbnail('large', ['class' => 'absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-700']); ?>
                                 <?php else: ?>
@@ -167,26 +175,104 @@ get_header();
             </div>
             <?php
                 endwhile;
-                wp_reset_postdata();
-            else :
             ?>
-                <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
-                    <h3 class="text-2xl font-bold text-white mb-2">No se encontraron proyectos</h3>
-                    <p class="text-gray-400">Pronto añadiré más casos de estudio a mi portafolio.</p>
-                </div>
-            <?php endif; ?>
         </div>
+        
+        <?php
+        if ($portfolio_query->max_num_pages > 1) :
+        ?>
+            <div class="text-center mt-16" id="load-more-container">
+                <button id="load-more-portfolio" class="bg-brand-500 hover:bg-brand-400 text-gray-950 font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(var(--brand-500-rgb),0.4)] flex items-center justify-center gap-3 mx-auto" data-page="1" data-max="<?php echo $portfolio_query->max_num_pages; ?>" data-nonce="<?php echo wp_create_nonce('portfolio_ajax_nonce'); ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">
+                    <span class="btn-text">Cargar más proyectos</span>
+                    <svg class="w-5 h-5 btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg class="w-5 h-5 btn-spinner hidden animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const btn = document.getElementById('load-more-portfolio');
+                if (!btn) return;
+                
+                btn.addEventListener('click', function() {
+                    const grid = document.getElementById('portfolio-grid');
+                    let currentPage = parseInt(btn.getAttribute('data-page'));
+                    const maxPages = parseInt(btn.getAttribute('data-max'));
+                    const ajaxurl = btn.getAttribute('data-ajaxurl');
+                    const nonce = btn.getAttribute('data-nonce');
+                    
+                    if (currentPage >= maxPages) return;
+                    
+                    // Update UI
+                    btn.classList.add('opacity-75', 'cursor-not-allowed');
+                    btn.querySelector('.btn-icon').classList.add('hidden');
+                    btn.querySelector('.btn-spinner').classList.remove('hidden');
+                    btn.querySelector('.btn-text').textContent = 'Cargando...';
+                    
+                    const nextPage = currentPage + 1;
+                    
+                    const formData = new FormData();
+                    formData.append('action', 'wp_ai_load_more_portfolio');
+                    formData.append('page', nextPage);
+                    formData.append('nonce', nonce);
+                    
+                    fetch(ajaxurl, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data) {
+                            grid.insertAdjacentHTML('beforeend', data);
+                            btn.setAttribute('data-page', nextPage);
+                            
+                            if (nextPage >= maxPages) {
+                                btn.parentElement.remove();
+                            } else {
+                                // Restore UI
+                                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                                btn.querySelector('.btn-icon').classList.remove('hidden');
+                                btn.querySelector('.btn-spinner').classList.add('hidden');
+                                btn.querySelector('.btn-text').textContent = 'Cargar más proyectos';
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+            </script>
+        <?php endif; ?>
+        <?php
+            wp_reset_postdata();
+        else :
+        ?>
+            <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
+                <h3 class="text-2xl font-bold text-white mb-2">No se encontraron proyectos</h3>
+                <p class="text-gray-400">Pronto añadiré más casos de estudio a mi portafolio.</p>
+            </div>
+        <?php endif; ?>
+
     </div> <!-- Close max-w container -->
+
+    <div class="py-12 lg:py-16"></div> <!-- Espaciador entre proyectos y CTA -->
 
     <!-- CTA Section Bottom -->
     <?php
     if(function_exists('wp_ai_render_component')) {
+        $cta_h2 = get_field('cta_h2') ?: '¿Listo para construir el tuyo?';
+        $cta_desc = get_field('cta_description') ?: 'Trabajemos juntos para llevar tu proyecto al siguiente nivel de rendimiento y escalabilidad.';
+        $cta_btn_text = get_field('cta_button_text') ?: 'Empezar Proyecto Ahora';
+        $cta_btn_url = get_field('cta_button_url') ?: '/contacto';
+
         wp_ai_render_component('cta', 'premium-dark', [
-            'headline' => '¿Listo para construir el tuyo?',
-            'subheadline' => 'Trabajemos juntos para llevar tu proyecto al siguiente nivel de rendimiento y escalabilidad.',
+            'headline' => $cta_h2,
+            'subheadline' => $cta_desc,
             'button' => [
-                'label' => 'Empezar Proyecto Ahora',
-                'url' => '/contacto'
+                'label' => $cta_btn_text,
+                'url' => $cta_btn_url
             ]
         ]);
     }

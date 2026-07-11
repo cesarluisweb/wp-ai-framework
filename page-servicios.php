@@ -45,12 +45,18 @@ if ($servicios_query->have_posts()) {
         
         <!-- Hero Section -->
         <div class="mb-16">
-            <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block">Servicios</span>
+            <?php
+            $hero_kicker = get_field('hero_kicker') ?: 'Servicios';
+            $hero_h1_normal = get_field('hero_h1_normal') ?: 'Arquitectura Web e IA para';
+            $hero_h1_highlight = get_field('hero_h1_highlight') ?: 'Escalar tu Agencia';
+            $hero_description = get_field('hero_description') ?: 'Servicios diseñados para resolver los cuellos de botella de agencias digitales. Integramos automatización, orquestación de LLMs y desarrollo de alto rendimiento sin deuda técnica.';
+            ?>
+            <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html($hero_kicker); ?></span>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight max-w-4xl">
-                Arquitectura Web e IA para <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500">Escalar tu Agencia</span>
+                <?php echo esc_html($hero_h1_normal); ?> <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 max-w-3xl leading-relaxed">
-                Servicios diseñados para resolver los cuellos de botella de agencias digitales. Integramos automatización, orquestación de LLMs y desarrollo de alto rendimiento sin deuda técnica.
+                <?php echo esc_html($hero_description); ?>
             </p>
         </div>
 
@@ -135,22 +141,19 @@ if ($servicios_query->have_posts()) {
                     <h2 class="text-2xl font-bold text-white">Esto es para ti si...</h2>
                 </div>
                 <ul class="space-y-5 text-gray-300">
+                    <?php 
+                    $para_ti = get_field('servicios_para_ti');
+                    if(empty($para_ti)) {
+                        $para_ti = "Eres una agencia o negocio B2B que necesita escalar su operatividad sin perder calidad.\nSabes que una web debe ser rápida, segura y estar optimizada para el SEO y las IAs (GEO).\nQuieres delegar la parte técnica en un profesional que se implique, no en un \"ejecutor de tareas\".\nValoras la transparencia, el código a medida y la automatización inteligente.";
+                    }
+                    $para_ti_items = array_filter(array_map('trim', explode("\n", $para_ti)));
+                    foreach($para_ti_items as $item):
+                    ?>
                     <li class="flex items-start gap-3">
                         <span class="text-brand-400 font-bold mt-1">•</span>
-                        <span>Eres una agencia o negocio B2B que necesita escalar su operatividad sin perder calidad.</span>
+                        <span><?php echo esc_html($item); ?></span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-400 font-bold mt-1">•</span>
-                        <span>Sabes que una web debe ser rápida, segura y estar optimizada para el SEO y las IAs (GEO).</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-400 font-bold mt-1">•</span>
-                        <span>Quieres delegar la parte técnica en un profesional que se implique, no en un "ejecutor de tareas".</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-brand-400 font-bold mt-1">•</span>
-                        <span>Valoras la transparencia, el código a medida y la automatización inteligente.</span>
-                    </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             
@@ -164,18 +167,19 @@ if ($servicios_query->have_posts()) {
                     <h2 class="text-2xl font-bold text-gray-400">Y esto NO es para ti si...</h2>
                 </div>
                 <ul class="space-y-5 text-gray-500 relative z-10">
+                    <?php 
+                    $no_para_ti = get_field('servicios_no_para_ti');
+                    if(empty($no_para_ti)) {
+                        $no_para_ti = "Buscas la solución más barata posible (el típico milagro por 300€).\nQuieres plantillas genéricas sin pensar en rendimiento ni escalabilidad.\nPrefieres micro-gestionar el proyecto línea por línea. Aquí contratamos confianza mutua.";
+                    }
+                    $no_para_ti_items = array_filter(array_map('trim', explode("\n", $no_para_ti)));
+                    foreach($no_para_ti_items as $item):
+                    ?>
                     <li class="flex items-start gap-3">
                         <span class="text-red-500/50 font-bold mt-1">✕</span>
-                        <span>Buscas la solución más barata posible (el típico milagro por 300€).</span>
+                        <span><?php echo esc_html($item); ?></span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-red-500/50 font-bold mt-1">✕</span>
-                        <span>Quieres plantillas genéricas sin pensar en rendimiento ni escalabilidad.</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-red-500/50 font-bold mt-1">✕</span>
-                        <span>Prefieres micro-gestionar el proyecto línea por línea. Aquí contratamos confianza mutua.</span>
-                    </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
@@ -189,48 +193,52 @@ if ($servicios_query->have_posts()) {
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Step 1 -->
+            <?php for($i=1; $i<=4; $i++): 
+                $title = get_field('servicios_proceso_'.$i.'_titulo');
+                $desc = get_field('servicios_proceso_'.$i.'_desc');
+                
+                // Fallbacks
+                if(empty($title) && $i==1) $title = 'Diagnóstico';
+                if(empty($desc) && $i==1) $desc = 'Analizo tu situación actual, objetivos y restricciones técnicas para definir la estrategia de desarrollo correcta.';
+                
+                if(empty($title) && $i==2) $title = 'Propuesta';
+                if(empty($desc) && $i==2) $desc = 'Presento un plan técnico detallado con alcance, tiempos y costes exactos. Transparencia total, sin sorpresas ocultas.';
+                
+                if(empty($title) && $i==3) $title = 'Desarrollo';
+                if(empty($desc) && $i==3) $desc = 'Ejecuto el trabajo utilizando herramientas de IA de última generación, entregando avances verificables en cada sprint.';
+                
+                if(empty($title) && $i==4) $title = 'Entrega y Soporte';
+                if(empty($desc) && $i==4) $desc = 'Despliegue controlado en producción (Zero Downtime) con documentación completa y soporte técnico post-lanzamiento.';
+                
+                $is_last = ($i === 4);
+            ?>
+            <!-- Step <?php echo $i; ?> -->
             <div class="relative">
-                <div class="w-16 h-16 rounded-full bg-brand-500/10 border-2 border-brand-500/50 flex items-center justify-center text-brand-400 font-bold text-xl mb-6 shadow-[0_0_15px_rgba(59,130,246,0.2)]">01</div>
-                <h3 class="text-xl font-bold text-white mb-3">Diagnóstico</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Analizo tu situación actual, objetivos y restricciones técnicas para definir la estrategia de desarrollo correcta.</p>
+                <div class="w-16 h-16 rounded-full bg-brand-500/10 border-2 <?php echo $is_last ? 'border-brand-500 shadow-[0_0_20px_rgba(59,130,246,0.4)] text-white' : 'border-brand-500/50 shadow-[0_0_15px_rgba(59,130,246,0.2)] text-brand-400'; ?> flex items-center justify-center font-bold text-xl mb-6">0<?php echo $i; ?></div>
+                <h3 class="text-xl font-bold text-white mb-3"><?php echo esc_html($title); ?></h3>
+                <p class="text-gray-400 text-sm leading-relaxed"><?php echo esc_html($desc); ?></p>
+                <?php if(!$is_last): ?>
                 <div class="hidden lg:block absolute top-8 left-20 right-0 h-[2px] bg-gradient-to-r from-brand-500/50 to-transparent border-t-2 border-dashed border-gray-800"></div>
+                <?php endif; ?>
             </div>
-            
-            <!-- Step 2 -->
-            <div class="relative">
-                <div class="w-16 h-16 rounded-full bg-brand-500/10 border-2 border-brand-500/50 flex items-center justify-center text-brand-400 font-bold text-xl mb-6 shadow-[0_0_15px_rgba(59,130,246,0.2)]">02</div>
-                <h3 class="text-xl font-bold text-white mb-3">Propuesta</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Presento un plan técnico detallado con alcance, tiempos y costes exactos. Transparencia total, sin sorpresas ocultas.</p>
-                <div class="hidden lg:block absolute top-8 left-20 right-0 h-[2px] bg-gradient-to-r from-brand-500/50 to-transparent border-t-2 border-dashed border-gray-800"></div>
-            </div>
-            
-            <!-- Step 3 -->
-            <div class="relative">
-                <div class="w-16 h-16 rounded-full bg-brand-500/10 border-2 border-brand-500/50 flex items-center justify-center text-brand-400 font-bold text-xl mb-6 shadow-[0_0_15px_rgba(59,130,246,0.2)]">03</div>
-                <h3 class="text-xl font-bold text-white mb-3">Desarrollo</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Ejecuto el trabajo utilizando herramientas de IA de última generación, entregando avances verificables en cada sprint.</p>
-                <div class="hidden lg:block absolute top-8 left-20 right-0 h-[2px] bg-gradient-to-r from-brand-500/50 to-transparent border-t-2 border-dashed border-gray-800"></div>
-            </div>
-            
-            <!-- Step 4 -->
-            <div class="relative">
-                <div class="w-16 h-16 rounded-full bg-brand-500/10 border-2 border-brand-500 flex items-center justify-center text-white font-bold text-xl mb-6 shadow-[0_0_20px_rgba(59,130,246,0.4)]">04</div>
-                <h3 class="text-xl font-bold text-white mb-3">Entrega y Soporte</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">Despliegue controlado en producción (Zero Downtime) con documentación completa y soporte técnico post-lanzamiento.</p>
-            </div>
+            <?php endfor; ?>
         </div>
     </section>
 
     <!-- Unified CTA -->
     <?php
     if(function_exists('wp_ai_render_component')) {
+        $cta_h2 = get_field('cta_h2') ?: '¿Necesitas alguno de estos servicios?';
+        $cta_desc = get_field('cta_description') ?: 'El trabajo de mantenimiento web y desarrollo se vuelve sencillo cuando trabajas con el aliado técnico correcto.';
+        $cta_btn_text = get_field('cta_button_text') ?: 'Contáctame';
+        $cta_btn_url = get_field('cta_button_url') ?: '/contacto';
+        
         wp_ai_render_component('cta', 'premium-dark', [
-            'headline' => '¿Necesitas alguno de estos servicios?',
-            'subheadline' => 'El trabajo de mantenimiento web y desarrollo se vuelve sencillo cuando trabajas con el aliado técnico correcto.',
+            'headline' => $cta_h2,
+            'subheadline' => $cta_desc,
             'button' => [
-                'label' => 'Contáctame',
-                'url' => '/contacto'
+                'label' => $cta_btn_text,
+                'url' => $cta_btn_url
             ]
         ]);
     }

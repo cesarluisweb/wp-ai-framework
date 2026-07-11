@@ -10,14 +10,20 @@ get_header();
         
         <!-- Header Section -->
         <div class="text-center max-w-3xl mx-auto mb-20">
+            <?php
+            $hero_kicker = get_field('hero_kicker') ?: 'Blog y Recursos';
+            $hero_h1_normal = get_field('hero_h1_normal') ?: 'Reflexiones sobre';
+            $hero_h1_highlight = get_field('hero_h1_highlight') ?: 'Ingeniería Web';
+            $hero_description = get_field('hero_description') ?: 'Artículos, tutoriales y análisis técnicos sobre rendimiento web, WordPress avanzado, y arquitecturas escalables.';
+            ?>
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6">
-                Blog y Recursos
+                <?php echo esc_html($hero_kicker); ?>
             </span>
             <h1 class="text-4xl md:text-6xl font-black text-white mb-8 leading-tight tracking-tight">
-                Reflexiones sobre <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">Ingeniería Web</span>
+                <?php echo esc_html($hero_h1_normal); ?> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 leading-relaxed">
-                Artículos, tutoriales y análisis técnicos sobre rendimiento web, WordPress avanzado, y arquitecturas escalables.
+                <?php echo esc_html($hero_description); ?>
             </p>
         </div>
 
@@ -42,7 +48,7 @@ get_header();
         </div>
 
         <!-- Blog Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="blog-grid">
+        <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-20">
             <?php
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
             $blog_args = [
@@ -56,104 +62,81 @@ get_header();
             if ($blog_query->have_posts()) :
                 while ($blog_query->have_posts()) : $blog_query->the_post();
                     
-                    // Categorías para el filtro
-                    $cats = get_the_category();
-                    $cat_slugs = [];
-                    $cat_name = '';
-                    if (!empty($cats)) {
-                        foreach ($cats as $c) {
-                            $cat_slugs[] = $c->slug;
-                        }
-                        $cat_name = $cats[0]->name;
-                    }
-            ?>
-            <div class="blog-card group flex flex-col bg-gray-900/40 backdrop-blur-sm border border-gray-800/60 rounded-3xl overflow-hidden hover:border-brand-500/50 hover:bg-gray-900 transition-all duration-500 hover:-translate-y-2 shadow-xl hover:shadow-brand-500/10" data-categories="<?php echo esc_attr(implode(',', $cat_slugs)); ?>">
-                <a href="<?php the_permalink(); ?>" class="flex flex-col h-full">
-                    
-                    <!-- Visual Area (Mismo estilo que portafolio) -->
-                    <div class="relative w-full aspect-[16/10] bg-gray-950 overflow-hidden flex-shrink-0">
-                        <!-- Decorative Pattern -->
-                        <div class="absolute inset-0 opacity-20 z-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 24px 24px;"></div>
-                        
-                        <?php if (has_post_thumbnail()) : ?>
-                            <div class="absolute inset-0 z-10 p-6 flex flex-col justify-end">
-                                <div class="w-full h-full relative rounded-xl overflow-hidden border border-gray-700/50 shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
-                                    <?php the_post_thumbnail('large', ['class' => 'absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700']); ?>
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            <!-- Fallback Image / Gradient -->
-                            <div class="absolute inset-0 z-10 p-6 flex flex-col justify-end">
-                                <div class="w-full h-full relative rounded-xl overflow-hidden border border-gray-700/50 shadow-2xl bg-gradient-to-br from-gray-800 to-gray-950 group-hover:-translate-y-2 transition-transform duration-500 flex items-center justify-center">
-                                    <svg class="w-12 h-12 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5L18.5 7M4 15l8-8 8 8"></path></svg>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    
-                    <!-- Content Area -->
-                    <div class="p-8 flex-grow flex flex-col relative z-20">
-                        <!-- Top left corner glow effect -->
-                        <div class="absolute top-0 left-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl -translate-x-16 -translate-y-16 group-hover:bg-brand-500/10 transition-colors duration-500"></div>
-
-                        <?php if ($cat_name) : ?>
-                            <span class="text-brand-400 text-xs font-black uppercase tracking-[0.15em] mb-3 block relative z-10">
-                                <?php echo esc_html($cat_name); ?>
-                            </span>
-                        <?php endif; ?>
-                        
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-brand-300 transition-colors duration-300 leading-snug relative z-10">
-                            <?php the_title(); ?>
-                        </h3>
-                        
-                        <!-- Description excerpt -->
-                        <div class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow line-clamp-3 relative z-10">
-                            <?php 
-                                $excerpt = get_the_excerpt();
-                                if(empty($excerpt)) {
-                                    $content = get_the_content();
-                                    $content = strip_tags($content);
-                                    echo wp_trim_words($content, 22);
-                                } else {
-                                    echo wp_trim_words($excerpt, 22);
-                                }
-                            ?>
-                        </div>
-                        
-                        <!-- Footer of Card -->
-                        <div class="mt-auto pt-6 border-t border-gray-800/60 flex items-center justify-between relative z-10">
-                            <span class="text-gray-500 text-xs font-medium uppercase tracking-wider">
-                                <?php echo get_the_date('d M Y'); ?>
-                            </span>
-                            
-                            <!-- Arrow Icon -->
-                            <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-brand-500 group-hover:text-gray-950 transition-all duration-300 transform group-hover:scale-110">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <?php
+                    get_template_part('components/blog/card');
                 endwhile;
             ?>
         </div>
         
-        <!-- Pagination -->
-        <div class="mt-16 flex justify-center">
-            <?php 
-            echo paginate_links([
-                'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
-                'format' => '?paged=%#%',
-                'current' => max(1, get_query_var('paged')),
-                'total' => $blog_query->max_num_pages,
-                'prev_text' => '&laquo; Anterior',
-                'next_text' => 'Siguiente &raquo;',
-                'type' => 'list',
-                'class' => 'flex gap-2 pagination-links'
-            ]); 
-            ?>
-        </div>
+        <!-- Pagination (Load More Button) -->
+        <?php if ($blog_query->max_num_pages > 1) : ?>
+            <div class="mt-20 text-center relative z-20">
+                <button id="load-more-blog" 
+                        data-page="1" 
+                        data-max="<?php echo $blog_query->max_num_pages; ?>" 
+                        class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group">
+                    <span class="btn-text">Cargar más artículos</span>
+                    <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                    <!-- Spinner SVG (oculto por defecto) -->
+                    <svg class="w-5 h-5 ml-2 animate-spin hidden btn-spinner" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                </button>
+            </div>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const loadMoreBtn = document.getElementById('load-more-blog');
+                if(!loadMoreBtn) return;
+                
+                loadMoreBtn.addEventListener('click', function() {
+                    const btn = this;
+                    let currentPage = parseInt(btn.getAttribute('data-page'));
+                    const maxPages = parseInt(btn.getAttribute('data-max'));
+                    const grid = document.getElementById('blog-grid');
+                    
+                    if (currentPage >= maxPages) return;
+                    
+                    // UI Loading state
+                    btn.classList.add('opacity-75', 'cursor-not-allowed');
+                    btn.querySelector('.btn-icon').classList.add('hidden');
+                    btn.querySelector('.btn-spinner').classList.remove('hidden');
+                    btn.querySelector('.btn-text').textContent = 'Cargando...';
+                    
+                    const nextPage = currentPage + 1;
+                    
+                    // Ajax request
+                    const formData = new FormData();
+                    formData.append('action', 'load_more_posts');
+                    formData.append('page', nextPage);
+                    
+                    fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data) {
+                            grid.insertAdjacentHTML('beforeend', data);
+                            btn.setAttribute('data-page', nextPage);
+                            
+                            if (nextPage >= maxPages) {
+                                btn.parentElement.remove();
+                            } else {
+                                // Restore UI
+                                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                                btn.querySelector('.btn-icon').classList.remove('hidden');
+                                btn.querySelector('.btn-spinner').classList.add('hidden');
+                                btn.querySelector('.btn-text').textContent = 'Cargar más artículos';
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+            </script>
+        <?php endif; ?>
         <?php
             wp_reset_postdata();
             else :

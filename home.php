@@ -7,18 +7,25 @@ get_header();
 ?>
 
 <main class="pt-32 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
-    <div class="max-w-[1400px] mx-auto px-6 lg:px-8">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-8" id="blog-container" data-nonce="<?php echo wp_create_nonce('blog_ajax_nonce'); ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">
         
         <!-- Header Section -->
         <div class="text-center max-w-3xl mx-auto mb-20">
+            <?php
+            $blog_page_id = get_option('page_for_posts');
+            $hero_kicker = get_field('hero_kicker', $blog_page_id) ?: 'Blog y Recursos';
+            $hero_h1_normal = get_field('hero_h1_normal', $blog_page_id) ?: 'Reflexiones sobre';
+            $hero_h1_highlight = get_field('hero_h1_highlight', $blog_page_id) ?: 'Ingeniería Web';
+            $hero_description = get_field('hero_description', $blog_page_id) ?: 'Artículos, tutoriales y análisis técnicos sobre rendimiento web, WordPress avanzado, y arquitecturas escalables.';
+            ?>
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6">
-                Blog y Recursos
+                <?php echo esc_html($hero_kicker); ?>
             </span>
             <h1 class="text-4xl md:text-6xl font-black text-white mb-8 leading-tight tracking-tight">
-                Reflexiones sobre <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">Ingeniería Web</span>
+                <?php echo esc_html($hero_h1_normal); ?> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 leading-relaxed">
-                Artículos, tutoriales y análisis técnicos sobre rendimiento web, WordPress avanzado, y arquitecturas escalables.
+                <?php echo esc_html($hero_description); ?>
             </p>
         </div>
 
@@ -48,85 +55,7 @@ get_header();
             if (have_posts()) :
                 while (have_posts()) : the_post();
                     
-                    // Categorías para el filtro
-                    $cats = get_the_category();
-                    $cat_slugs = [];
-                    $cat_name = '';
-                    if (!empty($cats)) {
-                        foreach ($cats as $c) {
-                            $cat_slugs[] = $c->slug;
-                        }
-                        $cat_name = $cats[0]->name;
-                    }
-            ?>
-            <div class="blog-card group flex flex-col bg-gray-900/40 backdrop-blur-sm border border-gray-800/60 rounded-3xl overflow-hidden hover:border-brand-500/50 hover:bg-gray-900 transition-all duration-500 hover:-translate-y-2 shadow-xl hover:shadow-brand-500/10" data-categories="<?php echo esc_attr(implode(',', $cat_slugs)); ?>">
-                <a href="<?php the_permalink(); ?>" class="flex flex-col h-full">
-                    
-                    <!-- Visual Area -->
-                    <div class="relative w-full aspect-[16/10] bg-gray-950 overflow-hidden flex-shrink-0">
-                        <!-- Decorative Pattern -->
-                        <div class="absolute inset-0 opacity-20 z-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 24px 24px;"></div>
-                        
-                        <?php if (has_post_thumbnail()) : ?>
-                            <div class="absolute inset-0 z-10 p-6 flex flex-col justify-end">
-                                <div class="w-full h-full relative rounded-xl overflow-hidden border border-gray-700/50 shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
-                                    <?php the_post_thumbnail('large', ['class' => 'absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700']); ?>
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            <!-- Fallback Image / Gradient -->
-                            <div class="absolute inset-0 z-10 p-6 flex flex-col justify-end">
-                                <div class="w-full h-full relative rounded-xl overflow-hidden border border-gray-700/50 shadow-2xl bg-gradient-to-br from-gray-800 to-gray-950 group-hover:-translate-y-2 transition-transform duration-500 flex items-center justify-center">
-                                    <svg class="w-12 h-12 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5L18.5 7M4 15l8-8 8 8"></path></svg>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    
-                    <!-- Content Area -->
-                    <div class="p-8 flex-grow flex flex-col relative z-20">
-                        <!-- Top left corner glow effect -->
-                        <div class="absolute top-0 left-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl -translate-x-16 -translate-y-16 group-hover:bg-brand-500/10 transition-colors duration-500"></div>
-
-                        <?php if ($cat_name) : ?>
-                            <span class="text-brand-400 text-xs font-black uppercase tracking-[0.15em] mb-3 block relative z-10">
-                                <?php echo esc_html($cat_name); ?>
-                            </span>
-                        <?php endif; ?>
-                        
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-brand-300 transition-colors duration-300 leading-snug relative z-10">
-                            <?php the_title(); ?>
-                        </h3>
-                        
-                        <!-- Description excerpt -->
-                        <div class="text-gray-400 text-sm leading-relaxed mb-8 flex-grow line-clamp-3 relative z-10">
-                            <?php 
-                                $excerpt = get_the_excerpt();
-                                if(empty($excerpt)) {
-                                    $content = get_the_content();
-                                    $content = strip_tags($content);
-                                    echo wp_trim_words($content, 22);
-                                } else {
-                                    echo wp_trim_words($excerpt, 22);
-                                }
-                            ?>
-                        </div>
-                        
-                        <!-- Footer of Card -->
-                        <div class="mt-auto pt-6 border-t border-gray-800/60 flex items-center justify-between relative z-10">
-                            <span class="text-gray-500 text-xs font-medium uppercase tracking-wider">
-                                <?php echo get_the_date('d M Y'); ?>
-                            </span>
-                            
-                            <!-- Arrow Icon -->
-                            <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-brand-500 group-hover:text-gray-950 transition-all duration-300 transform group-hover:scale-110">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <?php
+                    get_template_part('components/blog/card');
                 endwhile;
             else :
             ?>
@@ -137,17 +66,27 @@ get_header();
             <?php endif; ?>
         </div>
         
-        <!-- Pagination -->
-        <div class="mt-16 flex justify-center">
-            <?php 
-            echo paginate_links([
-                'prev_text' => '&laquo; Anterior',
-                'next_text' => 'Siguiente &raquo;',
-                'type' => 'list',
-                'class' => 'flex gap-2 pagination-links'
-            ]); 
-            ?>
+            
+
+
+        <!-- Pagination (Load More Button) -->
+        <div id="load-more-container" class="mt-20 text-center relative z-20 <?php echo ($wp_query->max_num_pages <= 1) ? 'hidden' : ''; ?>">
+            <button id="load-more-blog" 
+                    data-page="1" 
+                    data-max="<?php echo $wp_query->max_num_pages; ?>" 
+                    class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group cursor-pointer">
+                <span class="btn-text">Cargar más artículos</span>
+                <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+                <!-- Spinner SVG (oculto por defecto) -->
+                <svg class="w-5 h-5 ml-2 animate-spin hidden btn-spinner" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+            </button>
         </div>
+        
+        <div class="py-12 lg:py-16"></div> <!-- Espaciador entre blog y CTA -->
 
     </div> <!-- Close max-w container -->
 
@@ -168,15 +107,128 @@ get_header();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const filters = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.blog-card');
+    const container = document.getElementById('blog-container');
+    if (!container) return;
     
-    if (filters.length > 0 && cards.length > 0) {
+    const ajaxUrl = container.getAttribute('data-ajaxurl');
+    const nonce = container.getAttribute('data-nonce');
+    const grid = document.getElementById('blog-grid');
+    const loadMoreBtn = document.getElementById('load-more-blog');
+    const loadMoreContainer = document.getElementById('load-more-container');
+    const filters = document.querySelectorAll('.filter-btn');
+    
+    let activeCategory = '*';
+    let isFetching = false;
+
+    // Función centralizada para hacer el fetching
+    function fetchBlogPosts(page, category, isLoadMore) {
+        if (isFetching) return;
+        isFetching = true;
+
+        if (!isLoadMore) {
+            // Estado de carga inicial (Skeleton o Spinner visual para el grid)
+            grid.style.opacity = '0.5';
+        } else {
+            // Estado de carga para el botón
+            loadMoreBtn.classList.add('opacity-75', 'cursor-not-allowed');
+            loadMoreBtn.querySelector('.btn-icon').classList.add('hidden');
+            loadMoreBtn.querySelector('.btn-spinner').classList.remove('hidden');
+            loadMoreBtn.querySelector('.btn-text').textContent = 'Cargando...';
+        }
+
+        const formData = new FormData();
+        formData.append('action', 'load_more_posts');
+        formData.append('page', page);
+        formData.append('category', category);
+        formData.append('security', nonce);
+
+        fetch(ajaxUrl, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(res => {
+            if (res.success) {
+                const data = res.data;
+                
+                if (!isLoadMore) {
+                    // Si es un filtro, reemplazamos el grid completo
+                    grid.innerHTML = data.html;
+                    grid.style.opacity = '1';
+                    
+                    // Animación de entrada GSAP-like (usando Web Animations API)
+                    const newCards = grid.querySelectorAll('.blog-card');
+                    newCards.forEach((card, i) => {
+                        card.animate([
+                            { opacity: 0, transform: 'translateY(20px)' },
+                            { opacity: 1, transform: 'translateY(0)' }
+                        ], {
+                            duration: 400,
+                            delay: i * 50,
+                            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            fill: 'both'
+                        });
+                    });
+                } else {
+                    // Si es "Cargar más", anexamos los resultados
+                    grid.insertAdjacentHTML('beforeend', data.html);
+                }
+
+                // Actualizar paginación
+                if (loadMoreBtn) {
+                    loadMoreBtn.setAttribute('data-page', page);
+                    loadMoreBtn.setAttribute('data-max', data.max_pages);
+
+                    if (page >= data.max_pages) {
+                        loadMoreContainer.classList.add('hidden');
+                    } else {
+                        loadMoreContainer.classList.remove('hidden');
+                        
+                        // Restaurar UI del botón
+                        loadMoreBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                        loadMoreBtn.querySelector('.btn-icon').classList.remove('hidden');
+                        loadMoreBtn.querySelector('.btn-spinner').classList.add('hidden');
+                        loadMoreBtn.querySelector('.btn-text').textContent = 'Cargar más artículos';
+                    }
+                }
+                
+                // Mensaje si no hay resultados en el filtro
+                if(data.html.trim() === '') {
+                    grid.innerHTML = `
+                    <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
+                        <h3 class="text-2xl font-bold text-white mb-2">No se encontraron artículos</h3>
+                        <p class="text-gray-400">Aún no hay contenido publicado en esta categoría.</p>
+                    </div>`;
+                }
+
+            }
+        })
+        .catch(error => console.error('Error fetching posts:', error))
+        .finally(() => {
+            isFetching = false;
+        });
+    }
+
+    // Evento de "Cargar más"
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            let currentPage = parseInt(this.getAttribute('data-page'));
+            const maxPages = parseInt(this.getAttribute('data-max'));
+            
+            if (currentPage >= maxPages) return;
+            fetchBlogPosts(currentPage + 1, activeCategory, true);
+        });
+    }
+
+    // Eventos de Filtro
+    if (filters.length > 0) {
         filters.forEach(filter => {
             filter.addEventListener('click', function() {
-                const filterValue = this.getAttribute('data-filter');
+                if(isFetching) return;
                 
-                // Update button styles
+                activeCategory = this.getAttribute('data-filter');
+                
+                // Actualizar estilos de los botones
                 filters.forEach(f => {
                     f.classList.remove('bg-brand-500', 'text-gray-950', 'border-brand-500', 'shadow-[0_0_20px_rgba(var(--brand-500-rgb),0.3)]');
                     f.classList.add('bg-gray-900/50', 'border-gray-800', 'text-gray-400');
@@ -184,37 +236,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.classList.remove('bg-gray-900/50', 'border-gray-800', 'text-gray-400');
                 this.classList.add('bg-brand-500', 'text-gray-950', 'border-brand-500', 'shadow-[0_0_20px_rgba(var(--brand-500-rgb),0.3)]');
                 
-                // Filter logic
-                cards.forEach(card => {
-                    const categories = card.getAttribute('data-categories').split(',');
-                    
-                    if (filterValue === '*' || categories.includes(filterValue)) {
-                        card.style.display = 'flex';
-                        card.animate([
-                            { opacity: 0, transform: 'translateY(20px)' },
-                            { opacity: 1, transform: 'translateY(0)' }
-                        ], {
-                            duration: 400,
-                            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                            fill: 'both'
-                        });
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                // Fetch página 1 de la nueva categoría
+                fetchBlogPosts(1, activeCategory, false);
             });
         });
     }
 });
 </script>
-
-<style>
-/* Estilos básicos para paginación de WordPress si la hay */
-.pagination-links ul { display: flex; gap: 0.5rem; justify-content: center; align-items: center; }
-.pagination-links li { list-style: none; }
-.pagination-links a, .pagination-links span { padding: 0.5rem 1rem; border-radius: 0.5rem; background: rgba(17, 24, 39, 0.5); border: 1px solid rgba(31, 41, 55, 1); color: #9ca3af; transition: all 0.3s ease; }
-.pagination-links a:hover { background: rgba(31, 41, 55, 1); color: white; border-color: rgba(75, 85, 99, 1); }
-.pagination-links .current { background: var(--color-brand-500); color: #0a0a0a; border-color: var(--color-brand-500); font-weight: bold; }
-</style>
 
 <?php get_footer(); ?>

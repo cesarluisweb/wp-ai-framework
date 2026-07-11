@@ -135,35 +135,53 @@ get_header();
     </section>
 
     <!-- Stack Tecnológico -->
-    <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-32">
-        <div class="bg-gray-900/50 border border-gray-800 rounded-3xl p-8 lg:p-12">
-            <h2 class="text-2xl font-bold text-white mb-8 text-center">Ecosistema & Stack Core</h2>
-            <div class="flex flex-wrap gap-4 justify-center">
-                <?php
-                $tech_stack = function_exists('wp_ai_get_core_tech_stack') ? wp_ai_get_core_tech_stack() : [];
-                
-                foreach ($tech_stack as $tech) : ?>
-                    <div class="bg-gray-950 border border-gray-800 rounded-full px-6 py-3 flex items-center gap-3 hover:border-brand-500/50 transition-colors">
-                        <?php if ($tech['icon'] === 'learndash') : ?>
-                            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.905 59.905 0 0 1 12 3.493a59.902 59.902 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
-                            </svg>
-                        <?php elseif ($tech['icon'] === 'cloud') : ?>
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
-                            </svg>
-                        <?php elseif ($tech['icon'] === 'antigravity') : ?>
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0L7 10m5-5l5 5" />
-                                <ellipse cx="12" cy="15" rx="6" ry="2" stroke="currentColor" />
-                            </svg>
-                        <?php else : ?>
-                            <img src="https://cdn.simpleicons.org/<?php echo $tech['icon']; ?>/ffffff" alt="<?php echo $tech['name']; ?>" class="h-6 w-auto object-contain max-w-[24px]" width="24" height="24" />
-                        <?php endif; ?>
-                        <span class="text-gray-300 text-sm font-medium"><?php echo $tech['name']; ?></span>
-                    </div>
-                <?php endforeach; ?>
+    <section class="mb-32">
+        <div class="max-w-[1400px] mx-auto px-6 lg:px-8">
+            <!-- Desktop/Tablet Version (Card) -->
+            <div class="hidden md:block bg-gray-900/50 border border-gray-800 rounded-3xl p-8 lg:p-12">
+                <h2 class="text-2xl font-bold text-white mb-8 text-center">Ecosistema & Stack Core</h2>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <?php
+                    $tech_stack = function_exists('wp_ai_get_core_tech_stack') ? wp_ai_get_core_tech_stack() : [];
+                    
+                    foreach ($tech_stack as $tech) : ?>
+                        <div class="bg-gray-950 border border-gray-800 rounded-full px-6 py-3 flex items-center gap-3 hover:border-brand-500/50 transition-colors">
+                            <?php if ($tech['icon'] === 'learndash') : ?>
+                                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.905 59.905 0 0 1 12 3.493a59.902 59.902 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                                </svg>
+                            <?php elseif ($tech['icon'] === 'cloud') : ?>
+                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
+                                </svg>
+                            <?php elseif ($tech['icon'] === 'antigravity') : ?>
+                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0L7 10m5-5l5 5" />
+                                    <ellipse cx="12" cy="15" rx="6" ry="2" stroke="currentColor" />
+                                </svg>
+                            <?php else : ?>
+                                <img src="https://cdn.simpleicons.org/<?php echo $tech['icon']; ?>/ffffff" alt="<?php echo $tech['name']; ?>" class="h-6 w-auto object-contain max-w-[24px]" width="24" height="24" />
+                            <?php endif; ?>
+                            <span class="text-gray-300 text-sm font-medium"><?php echo $tech['name']; ?></span>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
+
+            <!-- Mobile Version (Title Only) -->
+            <div class="md:hidden">
+                <h2 class="text-2xl font-bold text-white mb-6 text-center">Ecosistema & Stack Core</h2>
+            </div>
+        </div>
+
+        <!-- Mobile Marquee Full Width -->
+        <div class="md:hidden">
+            <?php 
+            $tech_stack = function_exists('wp_ai_get_core_tech_stack') ? wp_ai_get_core_tech_stack() : [];
+            if(!empty($tech_stack) && function_exists('wp_ai_render_component')) {
+                wp_ai_render_component('marquee', 'premium-dark', ['items' => $tech_stack]);
+            }
+            ?>
         </div>
     </section>
 
@@ -254,8 +272,8 @@ get_header();
 
     <!-- Valores Section -->
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
-        <div class="flex flex-col md:flex-row gap-12 items-center bg-gray-900/30 border border-gray-800/50 rounded-3xl p-8 lg:p-12">
-            <div class="max-w-2xl">
+        <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center bg-gray-900/30 border border-gray-800/50 rounded-3xl p-8 lg:p-12">
+            <div class="max-w-2xl order-2 md:order-1">
                 <h2 class="text-3xl font-bold text-white mb-6"><?php echo esc_html(get_field('sobre_mi_valores_headline') ?: 'Mis Valores'); ?></h2>
                 <div class="prose prose-invert text-gray-300">
                     <?php if (get_field('sobre_mi_valores_text')) : ?>
@@ -270,9 +288,9 @@ get_header();
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="flex-1 flex justify-center">
-                <div class="w-24 h-24 lg:w-32 lg:h-32 rounded-full bg-brand-500/10 flex items-center justify-center border border-brand-500/20">
-                    <svg class="w-10 h-10 lg:w-12 lg:h-12 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex-1 flex justify-start md:justify-center order-1 md:order-2 w-full md:w-auto">
+                <div class="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full bg-brand-500/10 flex items-center justify-center border border-brand-500/20">
+                    <svg class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                     </svg>
                 </div>

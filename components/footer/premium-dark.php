@@ -89,10 +89,19 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
                         </a>
                     </li>
                     <?php endif; ?>
-                    <?php if (!empty($contact_phone)): ?>
+                    <?php 
+                    $wa_number = get_option('wp_ai_social_whatsapp');
+                    if (empty($wa_number)) {
+                        $wa_number = $contact_phone;
+                    }
+                    if (!empty($wa_number)): 
+                        $wa_clean = preg_replace('/[^0-9]/', '', $wa_number);
+                        $wa_link = 'https://wa.me/' . $wa_clean;
+                    ?>
                     <li>
-                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_phone)); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
-                            <?php echo esc_html($contact_phone); ?>
+                        <a href="<?php echo esc_url($wa_link); ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg>
+                            Chat vía WhatsApp
                         </a>
                     </li>
                     <?php endif; ?>
@@ -171,7 +180,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
     }
     if (!empty($whatsapp_url)) : ?>
     <a href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-brand-500 hover:bg-brand-400 text-white rounded-full p-4 shadow-lg flex items-center justify-center transition-colors duration-300" aria-label="WhatsApp">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946C.056 5.348 5.399.01 12.01.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.731-1.464L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.451 5.424 0 9.835-4.409 9.838-9.832.002-2.628-1.022-5.097-2.883-6.958C16.474 1.954 14.008 1.93 11.98 1.93c-5.422 0-9.832 4.409-9.835 9.832-.001 1.765.483 3.42 1.4 4.9L2.52 21.05l4.127-1.896zm12.39-7.397c-.328-.164-1.94-.959-2.242-1.07-.301-.109-.522-.164-.74.164-.219.329-.848 1.07-1.066 1.399-.177.23-.356.246-.684.082-.328-.164-1.386-.51-2.64-1.627-.974-.871-1.632-1.947-1.823-2.275-.192-.329-.02-.507.144-.671.148-.148.328-.383.493-.575.164-.192.219-.328.328-.548.11-.219.055-.411-.027-.575-.083-.164-.74-1.782-1.013-2.44-.266-.64-.56-.554-.74-.564-.17-.008-.37-.01-.57-.01-.2 0-.523.074-.797.373-.273.3-1.045 1.02-1.045 2.487 0 1.468 1.07 2.885 1.218 3.085.149.2 2.11 3.22 5.11 4.517.714.31 1.272.494 1.707.633.717.227 1.37.195 1.887.118.577-.087 1.777-.726 2.025-1.428.248-.702.248-1.302.174-1.428-.074-.127-.273-.2-.601-.365z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg>
     </a>
 <?php endif; ?>
 </footer>

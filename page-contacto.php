@@ -68,10 +68,18 @@ get_header();
         
         <!-- Hero Section -->
         <div class="text-center mb-16">
-            <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block">Contacto</span>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Hablemos de tu proyecto</h1>
+            <?php
+            $hero_kicker = get_field('hero_kicker') ?: 'Contacto';
+            $hero_h1_normal = get_field('hero_h1_normal') ?: 'Hablemos de tu';
+            $hero_h1_highlight = get_field('hero_h1_highlight') ?: 'proyecto';
+            $hero_description = get_field('hero_description') ?: 'Cuéntame qué necesitas. Ya sea un sitio web a medida, una integración con IA o mantenimiento web continuo, te responderé en menos de 24 horas.';
+            ?>
+            <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html($hero_kicker); ?></span>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                <?php echo esc_html($hero_h1_normal); ?> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html($hero_h1_highlight); ?></span>
+            </h1>
             <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                Cuéntame qué necesitas. Ya sea un sitio web a medida, una integración con IA o mantenimiento web continuo, te responderé en menos de 24 horas.
+                <?php echo esc_html($hero_description); ?>
             </p>
         </div>
 
@@ -174,7 +182,7 @@ get_header();
                                       placeholder="Describe brevemente tus objetivos, plazos y cualquier restricción técnica..."></textarea>
                         </div>
 
-                        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-full transition-colors flex justify-center items-center gap-2">
+                        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-xl transition-colors flex justify-center items-center gap-2 cursor-pointer">
                             <span>Enviar Mensaje</span>
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -188,65 +196,77 @@ get_header();
             <div class="lg:w-5/12 space-y-8">
                 
                 <!-- Contact Info Card -->
+                <!-- Contact Info Card -->
                 <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-white mb-6">Información Directa</h3>
+                    <h3 class="text-xl font-bold text-white mb-6">Contacto Directo</h3>
                     
                     <div class="space-y-4">
                         <?php
                         $contact_email = get_option('wp_ai_contact_email', 'info@cesarluis.com');
                         if (!empty($contact_email)):
                         ?>
-                        <div class="flex items-start gap-4 py-4 border-b border-gray-800">
-                            <div class="bg-brand-500/10 p-3 rounded-full shrink-0 text-brand-400">
+                        <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="flex items-center gap-4 py-4 border-b border-gray-800 border-dashed group hover:border-brand-500/30 transition-colors">
+                            <div class="bg-brand-500/10 p-3 rounded-xl shrink-0 text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-sm text-gray-500 mb-1">Email</div>
-                                <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="text-white hover:text-brand-400 transition-colors font-medium"><?php echo esc_html($contact_email); ?></a>
+                                <div class="text-sm text-gray-500 mb-1">Email Profesional</div>
+                                <div class="text-white font-medium"><?php echo esc_html($contact_email); ?></div>
                             </div>
-                        </div>
+                        </a>
                         <?php endif; ?>
 
                         <?php 
-                        if (function_exists('wp_ai_get_social_links')) {
-                            $socials = wp_ai_get_social_links();
-                            foreach ($socials as $key => $social) {
-                                ?>
-                                <div class="flex items-start gap-4 py-4 border-b border-gray-800">
-                                    <div class="bg-brand-500/10 p-3 rounded-full shrink-0 text-brand-400">
-                                        <?php echo $social['icon']; // SVG ?>
-                                    </div>
-                                    <div>
-                                        <div class="text-sm text-gray-500 mb-1"><?php echo esc_html($social['platform']); ?></div>
-                                        <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brand-400 transition-colors font-medium">
-                                            <?php 
-                                            $display_url = str_replace(['https://', 'http://', 'www.'], '', $social['url']);
-                                            echo esc_html(rtrim($display_url, '/')); 
-                                            ?>
-                                        </a>
-                                    </div>
-                                </div>
-                                <?php
-                            }
+                        $wa_number = get_option('wp_ai_social_whatsapp');
+                        $contact_phone = get_option('wp_ai_contact_phone');
+                        if (empty($wa_number)) {
+                            $wa_number = $contact_phone;
                         }
+                        if (!empty($wa_number)): 
+                            $wa_clean = preg_replace('/[^0-9]/', '', $wa_number);
+                            $wa_link = 'https://wa.me/' . $wa_clean;
                         ?>
-
-                        <div class="flex items-start gap-4 py-4 border-b border-gray-800">
-                            <div class="bg-brand-500/10 p-3 rounded-full shrink-0">
-                                <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                        <a href="<?php echo esc_url($wa_link); ?>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 pt-4 group transition-colors">
+                            <div class="bg-brand-500/10 p-3 rounded-xl shrink-0 text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg>
                             </div>
                             <div>
-                                <div class="text-sm text-gray-500 mb-1">Zona Horaria & Tiempos</div>
-                                <div class="text-white font-medium">UTC-4 (Caribe/Venezuela)</div>
-                                <div class="text-sm text-gray-400 mt-1">Respuesta en &lt; 24h laborables</div>
+                                <div class="text-sm text-gray-500 mb-1">WhatsApp</div>
+                                <div class="text-white font-medium">Chat Directo</div>
                             </div>
-                        </div>
+                        </a>
+                        <?php endif; ?>
                     </div>
                 </div>
+
+                <!-- Socials Card -->
+                <?php if (function_exists('wp_ai_get_social_links')): 
+                    $socials = wp_ai_get_social_links();
+                    if (!empty($socials)):
+                ?>
+                <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8">
+                    <h3 class="text-xl font-bold text-white mb-6">Redes Sociales</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <?php foreach ($socials as $key => $social): ?>
+                        <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" 
+                           class="bg-gray-950 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 text-gray-400 hover:text-brand-400 p-4 rounded-xl transition-all duration-300 transform hover:-translate-y-1"
+                           aria-label="<?php echo esc_attr($social['platform']); ?>">
+                            <?php 
+                            // Render icon ensuring standard width for uniformity
+                            $icon = $social['icon'];
+                            $icon = str_replace('w-5 h-5', 'w-6 h-6', $icon);
+                            echo $icon; 
+                            ?>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php 
+                    endif;
+                endif; 
+                ?>
 
                 <!-- Random Testimonial Card -->
                 <?php
@@ -295,71 +315,34 @@ get_header();
     </section>
     <!-- FAQ Section -->
     <?php
-    $faq_query = new WP_Query([
+    $faq_arr = [];
+    $args_f = [
         'post_type' => 'faq',
         'posts_per_page' => -1,
         'orderby' => 'menu_order date',
         'order' => 'ASC'
-    ]);
-    
-    if ($faq_query->have_posts()) :
-        $questions = [];
-        while ($faq_query->have_posts()) {
-            $faq_query->the_post();
-            $questions[] = [
+    ];
+    $q_f = new WP_Query($args_f);
+    if ($q_f->have_posts()) {
+        while($q_f->have_posts()) {
+            $q_f->the_post();
+            $faq_arr[] = [
                 'question' => get_the_title(),
-                'answer' => get_the_content()
+                'answer' => apply_filters('the_content', get_the_content())
             ];
         }
         wp_reset_postdata();
-        
-        // GEO/SEO: FAQPage Schema JSON-LD Generator
-        $faq_schema = [
-            '@context' => 'https://schema.org',
-            '@type' => 'FAQPage',
-            'mainEntity' => []
-        ];
-        foreach ( $questions as $item ) {
-            $faq_schema['mainEntity'][] = [
-                '@type' => 'Question',
-                'name' => strip_tags( $item['question'] ),
-                'acceptedAnswer' => [
-                    '@type' => 'Answer',
-                    'text' => strip_tags( $item['answer'] )
-                ]
-            ];
-        }
-        ?>
-        <script type="application/ld+json">
-        <?php echo json_encode( $faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ); ?>
-        </script>
-
-        <section id="faq" class="py-24 lg:py-32 bg-gray-950 relative border-t border-gray-900 mt-24">
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(0,169,204,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
-            <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 relative z-10">
-                <div class="max-w-3xl mb-16 lg:mb-20 text-center mx-auto">
-                    <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Preguntas Frecuentes</span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">Preguntas habituales antes de empezar</h2>
-                    <p class="mt-5 text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">Despeja tus dudas sobre tiempos, flujo de trabajo, comunicación y costes antes de enviar el formulario.</p>
-                </div>
-                <div class="max-w-4xl mx-auto space-y-4">
-                    <?php foreach ( $questions as $item ) : ?>
-                        <details class="group bg-gray-900/30 border border-gray-800/80 rounded-3xl p-6 transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:bg-gray-900/80 open:border-brand-500/30">
-                            <summary class="flex justify-between items-center font-bold text-white text-lg md:text-xl cursor-pointer select-none">
-                                <span><?php echo esc_html( $item['question'] ); ?></span>
-                                <span class="ml-4 transition-transform duration-300 group-open:-rotate-180 shrink-0">
-                                    <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="mt-4 text-gray-400 leading-relaxed text-base md:text-lg border-t border-gray-800/60 pt-4 [&>p]:mb-4 [&>p:last-child]:mb-0">
-                                <?php echo wp_kses_post( $item['answer'] ); ?>
-                            </div>
-                        </details>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </section>
-    <?php endif; ?>
+    }
+    
+    if (!empty($faq_arr)) {
+        if(function_exists('wp_ai_render_component')) wp_ai_render_component('faq', 'premium-dark', [
+            'section_kicker' => 'Preguntas Frecuentes',
+            'section_title' => get_field('contacto_faq_titulo') ?: 'Preguntas habituales antes de empezar', // Fallback
+            'section_description' => get_field('contacto_faq_desc') ?: 'Despeja tus dudas sobre tiempos, flujo de trabajo, comunicación y costes antes de enviar el formulario.',
+            'questions' => $faq_arr
+        ]);
+    }
+    ?>
 </main>
 
 <?php get_footer(); ?>

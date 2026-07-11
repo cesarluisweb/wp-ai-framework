@@ -27,7 +27,7 @@ $metrics = $data['metrics'] ?? [];
         <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-800/50">
             <?php foreach($metrics as $index => $metric): ?>
             <div class="flex items-center justify-center py-8 md:py-0">
-                <div class="grid grid-cols-[100px_1fr] md:flex md:items-center justify-start gap-4 md:gap-5 w-[280px] md:w-auto">
+                <div class="grid grid-cols-[130px_1fr] md:flex md:items-center justify-start gap-6 md:gap-5 w-[320px] md:w-auto">
                     <!-- Valor de la métrica (Número a la izquierda) -->
                     <div class="metric-value-container relative shrink-0 text-center md:text-left">
                         <span class="text-5xl lg:text-7xl font-black text-white tracking-tighter" data-metric-value="<?php echo esc_attr($metric['value']); ?>">

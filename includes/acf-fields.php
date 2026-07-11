@@ -404,4 +404,68 @@ acf_add_local_field_group(array(
 	),
 ));
 
+acf_add_local_field_group(array(
+	'key' => 'group_global_hero_cta',
+	'title' => 'Configuración de Página (Héroe y CTA)',
+	'fields' => array(
+		array('key' => 'field_hero_kicker', 'label' => 'Kicker (Subtítulo superior)', 'name' => 'hero_kicker', 'type' => 'text'),
+		array('key' => 'field_hero_h1_normal', 'label' => 'H1 Texto Normal', 'name' => 'hero_h1_normal', 'type' => 'text'),
+		array('key' => 'field_hero_h1_highlight', 'label' => 'H1 Texto Resaltado', 'name' => 'hero_h1_highlight', 'type' => 'text'),
+		array('key' => 'field_hero_description', 'label' => 'Descripción del Héroe', 'name' => 'hero_description', 'type' => 'textarea', 'rows' => 3),
+		array('key' => 'field_cta_kicker', 'label' => 'CTA Kicker', 'name' => 'cta_kicker', 'type' => 'text'),
+		array('key' => 'field_cta_h2', 'label' => 'CTA Título', 'name' => 'cta_h2', 'type' => 'text'),
+		array('key' => 'field_cta_description', 'label' => 'CTA Descripción', 'name' => 'cta_description', 'type' => 'textarea', 'rows' => 3),
+		array('key' => 'field_cta_button_text', 'label' => 'CTA Botón Texto', 'name' => 'cta_button_text', 'type' => 'text'),
+		array('key' => 'field_cta_button_url', 'label' => 'CTA Botón URL', 'name' => 'cta_button_url', 'type' => 'text'),
+	),
+	'location' => array(
+		array(array('param' => 'page_template', 'operator' => '==', 'value' => 'page-servicios.php')),
+		array(array('param' => 'page_template', 'operator' => '==', 'value' => 'page-portafolio.php')),
+		array(array('param' => 'page_template', 'operator' => '==', 'value' => 'page-blog.php')),
+		array(array('param' => 'page_template', 'operator' => '==', 'value' => 'page-contacto.php')),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_servicios_contenido',
+	'title' => 'Contenido Servicios',
+	'fields' => array(
+		array('key' => 'field_servicios_para_ti', 'label' => 'Esto es para ti (Una por línea)', 'name' => 'servicios_para_ti', 'type' => 'textarea', 'rows' => 5),
+		array('key' => 'field_servicios_no_para_ti', 'label' => 'Esto NO es para ti (Una por línea)', 'name' => 'servicios_no_para_ti', 'type' => 'textarea', 'rows' => 5),
+		array('key' => 'field_servicios_proceso_1_titulo', 'label' => 'Proceso Paso 1 Título', 'name' => 'servicios_proceso_1_titulo', 'type' => 'text'),
+		array('key' => 'field_servicios_proceso_1_desc', 'label' => 'Proceso Paso 1 Descripción', 'name' => 'servicios_proceso_1_desc', 'type' => 'textarea', 'rows' => 2),
+		array('key' => 'field_servicios_proceso_2_titulo', 'label' => 'Proceso Paso 2 Título', 'name' => 'servicios_proceso_2_titulo', 'type' => 'text'),
+		array('key' => 'field_servicios_proceso_2_desc', 'label' => 'Proceso Paso 2 Descripción', 'name' => 'servicios_proceso_2_desc', 'type' => 'textarea', 'rows' => 2),
+		array('key' => 'field_servicios_proceso_3_titulo', 'label' => 'Proceso Paso 3 Título', 'name' => 'servicios_proceso_3_titulo', 'type' => 'text'),
+		array('key' => 'field_servicios_proceso_3_desc', 'label' => 'Proceso Paso 3 Descripción', 'name' => 'servicios_proceso_3_desc', 'type' => 'textarea', 'rows' => 2),
+	),
+	'location' => array(
+		array(array('param' => 'page_template', 'operator' => '==', 'value' => 'page-servicios.php')),
+	),
+	'menu_order' => 1,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_contacto_faq',
+	'title' => 'Configuración Contacto',
+	'fields' => array(
+		array('key' => 'field_contacto_faq_titulo', 'label' => 'FAQ Título', 'name' => 'contacto_faq_titulo', 'type' => 'text'),
+		array('key' => 'field_contacto_faq_desc', 'label' => 'FAQ Descripción', 'name' => 'contacto_faq_desc', 'type' => 'textarea', 'rows' => 2),
+	),
+	'location' => array(
+		array(array('param' => 'page_template', 'operator' => '==', 'value' => 'page-contacto.php')),
+	),
+	'menu_order' => 1,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+));
+
 endif;
