@@ -27,7 +27,7 @@ get_header();
 }
 </script>
 
-<main class="pt-24 bg-gray-950">
+<main class="pt-32 bg-gray-950">
     <!-- Hero Section -->
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">

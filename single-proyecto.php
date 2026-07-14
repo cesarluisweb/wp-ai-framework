@@ -33,10 +33,10 @@ $test_country = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_coun
 $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', true) : '';
 ?>
 
-<main class="bg-gray-950 min-h-screen pt-24 pb-20 selection:bg-brand-500 selection:text-white">
+<main class="bg-gray-950 min-h-screen pb-20 selection:bg-brand-500 selection:text-white">
     
     <!-- Hero Section -->
-    <section class="relative w-full overflow-hidden border-b border-gray-800 bg-gray-900 pb-20 pt-16">
+    <section class="relative w-full overflow-hidden border-b border-gray-800 bg-gray-900 pb-20 pt-32">
         <!-- Background Blur/Glow Effects -->
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-brand-500/20 rounded-full blur-[120px] pointer-events-none"></div>
         
@@ -69,7 +69,7 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
             <!-- Principal: Contenido SEO -->
             <article class="w-full lg:w-8/12">
                 <!-- El bloque "prose" es la joya de la corona para artículos SEO. Tailwind Typography se encarga de dar estilo perfecto a H2, P, UL, LI -->
-                <div class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:mb-6 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
+                <div class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
                     <?php 
                         // Muestra el contenido largo inyectado por el script, con formato correcto.
                         echo wp_kses_post(apply_filters('the_content', $content)); 

@@ -181,13 +181,20 @@ get_header();
         <?php
         if ($portfolio_query->max_num_pages > 1) :
         ?>
-            <div class="text-center mt-16" id="load-more-container">
-                <button id="load-more-portfolio" class="bg-brand-500 hover:bg-brand-400 text-gray-950 font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(var(--brand-500-rgb),0.4)] flex items-center justify-center gap-3 mx-auto" data-page="1" data-max="<?php echo $portfolio_query->max_num_pages; ?>" data-nonce="<?php echo wp_create_nonce('portfolio_ajax_nonce'); ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">
+            <div class="mt-20 text-center relative z-20" id="load-more-container">
+                <button id="load-more-portfolio" 
+                        data-page="1" 
+                        data-max="<?php echo $portfolio_query->max_num_pages; ?>" 
+                        data-nonce="<?php echo wp_create_nonce('portfolio_ajax_nonce'); ?>" 
+                        data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>"
+                        class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group mx-auto cursor-pointer">
                     <span class="btn-text">Cargar más proyectos</span>
-                    <svg class="w-5 h-5 btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
-                    <svg class="w-5 h-5 btn-spinner hidden animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                    <!-- Spinner SVG (oculto por defecto) -->
+                    <svg class="w-5 h-5 ml-2 animate-spin hidden btn-spinner" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                 </button>
             </div>

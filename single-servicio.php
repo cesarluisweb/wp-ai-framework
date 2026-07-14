@@ -33,10 +33,10 @@ $schema = [
 <?php echo json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
 </script>
 
-<main class="bg-gray-950 min-h-screen pt-24 selection:bg-brand-500 selection:text-white">
+<main class="bg-gray-950 min-h-screen selection:bg-brand-500 selection:text-white">
     
     <!-- Hero Section -->
-    <section class="relative w-full overflow-hidden border-b border-gray-800 bg-gray-900 pb-20 pt-16">
+    <section class="relative w-full overflow-hidden border-b border-gray-800 bg-gray-900 pb-20 pt-32">
         <!-- Background Glow -->
         <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
         
@@ -81,9 +81,8 @@ $schema = [
     <section class="container mx-auto px-6 py-20">
         <div class="flex flex-col lg:flex-row gap-16 max-w-7xl mx-auto">
             
-            <!-- Principal: Contenido SEO / Copywriting Larga -->
             <article class="w-full lg:w-8/12">
-                <div class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-gray-200 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
+                <div class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-h3:text-gray-200 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
                     <?php 
                         if (!empty($content)) {
                             echo wp_kses_post(apply_filters('the_content', $content)); 

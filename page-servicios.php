@@ -40,20 +40,20 @@ if ($servicios_query->have_posts()) {
 }
 </script>
 
-<main class="pt-24 bg-gray-950 min-h-screen">
+<main class="pt-32 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         
         <!-- Hero Section -->
-        <div class="mb-16">
+        <div class="mb-20 text-center md:text-left flex flex-col items-center md:items-start">
             <?php
             $hero_kicker = get_field('hero_kicker') ?: 'Servicios';
             $hero_h1_normal = get_field('hero_h1_normal') ?: 'Arquitectura Web e IA para';
             $hero_h1_highlight = get_field('hero_h1_highlight') ?: 'Escalar tu Agencia';
             $hero_description = get_field('hero_description') ?: 'Servicios diseñados para resolver los cuellos de botella de agencias digitales. Integramos automatización, orquestación de LLMs y desarrollo de alto rendimiento sin deuda técnica.';
             ?>
-            <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html($hero_kicker); ?></span>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight max-w-4xl">
-                <?php echo esc_html($hero_h1_normal); ?> <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html($hero_h1_highlight); ?></span>
+            <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6"><?php echo esc_html($hero_kicker); ?></span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight tracking-tight max-w-4xl">
+                <?php echo esc_html($hero_h1_normal); ?> <br class="hidden md:inline"><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 max-w-3xl leading-relaxed">
                 <?php echo esc_html($hero_description); ?>
