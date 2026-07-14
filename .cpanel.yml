@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/grupohie/public_html/new-ia/wp-content/themes/wp-ai-theme/
+    - /bin/cp -R . $DEPLOYPATH
