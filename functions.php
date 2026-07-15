@@ -28,6 +28,15 @@ add_action('wp_enqueue_scripts', function() {
         true
     );
 
+    // GSAP ScrollTrigger
+    wp_enqueue_script(
+        'gsap-scrolltrigger', 
+        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js', 
+        ['gsap'], 
+        '3.12.5', 
+        true
+    );
+
     // Custom Cursor Trail
     $cursor_script_path = get_template_directory() . '/assets/js/cursor-trail.js';
     if (file_exists($cursor_script_path)) {
@@ -37,6 +46,18 @@ add_action('wp_enqueue_scripts', function() {
             ['gsap'], 
             filemtime($cursor_script_path),
             true
+        );
+    }
+
+    // Hero Animations
+    $hero_script_path = get_template_directory() . '/assets/js/hero-animations.js';
+    if (file_exists($hero_script_path)) {
+        wp_enqueue_script(
+            'wp-ai-hero-animations', 
+            get_template_directory_uri() . '/assets/js/hero-animations.js', 
+            ['gsap', 'gsap-scrolltrigger'], 
+            filemtime($hero_script_path),
+            array('strategy' => 'defer', 'in_footer' => true)
         );
     }
 });
