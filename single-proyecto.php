@@ -163,6 +163,13 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
         </div>
     </section>
 
+    <!-- Navegación de Posts -->
+    <?php
+    if(function_exists('wp_ai_render_component')) {
+        wp_ai_render_component('post-navigation', 'premium-dark', []);
+    }
+    ?>
+
 </main>
 
 <?php get_footer(); ?>

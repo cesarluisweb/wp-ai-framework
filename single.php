@@ -109,6 +109,13 @@ $schema = [
         </div>
     </section>
 
+    <!-- Navegación de Posts -->
+    <?php
+    if(function_exists('wp_ai_render_component')) {
+        wp_ai_render_component('post-navigation', 'premium-dark', []);
+    }
+    ?>
+
     <!-- CTA Section -->
     <?php
     if(function_exists('wp_ai_render_component')) {

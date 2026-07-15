@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. Preparación para animaciones (Estados Iniciales Espectaculares)
     
-    // Título con fade in sencillo
-    gsap.set(headline, { autoAlpha: 0 });
+    // Título con fade in y blur (desenfoque a enfoque)
+    gsap.set(headline, { autoAlpha: 0, filter: "blur(10px)" });
     
     // Kicker: Unfold como cinta
     gsap.set(kicker, { autoAlpha: 0, scaleX: 0, transformOrigin: "0% 50%" }); 
@@ -42,10 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const entryTl = gsap.timeline({ delay: 0.1 });
     
     entryTl
-        // 4.1 Título PRIMERITO (Fade in sencillo y rápido)
+        // 4.1 Título PRIMERITO (Fade in desde blur, rápido)
         .to(headline, { 
             autoAlpha: 1, 
-            duration: 0.6, 
+            filter: "blur(0px)",
+            duration: 0.8, 
             ease: "power2.out" 
         })
         
@@ -83,35 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
             scale: 1, 
             duration: 1.4, 
             ease: "power3.out" 
-        }, "-=0.9");
+        }, "-=1.1"); // Empieza un poquito después que los botones
 
-    // 5. Scroll Scrub Avanzado (Profundidad)
-    gsap.to(terminalContainer, {
-        y: -150,
-        scale: 0.85,
-        rotationX: 15, // Se reclina
-        autoAlpha: 0.2,
-        ease: "none",
-        scrollTrigger: {
-            trigger: "#hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-        }
-    });
 
-    gsap.to([kicker, headline, subheadline, ctas], {
-        y: -100,
-        autoAlpha: 0,
-        stagger: 0.05,
-        ease: "none",
-        scrollTrigger: {
-            trigger: "#hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.5,
-        }
-    });
 
     // 6. MatchMedia (Mouse Parallax) - SOLO DESKTOP
     mm.add("(min-width: 1024px)", () => {
