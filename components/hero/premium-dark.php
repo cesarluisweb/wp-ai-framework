@@ -89,9 +89,9 @@ $metrics = $data['metrics'] ?? [];
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center lg:min-h-[calc(100vh-80px)]">
             
             <!-- Columna Izquierda: Contenido -->
-            <div class="lg:col-span-7 py-12 lg:py-0 text-center lg:text-left flex flex-col items-center lg:items-start">
+            <div class="lg:col-span-7 pt-8 pb-0 lg:py-0 text-center lg:text-left flex flex-col items-center lg:items-start">
                 <?php if ($kicker): ?>
-                <div class="mb-8 inline-flex items-center px-4 py-1.5 rounded-full border border-brand-500/40 bg-brand-900/30 text-sm font-medium text-brand-300 backdrop-blur-sm" data-hero-kicker>
+                <div class="mb-8 inline-flex items-center px-4 py-1.5 rounded-full border border-brand-500/40 bg-brand-900/30 text-sm font-medium text-brand-300 backdrop-blur-sm lg:opacity-0" data-hero-kicker>
                     <span class="flex w-2 h-2 rounded-full bg-brand-300 mr-2.5 animate-pulse"></span>
                     <?php echo esc_html($kicker); ?>
                 </div>
@@ -100,16 +100,16 @@ $metrics = $data['metrics'] ?? [];
                 <?php 
                     $headline_safe = wp_kses($headline, ['br' => []]);
                 ?>
-                <h1 class="text-[clamp(3.2rem,7vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05]" data-hero-headline>
+                <h1 class="w-full text-[clamp(2.75rem,12vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05] lg:opacity-0" data-hero-headline>
                     <span class="block text-white"><?php echo $headline_safe; ?></span>
                 </h1>
 
-                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed" data-hero-subheadline>
+                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed lg:opacity-0" data-hero-subheadline>
                     <?php echo esc_html($subheadline); ?>
                 </p>
 
                 <!-- CTAs -->
-                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 mb-14 w-full sm:w-auto px-6 sm:px-0" data-hero-ctas>
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 mb-14 w-full sm:w-auto px-6 sm:px-0 lg:opacity-0" data-hero-ctas>
                     <?php if ($cta_primary): ?>
                     <a href="<?php echo esc_url($cta_primary['url']); ?>" class="btn-primary group w-full sm:w-auto flex justify-center" data-hero-cta-primary>
                         <span class="flex items-center">
@@ -133,7 +133,7 @@ $metrics = $data['metrics'] ?? [];
             </div>
 
             <!-- Columna Derecha: Terminal -->
-            <div class="hidden lg:flex lg:col-span-5 justify-center items-center" data-hero-terminal-container>
+            <div class="hidden lg:flex lg:col-span-5 justify-center items-center lg:opacity-0" data-hero-terminal-container>
                 <div class="relative w-full max-w-md" data-hero-terminal>
                     <div class="relative rounded-xl border border-gray-800/80 bg-gray-900/60 backdrop-blur-xl shadow-2xl overflow-hidden">
                         <!-- Barra superior -->

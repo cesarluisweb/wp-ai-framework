@@ -228,14 +228,31 @@ if (!empty($faq_arr)) {
 }
 
 // 9. METHODOLOGY
+$scale_defaults = [
+    ['letter' => 'S', 'title' => 'Setup', 'desc' => 'Alineación inicial y definición de objetivos del proyecto.'],
+    ['letter' => 'C', 'title' => 'Core', 'desc' => 'Desarrollo de la arquitectura y estructura principal.'],
+    ['letter' => 'A', 'title' => 'Auditoría', 'desc' => 'Análisis del estado actual y definición de arquitectura.'],
+    ['letter' => 'L', 'title' => 'Lanzamiento', 'desc' => 'Despliegue a producción con pruebas rigurosas.'],
+    ['letter' => 'E', 'title' => 'Evolución', 'desc' => 'Soporte continuo, monitoreo y mejoras progresivas.']
+];
+
 $method_steps = [];
 for ($i = 1; $i <= 5; $i++) {
+    $idx = $i - 1;
     $l = wp_ai_get_field_fallback('step_'.$i.'_letter', '');
     $t = wp_ai_get_field_fallback('step_'.$i.'_title', '');
     $d = wp_ai_get_field_fallback('step_'.$i.'_desc', '');
-    if (!empty($l)) {
-        $method_steps[] = ['letter' => $l, 'title' => $t, 'description' => $d];
+    
+    // Forzar la letra de SCALE
+    $l = $scale_defaults[$idx]['letter'];
+    
+    // Si el título está vacío (o no definido), usar los de por defecto para completar los 5
+    if (empty($t)) {
+        $t = $scale_defaults[$idx]['title'];
+        $d = $scale_defaults[$idx]['desc'];
     }
+
+    $method_steps[] = ['letter' => $l, 'title' => $t, 'description' => $d];
 }
 if (!empty($method_steps)) {
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('methodology', 'premium-dark', [

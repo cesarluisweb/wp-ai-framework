@@ -25,7 +25,7 @@ $cta_button = $data['cta_button'] ?? null;
             <span>César Luis</span>
         </a>
 
-        <div class="flex items-center gap-4 lg:gap-8">
+        <div class="flex items-center gap-2 sm:gap-4 lg:gap-8">
             <!-- Desktop Navigation Links -->
             <nav class="hidden lg:block">
                 <ul class="flex items-center gap-8">
@@ -58,26 +58,18 @@ $cta_button = $data['cta_button'] ?? null;
                                             <?php foreach($link['megamenu'] as $s_item): ?>
                                                 <a href="<?php echo esc_url($s_item['url']); ?>" class="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-900/80 border border-transparent hover:border-brand-500/30 transition-all duration-300 group/item relative overflow-hidden">
                                                     <!-- Glow sutil en hover -->
-                                                    <div class="absolute inset-0 bg-gradient-to-br from-brand-400/5 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                                    <div class="absolute inset-0 bg-brand-500/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                                                     
-                                                    <div class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 flex items-center justify-center text-brand-400 group-hover/item:scale-110 group-hover/item:border-brand-400/50 transition-all shrink-0">
-                                                        <?php if ($s_item['icon'] === 'shield'): ?>
-                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                                                        <?php elseif ($s_item['icon'] === 'cpu'): ?>
-                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
-                                                        <?php elseif ($s_item['icon'] === 'robot'): ?>
-                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                                                        <?php elseif ($s_item['icon'] === 'globe'): ?>
-                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-                                                        <?php elseif ($s_item['icon'] === 'server'): ?>
-                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
-                                                        <?php else: ?>
-                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                                                        <?php endif; ?>
+                                                    <div class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 flex items-center justify-center text-brand-400 group-hover/item:text-brand-300 group-hover/item:scale-110 transition-all duration-300 shrink-0 relative z-10">
+                                                        <?php 
+                                                        if (isset($s_item['icon'])) {
+                                                            echo wp_ai_get_field_fallback('icon', null, $s_item['icon']); 
+                                                        }
+                                                        ?>
                                                     </div>
                                                     <div class="relative z-10">
-                                                        <h4 class="text-white font-bold text-sm mb-1 group-hover/item:text-brand-300 transition-colors leading-tight"><?php echo esc_html($s_item['title']); ?></h4>
-                                                        <p class="text-gray-500 text-xs leading-relaxed"><?php echo esc_html($s_item['desc']); ?></p>
+                                                        <div class="text-white font-bold mb-1 group-hover/item:text-brand-300 transition-colors"><?php echo esc_html($s_item['title']); ?></div>
+                                                        <div class="text-xs text-gray-400 line-clamp-2"><?php echo esc_html($s_item['desc']); ?></div>
                                                     </div>
                                                 </a>
                                             <?php endforeach; ?>
@@ -87,26 +79,21 @@ $cta_button = $data['cta_button'] ?? null;
                                                 </a>
                                             </div>
                                         </div>
-                                    <?php endif; ?>
-
-                                    <?php if ($mega_type === 'portfolio' || $mega_type === 'blog'): ?>
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <?php foreach($link['megamenu'] as $item): ?>
-                                                <a href="<?php echo esc_url($item['url']); ?>" class="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-900/80 border border-transparent hover:border-brand-500/30 transition-all duration-300 group/item relative overflow-hidden">
-                                                    <!-- Glow sutil en hover -->
-                                                    <div class="absolute inset-0 bg-gradient-to-br from-brand-400/5 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                                                    
-                                                    <div class="w-16 h-16 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shrink-0 relative">
-                                                        <?php if(!empty($item['image'])): ?>
-                                                            <img src="<?php echo esc_url($item['image']); ?>" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/item:opacity-100 group-hover/item:scale-110 transition-all duration-500">
-                                                        <?php else: ?>
-                                                            <div class="absolute inset-0 bg-gradient-to-br from-brand-600/20 to-brand-900/20 flex items-center justify-center group-hover/item:scale-110 transition-transform duration-500">
-                                                                <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                                            </div>
+                                    <?php else: ?>
+                                        <div class="grid grid-cols-2 gap-6">
+                                            <?php foreach($link['megamenu'] as $p_item): ?>
+                                                <a href="<?php echo esc_url($p_item['url']); ?>" class="group/item block relative overflow-hidden rounded-xl bg-gray-900 border border-gray-800 hover:border-brand-500/30 transition-all duration-300">
+                                                    <?php if(!empty($p_item['image'])): ?>
+                                                        <div class="w-full h-32 overflow-hidden relative">
+                                                            <img src="<?php echo esc_url($p_item['image']); ?>" alt="" class="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500 opacity-80 group-hover/item:opacity-100">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <div class="absolute bottom-0 left-0 w-full p-4">
+                                                        <?php if(isset($p_item['date'])): ?>
+                                                            <div class="text-[10px] uppercase tracking-widest text-brand-400 font-bold mb-1"><?php echo esc_html($p_item['date']); ?></div>
                                                         <?php endif; ?>
-                                                    </div>
-                                                    <div class="relative z-10 pr-2">
-                                                        <h4 class="text-white font-bold text-sm group-hover/item:text-brand-300 transition-colors leading-snug line-clamp-2"><?php echo esc_html($item['title']); ?></h4>
+                                                        <div class="text-white font-bold text-sm leading-tight group-hover/item:text-brand-300 transition-colors line-clamp-2"><?php echo esc_html($p_item['title']); ?></div>
                                                     </div>
                                                 </a>
                                             <?php endforeach; ?>
@@ -128,14 +115,14 @@ $cta_button = $data['cta_button'] ?? null;
             <!-- Global CTA Button -->
             <?php if ($cta_button): ?>
             <div class="lg:pl-8 lg:border-l lg:border-gray-700/50 flex items-center">
-                <a href="<?php echo esc_url($cta_button['url']); ?>" class="btn-primary-sm !px-4 lg:!px-6">
+                <a href="<?php echo esc_url($cta_button['url']); ?>" class="btn-primary-sm h-10 lg:h-auto flex items-center justify-center !px-3 text-xs sm:text-sm sm:!px-4 lg:!px-6">
                     <?php echo esc_html($cta_button['label']); ?>
                 </a>
             </div>
             <?php endif; ?>
 
             <!-- Mobile Menu Button -->
-            <button class="lg:hidden w-10 h-10 ml-2 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-white hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer focus:outline-none group" id="mobile-menu-btn" aria-label="Toggle menu">
+            <button class="lg:hidden w-10 h-10 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-white hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer focus:outline-none group" id="mobile-menu-btn" aria-label="Toggle menu">
                 <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>

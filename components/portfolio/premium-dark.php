@@ -60,7 +60,7 @@ $projects   = $data['projects']           ?? [];
           // Calcula el offset superior para el efecto de apilamiento (sticky top)
           $top_offset = 6 + ($index * 2); // rem units
         ?>
-          <div class="relative md:sticky flex w-full md:[top:var(--sticky-top)]"
+          <div class="relative md:sticky <?php echo ($index >= 3) ? 'hidden md:flex' : 'flex'; ?> w-full md:[top:var(--sticky-top)]"
                style="--sticky-top: <?php echo esc_attr( $top_offset ); ?>rem; z-index: <?php echo esc_attr( 10 + $index ); ?>;">
             
             <a href="<?php echo esc_url( $p_url ); ?>"

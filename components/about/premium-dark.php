@@ -18,7 +18,7 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
 
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8">
         <!-- Two-column grid -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-start lg:items-center">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start lg:items-center">
 
             <!-- LEFT — Dashboard Mockup Image -->
             <div class="md:col-span-4 lg:col-span-5 flex justify-start">
@@ -41,7 +41,7 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
             </div>
 
             <!-- RIGHT — Content -->
-            <div class="md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left mt-6 md:mt-0">
+            <div class="md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left md:mt-0">
 
                 <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Sobre mí</span>
                 <?php if ( ! empty( $headline ) ) : ?>

@@ -16,7 +16,7 @@ $section_title = $data['section_title'] ?? 'Lo que dicen mis clientes';
 $testimonials = $data['testimonials'] ?? [];
 ?>
 
-<section id="testimonials" class="py-24 lg:py-32 bg-gray-950 relative overflow-hidden border-t border-gray-900">
+<section id="testimonials" class="py-24 lg:py-32 bg-gray-950 relative overflow-hidden">
     <!-- Fondo decorativo sutil -->
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(0,169,204,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
 

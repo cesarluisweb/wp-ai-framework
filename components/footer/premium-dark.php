@@ -124,7 +124,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
                         <input type="email" name="newsletter_email" placeholder="Tu email corporativo" required 
                             class="w-full bg-gray-950 border border-gray-800 hover:border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:border-brand-500 focus:outline-none transition-colors duration-300">
                     </div>
-                    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 shadow-lg shadow-brand-500/10 cursor-pointer">
+                    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-gray-950 font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 shadow-lg shadow-brand-500/10 cursor-pointer">
                         Suscribirme
                     </button>
                 </form>
@@ -150,14 +150,14 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
 
         <!-- Bottom Section: Legal -->
         <div class="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-400 text-sm">
                 <?php echo esc_html($copyright); ?>
             </p>
             
             <ul class="flex flex-wrap items-center gap-6">
                 <?php foreach ($legal_links as $legal): ?>
                 <li>
-                    <a href="<?php echo esc_url($legal['url']); ?>" class="text-gray-500 text-sm hover:text-gray-300 transition-colors duration-300">
+                    <a href="<?php echo esc_url($legal['url']); ?>" class="text-gray-400 text-sm hover:text-gray-300 transition-colors duration-300">
                         <?php echo esc_html($legal['label']); ?>
                     </a>
                 </li>
@@ -179,7 +179,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
         }
     }
     if (!empty($whatsapp_url)) : ?>
-    <a href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-brand-500 hover:bg-brand-400 text-white rounded-full p-4 shadow-lg flex items-center justify-center transition-colors duration-300" aria-label="WhatsApp">
+    <a href="<?php echo esc_url($whatsapp_url); ?>" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-brand-500 hover:bg-brand-400 text-gray-950 rounded-full p-4 shadow-lg flex items-center justify-center transition-colors duration-300" aria-label="WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg>
     </a>
 <?php endif; ?>
