@@ -40,26 +40,24 @@ $schema = [
         <!-- Background Glow -->
         <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
         
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 relative z-10">
             <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
                 
                 <!-- Icon -->
                 <?php if ($icon_name): ?>
                 <div class="mb-8 bg-gray-950 border border-gray-800 w-20 h-20 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.15)] relative">
                     <div class="absolute inset-0 bg-brand-400/10 rounded-2xl animate-pulse"></div>
-                    <svg class="w-10 h-10 text-brand-400 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <?php
-                        switch ($icon_name) {
-                            case 'code': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>'; break;
-                            case 'shield': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>'; break;
-                            case 'cpu': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>'; break;
-                            case 'robot': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>'; break;
-                            case 'globe': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>'; break;
-                            case 'server': echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>'; break;
-                            default: echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>';
+                    <?php
+                        if ($icon_name) {
+                            // En single-servicio no queremos la clase w-6 h-6 por defecto, sino que herede currentColor
+                            // Extraemos el innerHTML del SVG (ya que el contenedor exterior tiene sus propias clases w-10 h-10)
+                            // En su lugar, es más fácil usar la función y sobreescribir la clase.
+                            $svg_html = wp_ai_get_service_icon_svg($icon_name, 'w-10 h-10 text-brand-400 relative z-10');
+                            
+                            // Reemplazar todo el contenedor svg original por el devuelto por la función
+                            echo $svg_html;
                         }
-                        ?>
-                    </svg>
+                    ?>
                 </div>
                 <?php endif; ?>
 
@@ -78,8 +76,8 @@ $schema = [
     </section>
 
     <!-- Contenido y Sidebar -->
-    <section class="container mx-auto px-6 py-20">
-        <div class="flex flex-col lg:flex-row gap-16 max-w-7xl mx-auto">
+    <section class="w-full py-20">
+        <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 flex flex-col lg:flex-row gap-16">
             
             <article class="w-full lg:w-8/12">
                 <div class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-h3:text-gray-200 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">

@@ -5,16 +5,8 @@
 get_header();
 ?>
 
-<?php
-// Utility: Obtener campo ACF con fallback si está vacío o no existe
-function wp_ai_get_field_fallback($field_name, $fallback) {
-    if (function_exists('get_field')) {
-        $val = get_field($field_name);
-        return !empty($val) ? $val : $fallback;
-    }
-    return $fallback;
-}
 
+<?php
 // 1. HEADER — Inyectado por get_header() arriba. No redefinir aquí.
 // El header.php ya incluye el componente con los enlaces a las páginas reales.
 

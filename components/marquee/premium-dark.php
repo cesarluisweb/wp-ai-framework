@@ -10,8 +10,8 @@ $items = isset($data['items']) ? $data['items'] : [];
 
 if (empty($items)) return;
 
-// Duplicamos los elementos varias veces para asegurar un scroll infinito continuo sin cortes
-$marquee_items = array_merge($items, $items, $items, $items);
+// Duplicamos los elementos solo una vez para mantener el scroll infinito continuo pero reducir el tamaño del DOM
+$marquee_items = array_merge($items, $items);
 ?>
 <section class="w-full relative py-8 bg-gray-950 overflow-hidden border-y border-gray-900/50">
     <!-- Gradiente de máscara para desvanecer los bordes izquierdo y derecho -->

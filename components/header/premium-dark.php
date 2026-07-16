@@ -62,9 +62,8 @@ $cta_button = $data['cta_button'] ?? null;
                                                     
                                                     <div class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-800 flex items-center justify-center text-brand-400 group-hover/item:text-brand-300 group-hover/item:scale-110 transition-all duration-300 shrink-0 relative z-10">
                                                         <?php 
-                                                        if (isset($s_item['icon'])) {
-                                                            echo wp_ai_get_field_fallback('icon', null, $s_item['icon']); 
-                                                        }
+                                                        $icon_name = $s_item['icon'] ?? 'code';
+                                                        echo wp_ai_get_service_icon_svg($icon_name, 'w-5 h-5');
                                                         ?>
                                                     </div>
                                                     <div class="relative z-10">
@@ -79,21 +78,24 @@ $cta_button = $data['cta_button'] ?? null;
                                                 </a>
                                             </div>
                                         </div>
-                                    <?php else: ?>
-                                        <div class="grid grid-cols-2 gap-6">
-                                            <?php foreach($link['megamenu'] as $p_item): ?>
-                                                <a href="<?php echo esc_url($p_item['url']); ?>" class="group/item block relative overflow-hidden rounded-xl bg-gray-900 border border-gray-800 hover:border-brand-500/30 transition-all duration-300">
-                                                    <?php if(!empty($p_item['image'])): ?>
-                                                        <div class="w-full h-32 overflow-hidden relative">
-                                                            <img src="<?php echo esc_url($p_item['image']); ?>" alt="" class="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500 opacity-80 group-hover/item:opacity-100">
-                                                            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                    <div class="absolute bottom-0 left-0 w-full p-4">
-                                                        <?php if(isset($p_item['date'])): ?>
-                                                            <div class="text-[10px] uppercase tracking-widest text-brand-400 font-bold mb-1"><?php echo esc_html($p_item['date']); ?></div>
+                                    <?php elseif ($mega_type === 'portfolio' || $mega_type === 'blog'): ?>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <?php foreach($link['megamenu'] as $item): ?>
+                                                <a href="<?php echo esc_url($item['url']); ?>" class="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-900/80 border border-transparent hover:border-brand-500/30 transition-all duration-300 group/item relative overflow-hidden">
+                                                    <!-- Glow sutil en hover -->
+                                                    <div class="absolute inset-0 bg-gradient-to-br from-brand-400/5 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                                    
+                                                    <div class="w-16 h-16 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shrink-0 relative">
+                                                        <?php if(!empty($item['image'])): ?>
+                                                            <img src="<?php echo esc_url($item['image']); ?>" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/item:opacity-100 group-hover/item:scale-110 transition-all duration-500">
+                                                        <?php else: ?>
+                                                            <div class="absolute inset-0 bg-gradient-to-br from-brand-600/20 to-brand-900/20 flex items-center justify-center group-hover/item:scale-110 transition-transform duration-500">
+                                                                <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                            </div>
                                                         <?php endif; ?>
-                                                        <div class="text-white font-bold text-sm leading-tight group-hover/item:text-brand-300 transition-colors line-clamp-2"><?php echo esc_html($p_item['title']); ?></div>
+                                                    </div>
+                                                    <div class="relative z-10 pr-2">
+                                                        <h4 class="text-white font-bold text-sm group-hover/item:text-brand-300 transition-colors leading-snug line-clamp-2"><?php echo esc_html($item['title']); ?></h4>
                                                     </div>
                                                 </a>
                                             <?php endforeach; ?>
