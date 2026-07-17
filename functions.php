@@ -26,6 +26,115 @@ function wp_ai_get_service_icon_svg($icon_name, $classes = 'w-6 h-6') {
     return sprintf('<svg class="%s" fill="none" stroke="currentColor" viewBox="0 0 24 24">%s</svg>', esc_attr($classes), $path);
 }
 
+// Register ACF Fields Programmatically
+add_action('acf/init', function() {
+    if (function_exists('acf_add_local_field_group')) {
+        acf_add_local_field_group(array(
+            'key' => 'group_home_about_section',
+            'title' => 'Home - About Section',
+            'fields' => array(
+                array(
+                    'key' => 'field_about_image',
+                    'label' => 'Imagen Sobre Mí (Opcional)',
+                    'name' => 'about_image',
+                    'type' => 'image',
+                    'instructions' => 'Sube la imagen para la sección Sobre Mí. Si se deja en blanco, usará la Imagen Destacada de la página.',
+                    'return_format' => 'url',
+                    'preview_size' => 'medium',
+                    'library' => 'all',
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'default', // Applies to front page / default template
+                    ),
+                    array(
+                        'param' => 'page_type',
+                        'operator' => '==',
+                        'value' => 'front_page',
+                    )
+                ),
+            ),
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => true,
+            'description' => '',
+        ));
+
+        // Limpieza automática única para borrar el grupo manual de la BBDD y evitar duplicados
+        if (!get_transient('wp_ai_deleted_old_acf_portfolio_details_v2')) {
+            $old_groups = get_posts(array('post_type' => 'acf-field-group', 'posts_per_page' => -1, 'post_status' => 'any'));
+            foreach ($old_groups as $g) {
+                if ($g->post_name === 'group_portfolio_details' || strpos($g->post_title, 'Detalles del Proyecto') !== false) {
+                    wp_delete_post($g->ID, true);
+                }
+            }
+            set_transient('wp_ai_deleted_old_acf_portfolio_details_v2', true, YEAR_IN_SECONDS);
+        }
+
+        // Detalles del Proyecto (Custom Post Type) 100% Programático
+        acf_add_local_field_group(array(
+            'key' => 'group_proyecto_detalles',
+            'title' => 'Detalles del Proyecto',
+            'fields' => array(
+                array(
+                    'key' => 'field_client_name',
+                    'label' => 'Nombre del Cliente',
+                    'name' => 'client_name',
+                    'type' => 'text',
+                    'instructions' => 'Nombre del cliente o empresa para este proyecto.',
+                ),
+                array(
+                    'key' => 'field_live_url',
+                    'label' => 'URL en Vivo',
+                    'name' => 'live_url',
+                    'type' => 'url',
+                    'instructions' => 'Enlace al proyecto publicado (opcional).',
+                ),
+                array(
+                    'key' => 'field_css_gradient',
+                    'label' => 'Gradiente CSS (Opcional)',
+                    'name' => 'css_gradient',
+                    'type' => 'text',
+                    'instructions' => 'Ej: linear-gradient(135deg, #0a1f28 0%, #144257 50%, #287799 100%)',
+                ),
+                array(
+                    'key' => 'field_website_status',
+                    'label' => 'Estado del Sitio Web',
+                    'name' => '_website_status',
+                    'type' => 'radio',
+                    'instructions' => 'Indica si el sitio está online o ha sido dado de baja.',
+                    'choices' => array(
+                        'online' => 'Online',
+                        'offline' => 'Offline (Mostrar nota aclaratoria)',
+                    ),
+                    'default_value' => 'online',
+                    'layout' => 'horizontal',
+                    'return_format' => 'value',
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'proyecto',
+                    ),
+                ),
+            ),
+            'position' => 'normal',
+            'style' => 'default',
+        ));
+    }
+});
+
 // 0. Theme Setup
 add_action('after_setup_theme', function() {
     add_theme_support('post-thumbnails');
@@ -299,4 +408,32 @@ function wp_ai_load_more_portfolio() {
     endif;
     
     wp_die();
+}
+
+// ==========================================
+// Columnas personalizadas en el Admin para "Proyecto"
+// ==========================================
+add_filter('manage_proyecto_posts_columns', 'wp_ai_set_custom_proyecto_columns');
+function wp_ai_set_custom_proyecto_columns($columns) {
+    // Insertamos 'cliente' después de 'title'
+    $new_columns = array();
+    foreach($columns as $key => $title) {
+        $new_columns[$key] = $title;
+        if ($key === 'title') {
+            $new_columns['cliente'] = 'Cliente (ACF)';
+        }
+    }
+    return $new_columns;
+}
+
+add_action('manage_proyecto_posts_custom_column', 'wp_ai_custom_proyecto_column', 10, 2);
+function wp_ai_custom_proyecto_column($column, $post_id) {
+    if ($column === 'cliente') {
+        $cliente = function_exists('get_field') ? get_field('client_name', $post_id) : get_post_meta($post_id, 'client_name', true);
+        if ($cliente) {
+            echo '<strong>' . esc_html($cliente) . '</strong>';
+        } else {
+            echo '<span style="color:#aaa;">—</span>';
+        }
+    }
 }

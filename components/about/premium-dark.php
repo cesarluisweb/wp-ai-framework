@@ -27,9 +27,14 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
                     <div class="absolute inset-0 bg-brand-400/20 blur-2xl rounded-full pointer-events-none"></div>
                     
                     <div class="relative z-10 w-full h-full rounded-2xl overflow-hidden border border-gray-800/80 bg-gray-900">
-                        <!-- We use an absolute path for the scaffold router -->
+                        <?php 
+                        $image_url = $data['image_url'] ?? '';
+                        if (empty($image_url)) {
+                            $image_url = get_template_directory_uri() . '/assets/img/mockup.jpg';
+                        }
+                        ?>
                         <img 
-                            src="/assets/img/mockup.jpg" 
+                            src="<?php echo esc_url($image_url); ?>" 
                             alt="César Luis Dashboard Mockup"
                             class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
                             loading="lazy"

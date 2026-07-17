@@ -80,7 +80,7 @@ $schema = [
         <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 flex flex-col lg:flex-row gap-16">
             
             <article class="w-full lg:w-8/12">
-                <div class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-h3:text-gray-200 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
+                <div class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-gray-200 prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-h3:text-gray-200 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-strong:text-gray-200 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
                     <?php 
                         if (!empty($content)) {
                             echo wp_kses_post(apply_filters('the_content', $content)); 

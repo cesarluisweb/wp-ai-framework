@@ -141,7 +141,7 @@ function wp_ai_register_post_types() {
         'show_in_menu'       => true,
         'menu_position'      => 8,
         'menu_icon'          => 'dashicons-editor-help',
-        'supports'           => array( 'title', 'editor' ), // Pregunta en Título, Respuesta en Editor
+        'supports'           => array( 'title', 'editor', 'page-attributes' ), // title, editor, and page-attributes for ordering
         'show_in_rest'       => true,
     );
 

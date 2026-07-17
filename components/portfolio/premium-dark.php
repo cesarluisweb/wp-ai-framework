@@ -84,7 +84,7 @@ $projects   = $data['projects']           ?? [];
                 <?php endif; ?>
 
                 <!-- Checkmarks from screenshot -->
-                <div class="mb-8 flex-grow overflow-hidden">
+                <div class="mb-8 flex-grow overflow-hidden js-adaptive-clamp-container">
                   <?php if ( $p_desc ) : 
                     // Eliminar corchetes de excerpt
                     $clean_desc = str_replace( ['[&hellip;]', '[...]', '&hellip;'], '', $p_desc );
@@ -99,7 +99,7 @@ $projects   = $data['projects']           ?? [];
                         $clean_desc .= '</li></ul>';
                     }
                   ?>
-                    <div class="text-gray-400 text-lg leading-relaxed [&>strong]:text-gray-200 [&>strong]:font-semibold [&>p]:mb-3 [&>p:last-child]:mb-0 line-clamp-5 xl:line-clamp-6">
+                    <div class="text-gray-400 text-lg leading-relaxed [&>strong]:text-gray-200 [&>strong]:font-semibold [&>p]:mb-3 [&>p:last-child]:mb-0 js-adaptive-clamp-text">
                       <?php echo wp_kses_post( trim($clean_desc) ); ?>
                     </div>
                   <?php endif; ?>
@@ -146,10 +146,10 @@ $projects   = $data['projects']           ?? [];
                 <!-- Browser Mockup Window -->
                 <div class="relative w-full bg-gray-950 border border-gray-700/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-md group-hover:-translate-y-4 transition-transform duration-700 z-0">
                     <!-- Browser Header -->
-                    <div class="h-8 lg:h-10 bg-gray-900 border-b border-white/10 flex items-center px-4 gap-2 shrink-0">
-                        <div class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-green-500/80"></div>
+                    <div class="h-8 bg-gray-900 border-b border-white/10 flex items-center px-4 gap-1.5 shrink-0">
+                        <div class="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-red-500/80"></div>
+                        <div class="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-green-500/80"></div>
                     </div>
                     <!-- Browser Content (Image) -->
                     <div class="relative w-full aspect-video overflow-hidden bg-gray-950">
@@ -186,3 +186,37 @@ $projects   = $data['projects']           ?? [];
 
   </div>
 </section>
+
+<!-- Adaptive Line Clamp JS -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const calculateClamps = () => {
+        document.querySelectorAll('.js-adaptive-clamp-container').forEach(container => {
+            const textWrap = container.querySelector('.js-adaptive-clamp-text');
+            if (!textWrap) return;
+            
+            // Reset to measure natural height safely
+            textWrap.style.webkitLineClamp = 'none';
+            textWrap.style.display = 'block';
+            
+            const availableHeight = container.clientHeight;
+            const style = window.getComputedStyle(textWrap);
+            const lineHeight = parseFloat(style.lineHeight) || parseInt(style.fontSize) * 1.625; // 1.625 = leading-relaxed
+            
+            if (lineHeight > 0 && availableHeight > 0) {
+                const maxLines = Math.floor(availableHeight / lineHeight);
+                textWrap.style.display = '-webkit-box';
+                textWrap.style.webkitBoxOrient = 'vertical';
+                textWrap.style.overflow = 'hidden';
+                textWrap.style.webkitLineClamp = Math.max(1, maxLines);
+            }
+        });
+    };
+    
+    // Ejecutar inicial y en redimensionamiento
+    calculateClamps();
+    window.addEventListener('resize', calculateClamps);
+    // Timeout para asegurar que las fuentes/imágenes hayan cargado
+    setTimeout(calculateClamps, 300);
+});
+</script>

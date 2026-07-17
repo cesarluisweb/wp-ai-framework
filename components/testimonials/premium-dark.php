@@ -56,9 +56,14 @@ $testimonials = $data['testimonials'] ?? [];
                     <svg class="w-10 h-10 text-gray-800 mb-6 group-hover:text-brand-500/30 transition-colors duration-500" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path></svg>
 
                     <!-- Quote -->
-                    <p class="text-gray-300 text-lg leading-relaxed mb-8 italic">
-                        "<?php echo esc_html($testimonial['quote']); ?>"
-                    </p>
+                    <div class="relative mb-8 js-testimonial-wrapper">
+                        <p class="text-gray-300 text-lg leading-relaxed italic line-clamp-6 transition-all duration-300 js-testimonial-text">
+                            "<?php echo esc_html($testimonial['quote']); ?>"
+                        </p>
+                        <button type="button" class="hidden text-brand-400 hover:text-brand-300 text-sm font-bold mt-2 transition-colors js-testimonial-btn cursor-pointer">
+                            Leer más...
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Author -->
@@ -100,3 +105,38 @@ $testimonials = $data['testimonials'] ?? [];
     display: none;
 }
 </style>
+
+<!-- Testimonials Leer Más JS -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const initTestimonials = () => {
+        document.querySelectorAll('.js-testimonial-wrapper').forEach(wrapper => {
+            const textEl = wrapper.querySelector('.js-testimonial-text');
+            const btn = wrapper.querySelector('.js-testimonial-btn');
+            if (!textEl || !btn) return;
+            
+            // Si el texto realzado es mayor que su contenedor recortado
+            if (textEl.scrollHeight > textEl.clientHeight) {
+                btn.classList.remove('hidden');
+            } else {
+                // Si cambiaron las dimensiones y ya no recorta
+                if (textEl.classList.contains('line-clamp-6')) {
+                    btn.classList.add('hidden');
+                }
+            }
+            
+            if (!btn.dataset.initialized) {
+                btn.addEventListener('click', () => {
+                    textEl.classList.remove('line-clamp-6');
+                    btn.classList.add('hidden'); // Ocultar el botón para siempre una vez expandido
+                });
+                btn.dataset.initialized = 'true';
+            }
+        });
+    };
+    
+    initTestimonials();
+    window.addEventListener('resize', initTestimonials);
+    setTimeout(initTestimonials, 300);
+});
+</script>

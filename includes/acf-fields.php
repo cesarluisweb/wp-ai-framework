@@ -71,6 +71,22 @@ acf_add_local_field_group(array(
 			),
 			'return_format' => 'object',
 		),
+		array(
+			'key' => 'field_home_featured_faq',
+			'label' => 'Preguntas Frecuentes (FAQ) Destacadas',
+			'name' => 'home_featured_faq',
+			'type' => 'relationship',
+			'instructions' => 'Selecciona y ordena las FAQs a mostrar. Si lo dejas vacío, se mostrarán todas.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'post_type' => array(
+				0 => 'faq',
+			),
+			'filters' => array(
+				0 => 'search',
+			),
+			'return_format' => 'object',
+		),
 	),
 	'location' => array(
 		array(

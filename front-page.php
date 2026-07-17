@@ -38,7 +38,8 @@ if (!empty($bio_text)) {
 if (!empty($bio_paragraphs)) {
     $about_data = [
         'headline' => wp_ai_get_field_fallback('about_headline', 'César Luis, desarrollador web WordPress'),
-        'bio_paragraphs' => $bio_paragraphs
+        'bio_paragraphs' => $bio_paragraphs,
+        'image_url' => wp_ai_get_field_fallback('about_image', get_the_post_thumbnail_url(get_the_ID(), 'large'))
     ];
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('about', 'premium-dark', $about_data);
 }
@@ -197,17 +198,33 @@ if (!empty($metrics_arr)) {
 
 // 8. FAQ (CPT)
 $faq_arr = [];
-$args_f = ['post_type' => 'faq', 'posts_per_page' => -1];
-$q_f = new WP_Query($args_f);
-if ($q_f->have_posts()) {
-    while($q_f->have_posts()) {
-        $q_f->the_post();
+$featured_faqs = wp_ai_get_field_fallback('home_featured_faq');
+
+if ( !empty($featured_faqs) ) {
+    // Utilizar las FAQs seleccionadas en ACF, respetando su orden manual
+    foreach ($featured_faqs as $faq_post) {
         $faq_arr[] = [
-            'question' => get_the_title(),
-            'answer' => apply_filters('the_content', get_the_content())
+            'question' => get_the_title($faq_post->ID),
+            'answer' => apply_filters('the_content', $faq_post->post_content)
         ];
     }
-    wp_reset_postdata();
+} else {
+    // Fallback: Mostrar todas (por fecha)
+    $args_f = [
+        'post_type' => 'faq', 
+        'posts_per_page' => -1
+    ];
+    $q_f = new WP_Query($args_f);
+    if ($q_f->have_posts()) {
+        while($q_f->have_posts()) {
+            $q_f->the_post();
+            $faq_arr[] = [
+                'question' => get_the_title(),
+                'answer' => apply_filters('the_content', get_the_content())
+            ];
+        }
+        wp_reset_postdata();
+    }
 }
 
 if (!empty($faq_arr)) {

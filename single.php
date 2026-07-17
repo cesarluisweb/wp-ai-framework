@@ -91,7 +91,7 @@ $schema = [
     <!-- Contenido Principal -->
     <section class="container mx-auto px-6 py-20">
         <div class="max-w-3xl mx-auto">
-            <article class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
+            <article class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-gray-200 prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-strong:text-gray-200 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
                 <?php echo wp_kses_post(apply_filters('the_content', $content)); ?>
             </article>
 

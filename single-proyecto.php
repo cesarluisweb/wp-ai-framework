@@ -51,12 +51,19 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
             </div>
             
             <?php if ($image_url): ?>
-            <div class="mt-16 w-full max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-gray-800 relative group">
-                <!-- Fallback en caso de que la imagen tarde en cargar -->
-                <div class="absolute inset-0 bg-gray-900 animate-pulse"></div>
-                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="w-full h-auto max-h-[600px] object-cover object-top relative z-10 transition-transform duration-1000 group-hover:scale-105" loading="lazy">
-                <!-- Overlay suave para mantener contraste -->
-                <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent z-20"></div>
+            <div class="mt-16 w-full max-w-6xl mx-auto relative bg-gray-950 border border-gray-700/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-md z-10">
+                <!-- Browser Header -->
+                <div class="h-8 bg-gray-900 border-b border-white/10 flex items-center px-4 gap-1.5 shrink-0">
+                    <div class="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-red-500/80"></div>
+                    <div class="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-green-500/80"></div>
+                </div>
+                <!-- Browser Content (Image) -->
+                <div class="relative w-full aspect-video overflow-hidden bg-gray-950">
+                    <div class="absolute inset-0 bg-gray-900 animate-pulse"></div>
+                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="absolute inset-0 w-full h-full object-cover object-top z-10" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent z-20 pointer-events-none"></div>
+                </div>
             </div>
             <?php endif; ?>
         </div>
@@ -69,7 +76,7 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
             <!-- Principal: Contenido SEO -->
             <article class="w-full lg:w-8/12">
                 <!-- El bloque "prose" es la joya de la corona para artículos SEO. Tailwind Typography se encarga de dar estilo perfecto a H2, P, UL, LI -->
-                <div class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-white prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
+                <div class="prose prose-invert prose-sm md:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-h2:text-gray-200 prose-h2:mt-12 prose-h2:first:mt-0 prose-h2:mb-6 prose-h3:text-gray-200 prose-h3:mt-8 prose-h3:mb-4 prose-p:text-gray-400 prose-p:leading-relaxed prose-li:text-gray-400 prose-strong:text-gray-200 prose-a:text-brand-400 hover:prose-a:text-brand-300 transition-colors">
                     <?php 
                         // Muestra el contenido largo inyectado por el script, con formato correcto.
                         echo wp_kses_post(apply_filters('the_content', $content)); 

@@ -153,12 +153,12 @@ get_header();
                         </div>
                         
                         <!-- Footer of Card -->
-                        <div class="mt-auto pt-6 border-t border-gray-800/60 flex items-center justify-between">
+                        <div class="mt-auto pt-6 border-t border-gray-800/60 flex items-end justify-between gap-4">
                             <!-- Tech Stack Pills -->
                             <?php if (!empty($techs)) : ?>
-                                <div class="flex items-center gap-2">
+                                <div class="flex flex-wrap gap-2">
                                     <?php foreach ($techs as $tech) : ?>
-                                        <span class="bg-gray-950 text-gray-400 border border-gray-800 rounded-md px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider">
+                                        <span class="inline-block bg-gray-950 border border-gray-700/60 rounded-full px-3 py-1 text-[11px] text-gray-400 font-medium">
                                             <?php echo esc_html($tech); ?>
                                         </span>
                                     <?php endforeach; ?>
@@ -166,7 +166,7 @@ get_header();
                             <?php endif; ?>
                             
                             <!-- Arrow Icon -->
-                            <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-brand-500 group-hover:text-gray-950 transition-all duration-300 transform group-hover:scale-110">
+                            <div class="w-8 h-8 shrink-0 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-brand-500 group-hover:text-gray-950 transition-all duration-300 transform group-hover:scale-110">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
                         </div>
