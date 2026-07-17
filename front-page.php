@@ -198,7 +198,7 @@ if (!empty($metrics_arr)) {
 
 // 8. FAQ (CPT)
 $faq_arr = [];
-$featured_faqs = wp_ai_get_field_fallback('home_featured_faq');
+$featured_faqs = wp_ai_get_field_fallback('home_featured_faq', []);
 
 if ( !empty($featured_faqs) ) {
     // Utilizar las FAQs seleccionadas en ACF, respetando su orden manual
