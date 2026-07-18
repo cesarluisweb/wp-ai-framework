@@ -287,6 +287,7 @@ if ($q_b->have_posts()) {
         $blog_arr[] = [
             'title' => get_the_title(),
             'excerpt' => get_the_excerpt() ?: wp_trim_words(get_the_content(), 15),
+            'image_url' => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
             'date' => get_the_date(),
             'category' => $cat_name,
             'read_time' => '5 min',

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .to(headline, { 
                 autoAlpha: 1, 
                 filter: "blur(0px)",
-                duration: 0.8, 
+                duration: 0.5, 
                 ease: "power2.out" 
             })
             
@@ -49,26 +49,26 @@ document.addEventListener("DOMContentLoaded", () => {
             .to(kicker, { 
                 autoAlpha: 1, 
                 scaleX: 1, 
-                duration: 0.8, 
+                duration: 0.5, 
                 ease: "power4.out" 
-            }, "-=0.1") 
+            }, "-=0.2") 
             
             // 4.3 Subtítulo (Cae en 3D como bisagra)
             .to(subheadline, { 
                 autoAlpha: 1, 
                 rotationX: 0, 
-                duration: 1.2, 
+                duration: 0.8, 
                 ease: "elastic.out(1, 0.5)" 
-            }, "-=0.4")
+            }, "-=0.3")
             
             // 4.4 CTAs (Saltan a la vista elásticamente)
             .to(ctas, { 
                 autoAlpha: 1, 
                 scale: 1, 
                 rotation: 0, 
-                duration: 1.2, 
+                duration: 0.8, 
                 ease: "elastic.out(1, 0.4)" 
-            }, "-=0.9")
+            }, "-=0.6")
             
             // 4.5 Terminal (Aterriza 3D con fuerza desde atrás)
             .to(terminalContainer, { 
@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 rotationY: 0,
                 rotationX: 0,
                 scale: 1, 
-                duration: 1.4, 
+                duration: 0.7, 
                 ease: "power3.out" 
-            }, "-=1.1"); 
+            }, "-=0.9"); 
 
         // 5. MatchMedia (Mouse Parallax)
         if (terminal && terminalContainer) {
