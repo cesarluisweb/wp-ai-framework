@@ -52,12 +52,44 @@ get_header();
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 relative z-20" id="portfolio-grid">
             <?php
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+            
+            // Dynamic Sorting based on ACF
+            $sort_order = function_exists('get_field') ? get_field('portfolio_sort_order') : 'date_asc';
+            if (!$sort_order) $sort_order = 'date_asc';
+
+            $orderby = 'date';
+            $order = 'ASC';
+
+            switch ($sort_order) {
+                case 'date_desc':
+                    $orderby = 'date';
+                    $order = 'DESC';
+                    break;
+                case 'modified_asc':
+                    $orderby = 'modified';
+                    $order = 'ASC';
+                    break;
+                case 'modified_desc':
+                    $orderby = 'modified';
+                    $order = 'DESC';
+                    break;
+                case 'title_asc':
+                    $orderby = 'title';
+                    $order = 'ASC';
+                    break;
+                case 'date_asc':
+                default:
+                    $orderby = 'date';
+                    $order = 'ASC';
+                    break;
+            }
+
             $portfolio_args = [
                 'post_type' => 'proyecto',
                 'posts_per_page' => 9,
                 'paged' => $paged,
-                'orderby' => 'menu_order date',
-                'order' => 'DESC'
+                'orderby' => $orderby,
+                'order' => $order
             ];
             $portfolio_query = new WP_Query($portfolio_args);
 

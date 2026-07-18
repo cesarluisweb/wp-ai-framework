@@ -20,8 +20,8 @@ $hero_data = [
         'url' => wp_ai_get_field_fallback('hero_cta_url', '#cta'),
     ],
     'cta_secondary' => [
-        'label' => 'Ver mi trabajo',
-        'url' => '#portfolio'
+        'label' => wp_ai_get_field_fallback('hero_cta_2_label', 'Ver mi trabajo'),
+        'url' => wp_ai_get_field_fallback('hero_cta_2_url', '#portfolio')
     ],
     'hero_image' => ''
 ];
@@ -39,7 +39,8 @@ if (!empty($bio_paragraphs)) {
     $about_data = [
         'headline' => wp_ai_get_field_fallback('about_headline', 'César Luis, desarrollador web WordPress'),
         'bio_paragraphs' => $bio_paragraphs,
-        'image_url' => wp_ai_get_field_fallback('about_image', get_the_post_thumbnail_url(get_the_ID(), 'large'))
+        'image_url' => wp_ai_get_field_fallback('about_image', get_the_post_thumbnail_url(get_the_ID(), 'large')),
+        'image_id' => attachment_url_to_postid(wp_ai_get_field_fallback('about_image', get_the_post_thumbnail_url(get_the_ID(), 'large'))) ?: get_post_thumbnail_id(get_the_ID())
     ];
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('about', 'premium-dark', $about_data);
 }
@@ -78,6 +79,7 @@ if ($q_p->have_posts()) {
             'category' => $cat,
             'tech_stack' => $techs,
             'image_url' => get_the_post_thumbnail_url(get_the_ID(), 'large'),
+            'image_id' => get_post_thumbnail_id(get_the_ID()),
             'url' => get_permalink(),
             'image_gradient' => function_exists('get_field') ? get_field('css_gradient') : 'linear-gradient(135deg, #0a1f2a 0%, #144257 50%, #287799 100%)'
         ];
@@ -170,6 +172,7 @@ if ($q_t->have_posts()) {
             'link' => get_post_meta(get_the_ID(), 'testimonial_link', true),
             'rating' => 5,
             'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'),
+            'image_id' => get_post_thumbnail_id(get_the_ID()),
         ];
     }
     wp_reset_postdata();
@@ -288,6 +291,7 @@ if ($q_b->have_posts()) {
             'title' => get_the_title(),
             'excerpt' => get_the_excerpt() ?: wp_trim_words(get_the_content(), 15),
             'image_url' => get_the_post_thumbnail_url(get_the_ID(), 'medium_large'),
+            'image_id' => get_post_thumbnail_id(get_the_ID()),
             'date' => get_the_date(),
             'category' => $cat_name,
             'read_time' => '5 min',

@@ -29,16 +29,20 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
                     <div class="relative z-10 w-full h-full rounded-2xl overflow-hidden border border-gray-800/80 bg-gray-900">
                         <?php 
                         $image_url = $data['image_url'] ?? '';
+                        $image_id = $data['image_id'] ?? 0;
                         if (empty($image_url)) {
                             $image_url = get_template_directory_uri() . '/assets/img/mockup.jpg';
                         }
                         ?>
-                        <img 
-                            src="<?php echo esc_url($image_url); ?>" 
-                            alt="César Luis Dashboard Mockup"
-                            class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
-                            loading="lazy"
-                        />
+                        <?php if ( ! empty( $image_id ) ) : ?>
+                            <?php echo wp_get_attachment_image( $image_id, 'large', false, ['class' => 'w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700'] ); ?>
+                        <?php elseif ( ! empty( $image_url ) ) : ?>
+                            <img 
+                                src="<?php echo esc_url($image_url); ?>" 
+                                alt="Perfil Técnico" 
+                                class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700"
+                                loading="lazy">
+                        <?php endif; ?>
                         <!-- Subtle overlay for integration -->
                         <div class="absolute inset-0 bg-gradient-to-tr from-brand-950/40 via-transparent to-brand-500/10 mix-blend-overlay pointer-events-none"></div>
                     </div>

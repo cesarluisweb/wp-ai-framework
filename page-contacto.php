@@ -83,11 +83,12 @@ get_header();
             </p>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-24">
             
             <!-- Left Side: Form -->
-            <div class="lg:w-7/12">
-                <div class="bg-gray-900/40 border border-gray-800 rounded-3xl p-8 lg:p-12">
+            <div class="lg:col-span-7 flex flex-col">
+                <div class="bg-gray-900/40 border border-gray-800 rounded-3xl p-8 lg:p-12 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-6">Formulario de contacto</h3>
                     
                     <?php if ($form_submitted): ?>
                         <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6 text-green-400 mb-8 flex items-start gap-4">
@@ -110,7 +111,7 @@ get_header();
                         </div>
                     <?php endif; ?>
 
-                    <form action="<?php echo esc_url(get_permalink()); ?>" method="POST" class="space-y-6">
+                    <form action="<?php echo esc_url(get_permalink()); ?>" method="POST" class="space-y-6 flex-1 flex flex-col">
                         <?php wp_nonce_field('contact_form_action', 'contact_nonce'); ?>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -175,25 +176,27 @@ get_header();
                             </div>
                         </div>
 
-                        <div>
+                        <div class="flex-1 flex flex-col">
                             <label for="contact_message" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Cuéntame sobre tu proyecto *</label>
-                            <textarea id="contact_message" name="contact_message" required rows="5"
-                                      class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none"
+                            <textarea id="contact_message" name="contact_message" required
+                                      class="w-full h-full min-h-[120px] bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none"
                                       placeholder="Describe brevemente tus objetivos, plazos y cualquier restricción técnica..."></textarea>
                         </div>
 
-                        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-xl transition-colors flex justify-center items-center gap-2 cursor-pointer">
-                            <span>Enviar Mensaje</span>
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
+                        <div class="mt-auto pt-4">
+                            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-xl transition-colors flex justify-center items-center gap-2 cursor-pointer">
+                                <span>Enviar Mensaje</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
 
             <!-- Right Side: Info & Testimonial -->
-            <div class="lg:w-5/12 space-y-8">
+            <div class="lg:col-span-5 flex flex-col gap-8 justify-between">
                 
                 <!-- Contact Info Card -->
                 <!-- Contact Info Card -->
@@ -268,26 +271,7 @@ get_header();
                 endif; 
                 ?>
 
-                <!-- Random Testimonial Card -->
-                <?php
-                $testimonio_args = [
-                    'post_type' => 'testimonio',
-                    'posts_per_page' => 1,
-                    'orderby' => 'rand'
-                ];
-                $testimonio_query = new WP_Query($testimonio_args);
-                
-                if ($testimonio_query->have_posts()) :
-                    while ($testimonio_query->have_posts()) : $testimonio_query->the_post();
-                        $author_name = get_the_title();
-                        $role = get_post_meta(get_the_ID(), 'cargo', true) . ', ' . get_post_meta(get_the_ID(), 'empresa', true);
-                        // Clean up trailing comma if enterprise is empty
-                        $role = trim($role, ', ');
-                        $quote = get_post_meta(get_the_ID(), 'testimonial_content', true);
-                        if (empty($quote)) {
-                            $quote = get_post_field('post_content', get_the_ID());
-                        }
-                ?>
+                <!-- Hardcoded Testimonial Card -->
                 <div class="bg-gray-900/40 border border-gray-800 rounded-3xl p-8">
                     <div class="flex gap-1 text-yellow-500 mb-4">
                         <?php for ($i=0; $i<5; $i++): ?>
@@ -297,18 +281,12 @@ get_header();
                         <?php endfor; ?>
                     </div>
                     <blockquote class="text-gray-300 italic mb-6">
-                        "<?php echo wp_trim_words(strip_tags($quote), 30); ?>"
+                        "Un gran profesional, seguimos trabajando con él ya que estamos muy contentos con su desempeño."
                     </blockquote>
-                    <div>
-                        <div class="font-bold text-white"><?php echo esc_html($author_name); ?></div>
-                        <div class="text-sm text-gray-500"><?php echo esc_html($role); ?></div>
+                    <div class="font-bold text-white">
+                        Khadim Cissé
                     </div>
                 </div>
-                <?php
-                    endwhile;
-                    wp_reset_postdata();
-                endif;
-                ?>
 
             </div>
         </div>

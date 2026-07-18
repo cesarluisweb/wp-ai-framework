@@ -30,6 +30,8 @@ function wp_ai_get_service_icon_svg($icon_name, $classes = 'w-6 h-6') {
 add_action('acf/init', function() {
     if (function_exists('acf_add_local_field_group')) {
         acf_add_local_field_group(array(
+            'ID' => '',
+            'ID' => '',
             'key' => 'group_home_about_section',
             'title' => 'Home - About Section',
             'fields' => array(
@@ -81,6 +83,8 @@ add_action('acf/init', function() {
 
         // Detalles del Proyecto (Custom Post Type) 100% Programático
         acf_add_local_field_group(array(
+            'ID' => '',
+            'ID' => '',
             'key' => 'group_proyecto_detalles',
             'title' => 'Detalles del Proyecto',
             'fields' => array(

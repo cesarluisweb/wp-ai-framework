@@ -45,6 +45,7 @@ $posts          = $data['posts']          ?? [];
                     $read_time = $post['read_time'] ?? '';
                     $url       = $post['url']       ?? '#';
                     $image_url = $post['image_url'] ?? '';
+                    $image_id  = $post['image_id']  ?? 0;
                     $gradient  = $post['gradient']  ?? 'linear-gradient(135deg, #287799, #144257)';
                     $is_fourth = $post['is_fourth'] ?? false;
                     $visibility = $is_fourth ? 'hidden md:block lg:hidden' : 'block';
@@ -54,7 +55,10 @@ $posts          = $data['posts']          ?? [];
 
                         <!-- Gradient header / image placeholder -->
                         <div class="relative h-48 rounded-t-xl overflow-hidden bg-gray-900">
-                            <?php if ( $image_url ) : ?>
+                            <?php if ( !empty($image_id) ) : ?>
+                                <?php echo wp_get_attachment_image( $image_id, 'medium_large', false, ['class' => 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'] ); ?>
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/40 to-transparent"></div>
+                            <?php elseif ( $image_url ) : ?>
                                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                                 <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/40 to-transparent"></div>
                             <?php else : ?>

@@ -55,6 +55,7 @@ $projects   = $data['projects']           ?? [];
           $p_tech       = $project['tech_stack']      ?? [];
           $p_url        = $project['url']            ?? '#';
           $p_image      = $project['image_url']      ?? '';
+          $p_image_id   = $project['image_id']       ?? 0;
           $p_gradient   = $project['image_gradient'] ?? 'linear-gradient(135deg, #287799, #00D8FF)';
           
           // Calcula el offset superior para el efecto de apilamiento (sticky top)
@@ -153,7 +154,9 @@ $projects   = $data['projects']           ?? [];
                     </div>
                     <!-- Browser Content (Image) -->
                     <div class="relative w-full aspect-video overflow-hidden bg-gray-950">
-                        <?php if ( $p_image ) : ?>
+                        <?php if ( !empty($p_image_id) ) : ?>
+                            <?php echo wp_get_attachment_image( $p_image_id, 'large', false, ['class' => 'absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-700'] ); ?>
+                        <?php elseif ( $p_image ) : ?>
                             <img src="<?php echo esc_url( $p_image ); ?>" alt="<?php echo esc_attr( $p_title ); ?>" class="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-700">
                         <?php else : ?>
                             <div class="p-8 opacity-20">
