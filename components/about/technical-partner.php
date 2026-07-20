@@ -30,7 +30,7 @@ $profile_image = $data['profile_image'] ?? '';
                 </div>
                 <?php endif; ?>
 
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 tracking-tight leading-tight">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-200 mb-8 tracking-tight leading-tight">
                     <?php echo esc_html($positioning_title); ?>
                 </h2>
 

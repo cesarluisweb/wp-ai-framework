@@ -45,7 +45,7 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
                 <span class="inline-block text-brand-300 font-bold uppercase tracking-[0.2em] mb-6 border border-brand-500/30 bg-brand-500/10 px-4 py-1 rounded-full text-sm">
                     <?php echo esc_html($category); ?>
                 </span>
-                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-8">
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-gray-200 leading-tight mb-8">
                     <?php echo esc_html($title); ?>
                 </h1>
             </div>
@@ -87,7 +87,7 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
             <!-- Sidebar: Detalles Técnicos -->
             <aside class="w-full lg:w-4/12">
                 <div class="sticky top-32 bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-2xl">
-                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-gray-800 pb-4">Detalles del Proyecto</h3>
+                    <h3 class="text-2xl font-bold text-gray-200 mb-6 border-b border-gray-800 pb-4">Detalles del Proyecto</h3>
                     
                     <?php if ($client_name || $live_url): ?>
                     <div class="mb-8 border-b border-gray-800 pb-8">
@@ -96,7 +96,7 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
                             <?php if ($client_name): ?>
                             <div>
                                 <span class="text-gray-500 text-xs block mb-1">Cliente</span>
-                                <strong class="text-white text-lg"><?php echo esc_html($client_name); ?></strong>
+                                <strong class="text-gray-200 text-lg"><?php echo esc_html($client_name); ?></strong>
                             </div>
                             <?php endif; ?>
                             
@@ -151,7 +151,7 @@ $test_link = $testimonio_id ? get_post_meta($testimonio_id, 'testimonial_link', 
                         </blockquote>
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-white font-bold text-sm"><?php echo esc_html($test_author); ?></p>
+                                <p class="text-gray-200 font-bold text-sm"><?php echo esc_html($test_author); ?></p>
                                 <?php if ($test_country): ?>
                                     <p class="text-gray-500 text-xs mt-1"><?php echo esc_html($test_country); ?></p>
                                 <?php endif; ?>

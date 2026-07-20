@@ -17,7 +17,7 @@ $cta_button = $data['cta_button'] ?? null;
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 py-5 flex items-center justify-between">
         
         <!-- Logo / Name -->
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-white tracking-tight hover:text-brand-300 transition-colors duration-300">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight hover:text-brand-300 transition-colors duration-300">
             <!-- Monograma C -->
             <div class="relative w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
                 <span class="text-brand-300 font-black text-lg leading-none mt-0.5">C</span>
@@ -67,7 +67,7 @@ $cta_button = $data['cta_button'] ?? null;
                                                         ?>
                                                     </div>
                                                     <div class="relative z-10">
-                                                        <div class="text-white font-bold mb-1 group-hover/item:text-brand-300 transition-colors"><?php echo esc_html($s_item['title']); ?></div>
+                                                        <div class="text-gray-200 font-bold mb-1 group-hover/item:text-brand-300 transition-colors"><?php echo esc_html($s_item['title']); ?></div>
                                                         <div class="text-xs text-gray-400 line-clamp-2"><?php echo esc_html($s_item['desc']); ?></div>
                                                     </div>
                                                 </a>
@@ -95,7 +95,7 @@ $cta_button = $data['cta_button'] ?? null;
                                                         <?php endif; ?>
                                                     </div>
                                                     <div class="relative z-10 pr-2">
-                                                        <h4 class="text-white font-bold text-sm group-hover/item:text-brand-300 transition-colors leading-snug line-clamp-2"><?php echo esc_html($item['title']); ?></h4>
+                                                        <h4 class="text-gray-200 font-bold text-sm group-hover/item:text-brand-300 transition-colors leading-snug line-clamp-2"><?php echo esc_html($item['title']); ?></h4>
                                                     </div>
                                                 </a>
                                             <?php endforeach; ?>
@@ -124,7 +124,7 @@ $cta_button = $data['cta_button'] ?? null;
             <?php endif; ?>
 
             <!-- Mobile Menu Button -->
-            <button class="lg:hidden w-10 h-10 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-white hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer focus:outline-none group" id="mobile-menu-btn" aria-label="Toggle menu">
+            <button class="lg:hidden w-10 h-10 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer focus:outline-none group" id="mobile-menu-btn" aria-label="Toggle menu">
                 <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -139,7 +139,7 @@ $cta_button = $data['cta_button'] ?? null;
     <div class="w-full h-full flex flex-col md:flex-row relative">
         
         <!-- Logo Top Left -->
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="absolute top-6 left-6 lg:top-8 lg:left-8 flex items-center gap-3 text-xl font-black text-white tracking-tight hover:text-brand-300 transition-colors duration-300 z-50">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="absolute top-6 left-6 lg:top-8 lg:left-8 flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight hover:text-brand-300 transition-colors duration-300 z-50">
             <div class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
                 <span class="text-brand-300 font-black text-xl leading-none mt-0.5">C</span>
             </div>
@@ -159,7 +159,7 @@ $cta_button = $data['cta_button'] ?? null;
         <!-- Right Side (Navigation) -->
         <div class="w-full md:w-1/2 h-full flex flex-col justify-center px-8 sm:px-16 lg:px-24 relative">
             <!-- Close Button -->
-            <button class="absolute top-6 right-6 lg:top-8 lg:right-8 w-12 h-12 rounded-lg bg-gray-900/50 border border-gray-800/50 flex items-center justify-center text-white hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer group z-50" id="mobile-menu-close">
+            <button class="absolute top-6 right-6 lg:top-8 lg:right-8 w-12 h-12 rounded-lg bg-gray-900/50 border border-gray-800/50 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer group z-50" id="mobile-menu-close">
                 <svg class="w-8 h-8 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>

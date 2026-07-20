@@ -43,7 +43,7 @@ $btn_url   = $button['url']   ?? '#';
 
             <div style="transform: translateZ(30px);">
                 <?php if ( $headline ) : ?>
-                    <h2 class="relative text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.15] mb-4 md:mb-6">
+                    <h2 class="relative text-3xl md:text-5xl lg:text-6xl font-bold text-gray-200 tracking-tight leading-[1.15] mb-4 md:mb-6">
                         <?php echo wp_kses_post( $headline ); ?>
                     </h2>
                 <?php endif; ?>

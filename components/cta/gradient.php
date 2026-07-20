@@ -20,7 +20,7 @@ $guarantee = $data['guarantee'] ?? '';
             <div class="absolute inset-0 bg-gradient-to-br from-emerald-600/20 via-transparent to-blue-600/20 mix-blend-overlay"></div>
             
             <div class="relative z-10 max-w-3xl mx-auto">
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-200 mb-6 tracking-tight">
                     <?php echo esc_html($headline); ?>
                 </h2>
                 

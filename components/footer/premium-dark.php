@@ -35,7 +35,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-20 text-left">
             <!-- Brand / Bio -->
             <div class="col-span-2 md:col-span-3 lg:col-span-2">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-white tracking-tight hover:text-brand-300 transition-colors duration-300 mb-6">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight hover:text-brand-300 transition-colors duration-300 mb-6">
                     <div class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
                         <span class="text-brand-300 font-black text-xl leading-none mt-0.5">C</span>
                     </div>
@@ -57,7 +57,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
 
             <!-- Column 2: Navegación -->
             <div class="col-span-1 md:col-span-1 lg:col-span-1">
-                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Navegación</h3>
+                <h3 class="text-gray-200 font-bold text-lg mb-6 tracking-wide">Navegación</h3>
                 <ul class="flex flex-col gap-4">
                     <li>
                         <a href="<?php echo esc_url(home_url('/')); ?>" class="text-gray-400 hover:text-brand-300 transition-colors duration-300">
@@ -76,7 +76,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
 
             <!-- Column 3: Contacto -->
             <div class="col-span-1 md:col-span-1 lg:col-span-1">
-                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Contacto</h3>
+                <h3 class="text-gray-200 font-bold text-lg mb-6 tracking-wide">Contacto</h3>
                 <ul class="flex flex-col gap-4 text-sm">
                     <?php 
                     $contact_email = get_option('wp_ai_contact_email', 'hello@example.com');
@@ -115,14 +115,14 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
 
             <!-- Column 4: Newsletter -->
             <div class="col-span-2 md:col-span-1 lg:col-span-1">
-                <h3 class="text-white font-bold text-lg mb-6 tracking-wide">Newsletter</h3>
+                <h3 class="text-gray-200 font-bold text-lg mb-6 tracking-wide">Newsletter</h3>
                 <p class="text-gray-400 text-sm mb-4 leading-relaxed">
                     Recibe ideas de desarrollo web a medida e inteligencia artificial.
                 </p>
                 <form action="#" method="POST" class="space-y-3" id="newsletter-form">
                     <div class="relative">
                         <input type="email" name="newsletter_email" placeholder="Tu email corporativo" required 
-                            class="w-full bg-gray-950 border border-gray-800 hover:border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:border-brand-500 focus:outline-none transition-colors duration-300">
+                            class="w-full bg-gray-950 border border-gray-800 hover:border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:outline-none transition-colors duration-300">
                     </div>
                     <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-gray-950 font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 shadow-lg shadow-brand-500/10 cursor-pointer">
                         Suscribirme

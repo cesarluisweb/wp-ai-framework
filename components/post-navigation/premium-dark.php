@@ -76,7 +76,7 @@ $render_media = function($p_id) use ($post_type) {
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                                 Anterior
                             </span>
-                            <h4 class="text-white font-bold text-lg leading-tight group-hover:text-brand-300 transition-colors line-clamp-2"><?php echo esc_html(get_the_title($prev_post->ID)); ?></h4>
+                            <h4 class="text-gray-200 font-bold text-lg leading-tight group-hover:text-brand-300 transition-colors line-clamp-2"><?php echo esc_html(get_the_title($prev_post->ID)); ?></h4>
                         </div>
                     </a>
                 <?php endif; ?>
@@ -95,7 +95,7 @@ $render_media = function($p_id) use ($post_type) {
                                 Siguiente
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </span>
-                            <h4 class="text-white font-bold text-lg leading-tight group-hover:text-brand-300 transition-colors line-clamp-2"><?php echo esc_html(get_the_title($next_post->ID)); ?></h4>
+                            <h4 class="text-gray-200 font-bold text-lg leading-tight group-hover:text-brand-300 transition-colors line-clamp-2"><?php echo esc_html(get_the_title($next_post->ID)); ?></h4>
                         </div>
                     </a>
                 <?php endif; ?>

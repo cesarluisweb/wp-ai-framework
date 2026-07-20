@@ -33,7 +33,7 @@ $projects   = $data['projects']           ?? [];
       <?php endif; ?>
 
       <?php if ( $title ) : ?>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight">
           <?php echo esc_html( $title ); ?>
         </h2>
       <?php endif; ?>
@@ -79,7 +79,7 @@ $projects   = $data['projects']           ?? [];
                 <?php endif; ?>
 
                 <?php if ( $p_title ) : ?>
-                  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight group-hover:text-brand-300 transition-colors duration-300">
+                  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-200 mb-6 leading-tight group-hover:text-brand-300 transition-colors duration-300">
                     <?php echo esc_html( $p_title ); ?>
                   </h3>
                 <?php endif; ?>
@@ -91,9 +91,9 @@ $projects   = $data['projects']           ?? [];
                     $clean_desc = str_replace( ['[&hellip;]', '[...]', '&hellip;'], '', $p_desc );
                     
                     // Auto-formateo inteligente: Convertir frases clave en viñetas (bullets)
-                    $clean_desc = str_replace('Contexto del Proyecto', '<ul class="mt-4 space-y-3"><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-white font-semibold">Contexto:</strong>', $clean_desc);
-                    $clean_desc = str_replace('El Problema a Resolver', '</li><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-white font-semibold">Problema:</strong>', $clean_desc);
-                    $clean_desc = str_replace('La Solución Implementada', '</li><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-white font-semibold">Solución:</strong>', $clean_desc);
+                    $clean_desc = str_replace('Contexto del Proyecto', '<ul class="mt-4 space-y-3"><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-gray-200 font-semibold">Contexto:</strong>', $clean_desc);
+                    $clean_desc = str_replace('El Problema a Resolver', '</li><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-gray-200 font-semibold">Problema:</strong>', $clean_desc);
+                    $clean_desc = str_replace('La Solución Implementada', '</li><li class="relative pl-5"><span class="absolute left-0 text-brand-300 font-bold text-xl leading-none top-1">•</span><strong class="text-gray-200 font-semibold">Solución:</strong>', $clean_desc);
                     
                     // Cerrar la lista si se abrió
                     if (strpos($clean_desc, '<ul') !== false) {
@@ -179,7 +179,7 @@ $projects   = $data['projects']           ?? [];
     <!-- Button "Ver todos los proyectos" -->
     <div class="mt-20 text-center relative z-20">
       <a href="<?php echo esc_url(site_url('/portafolio')); ?>" 
-         class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group">
+         class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-200 bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group">
         Ver portafolio completo
         <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>

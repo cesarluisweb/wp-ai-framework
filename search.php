@@ -10,7 +10,7 @@ get_header();
         
         <header class="mb-16 text-center">
             <span class="text-brand-400 font-bold uppercase tracking-widest text-sm mb-4 block">Resultados de Búsqueda</span>
-            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+            <h1 class="text-4xl md:text-5xl font-black text-gray-200 tracking-tight leading-tight">
                 Has buscado: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500">"<?php echo get_search_query(); ?>"</span>
             </h1>
         </header>
@@ -48,14 +48,14 @@ get_header();
                                 <span class="<?php echo $type_color; ?> font-bold uppercase tracking-wider text-xs mb-2 block">
                                     <?php echo esc_html($type_label); ?>
                                 </span>
-                                <?php the_title('<h2 class="text-2xl font-bold text-white leading-snug"><a href="' . esc_url(get_permalink()) . '" class="hover:text-brand-300 transition-colors">', '</a></h2>'); ?>
+                                <?php the_title('<h2 class="text-2xl font-bold text-gray-200 leading-snug"><a href="' . esc_url(get_permalink()) . '" class="hover:text-brand-300 transition-colors">', '</a></h2>'); ?>
                             </header>
 
                             <div class="text-gray-400 leading-relaxed text-base mb-6 line-clamp-3">
                                 <?php echo wp_trim_words(get_the_excerpt(), 25); ?>
                             </div>
                             
-                            <a href="<?php the_permalink(); ?>" class="inline-flex items-center text-white font-bold hover:text-brand-400 group/link mt-auto w-fit">
+                            <a href="<?php the_permalink(); ?>" class="inline-flex items-center text-gray-200 font-bold hover:text-brand-400 group/link mt-auto w-fit">
                                 Ver detalles
                                 <svg class="w-4 h-4 ml-2 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
@@ -74,7 +74,7 @@ get_header();
                 <div class="w-20 h-20 mx-auto bg-gray-800/50 rounded-full flex items-center justify-center mb-6">
                     <svg class="w-10 h-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">No encontramos resultados</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-200 mb-4">No encontramos resultados</h2>
                 <p class="text-gray-400 text-lg max-w-md mx-auto mb-8">No hemos encontrado ningún proyecto, servicio o artículo que coincida con tu búsqueda. Intenta con otros términos.</p>
                 <div class="max-w-md mx-auto relative">
                     <?php get_search_form(); ?>

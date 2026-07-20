@@ -22,7 +22,7 @@ $steps = $data['steps'] ?? [];
             <?php endif; ?>
             
             <?php if (!empty($section_title)): ?>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight mb-6">
                     <?php echo esc_html($section_title); ?>
                 </h2>
             <?php endif; ?>
@@ -44,7 +44,7 @@ $steps = $data['steps'] ?? [];
                     </div>
                     <!-- Texto Derecha (Mobile) / Abajo (Desktop) -->
                     <div>
-                        <h3 class="text-xl md:text-2xl lg:text-xl font-bold text-white mb-2 lg:mb-4">
+                        <h3 class="text-xl md:text-2xl lg:text-xl font-bold text-gray-200 mb-2 lg:mb-4">
                             <?php echo esc_html($step['title']); ?>
                         </h3>
                         <p class="text-gray-400 text-sm md:text-base lg:text-sm leading-relaxed">

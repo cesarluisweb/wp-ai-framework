@@ -50,7 +50,7 @@ foreach($services as $svc) {
         <!-- Header -->
         <div class="mb-16">
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Servicios</span>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight">
                 <?php echo esc_html($section_title); ?>
             </h2>
             <?php if (!empty($section_description)): ?>
@@ -80,7 +80,7 @@ foreach($services as $svc) {
                     <div class="absolute inset-0 bg-brand-400/20 blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
-                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-brand-300 transition-colors duration-300">
+                <h3 class="text-2xl font-bold text-gray-200 mb-4 group-hover:text-brand-300 transition-colors duration-300">
                     <?php echo esc_html($service['title']); ?>
                 </h3>
                 

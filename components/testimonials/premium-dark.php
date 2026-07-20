@@ -30,7 +30,7 @@ $testimonials = $data['testimonials'] ?? [];
                 </span>
             <?php endif; ?>
             
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight">
                 <?php echo esc_html($section_title); ?>
             </h2>
             <?php if (!empty($section_description)): ?>
@@ -76,7 +76,7 @@ $testimonials = $data['testimonials'] ?? [];
                         <?php endif; ?>
                     </div>
                     <div>
-                        <div class="text-white font-bold tracking-wide">
+                        <div class="text-gray-200 font-bold tracking-wide">
                             <?php echo esc_html($testimonial['author']); ?>
                         </div>
                         <div class="text-brand-400 text-sm font-medium">

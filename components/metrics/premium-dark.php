@@ -30,7 +30,7 @@ $metrics = $data['metrics'] ?? [];
                 <div class="grid grid-cols-[130px_1fr] md:flex md:items-center justify-start gap-6 md:gap-5 w-[320px] md:w-auto">
                     <!-- Valor de la métrica (Número a la izquierda) -->
                     <div class="metric-value-container relative shrink-0 text-center md:text-left">
-                        <span class="text-5xl lg:text-7xl font-black text-white tracking-tighter" data-metric-value="<?php echo esc_attr($metric['value']); ?>">
+                        <span class="text-5xl lg:text-7xl font-black text-gray-200 tracking-tighter" data-metric-value="<?php echo esc_attr($metric['value']); ?>">
                             <?php echo esc_html($metric['value']); ?>
                         </span>
                         <div class="absolute -inset-4 bg-brand-400/20 blur-xl rounded-full opacity-0 metric-glow transition-opacity duration-300"></div>

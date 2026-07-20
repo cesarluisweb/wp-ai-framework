@@ -24,7 +24,7 @@ get_header();
             404
         </h1>
         
-        <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-200 mb-6">
             Endpoint no encontrado
         </h2>
         
@@ -32,7 +32,7 @@ get_header();
             Parece que la URL solicitada no existe en el servidor. Puede que haya sido movida, eliminada, o que la ruta sea incorrecta.
         </p>
 
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg shadow-brand-500/20">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-gray-200 font-bold py-4 px-8 rounded-xl transition-colors shadow-lg shadow-brand-500/20">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>

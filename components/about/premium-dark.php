@@ -54,7 +54,7 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
 
                 <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Sobre mí</span>
                 <?php if ( ! empty( $headline ) ) : ?>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-8">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight mb-8">
                         <?php echo esc_html( $headline ); ?>
                     </h2>
                 <?php endif; ?>

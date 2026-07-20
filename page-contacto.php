@@ -75,7 +75,7 @@ get_header();
             $hero_description = get_field('hero_description') ?: 'Cuéntame qué necesitas. Ya sea un sitio web a medida, una integración con IA o mantenimiento web continuo, te responderé en menos de 24 horas.';
             ?>
             <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html($hero_kicker); ?></span>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-200 mb-4">
                 <?php echo esc_html($hero_h1_normal); ?> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 max-w-2xl mx-auto">
@@ -88,7 +88,7 @@ get_header();
             <!-- Left Side: Form -->
             <div class="lg:col-span-7 flex flex-col">
                 <div class="bg-gray-900/40 border border-gray-800 rounded-3xl p-8 lg:p-12 flex-1 flex flex-col">
-                    <h3 class="text-xl font-bold text-white mb-6">Formulario de contacto</h3>
+                    <h3 class="text-xl font-bold text-gray-200 mb-6">Formulario de contacto</h3>
                     
                     <?php if ($form_submitted): ?>
                         <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6 text-green-400 mb-8 flex items-start gap-4">
@@ -118,13 +118,13 @@ get_header();
                             <div>
                                 <label for="contact_name" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Nombre completo *</label>
                                 <input type="text" id="contact_name" name="contact_name" required
-                                       class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
+                                       class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
                                        placeholder="Tu nombre o agencia">
                             </div>
                             <div>
                                 <label for="contact_email" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Email profesional *</label>
                                 <input type="email" id="contact_email" name="contact_email" required
-                                       class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
+                                       class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
                                        placeholder="tu@email.com">
                             </div>
                         </div>
@@ -133,14 +133,14 @@ get_header();
                             <div>
                                 <label for="contact_company" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Empresa (Opcional)</label>
                                 <input type="text" id="contact_company" name="contact_company"
-                                       class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
+                                       class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
                                        placeholder="Nombre de tu empresa">
                             </div>
                             <div>
                                 <label for="contact_type" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Servicio de interés</label>
                                 <div class="relative">
                                     <select id="contact_type" name="contact_type"
-                                            class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white appearance-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+                                            class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 appearance-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
                                         <option value="Desarrollo Web">Desarrollo Web a Medida</option>
                                         <option value="Mantenimiento Web">Mantenimiento Web</option>
                                         <option value="Integración IA">Integración de Agentes IA</option>
@@ -161,7 +161,7 @@ get_header();
                             <label for="contact_budget" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Presupuesto Estimado</label>
                             <div class="relative">
                                 <select id="contact_budget" name="contact_budget"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white appearance-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+                                        class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 appearance-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
                                     <option value="No estoy seguro">No estoy seguro / Quiero consultarlo</option>
                                     <option value="Menos de 1.000€">Menos de 1.000€</option>
                                     <option value="1.000€ - 3.000€">1.000€ - 3.000€</option>
@@ -179,12 +179,12 @@ get_header();
                         <div class="flex-1 flex flex-col">
                             <label for="contact_message" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Cuéntame sobre tu proyecto *</label>
                             <textarea id="contact_message" name="contact_message" required
-                                      class="w-full h-full min-h-[120px] bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none"
+                                      class="w-full h-full min-h-[120px] bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none"
                                       placeholder="Describe brevemente tus objetivos, plazos y cualquier restricción técnica..."></textarea>
                         </div>
 
                         <div class="mt-auto pt-4">
-                            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 px-8 rounded-xl transition-colors flex justify-center items-center gap-2 cursor-pointer">
+                            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-gray-200 font-bold py-4 px-8 rounded-xl transition-colors flex justify-center items-center gap-2 cursor-pointer">
                                 <span>Enviar Mensaje</span>
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -201,7 +201,7 @@ get_header();
                 <!-- Contact Info Card -->
                 <!-- Contact Info Card -->
                 <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-white mb-6">Contacto Directo</h3>
+                    <h3 class="text-xl font-bold text-gray-200 mb-6">Contacto Directo</h3>
                     
                     <div class="space-y-4">
                         <?php
@@ -216,7 +216,7 @@ get_header();
                             </div>
                             <div>
                                 <div class="text-sm text-gray-500 mb-1">Email Profesional</div>
-                                <div class="text-white font-medium"><?php echo esc_html($contact_email); ?></div>
+                                <div class="text-gray-200 font-medium"><?php echo esc_html($contact_email); ?></div>
                             </div>
                         </a>
                         <?php endif; ?>
@@ -237,7 +237,7 @@ get_header();
                             </div>
                             <div>
                                 <div class="text-sm text-gray-500 mb-1">WhatsApp</div>
-                                <div class="text-white font-medium">Chat Directo</div>
+                                <div class="text-gray-200 font-medium">Chat Directo</div>
                             </div>
                         </a>
                         <?php endif; ?>
@@ -250,7 +250,7 @@ get_header();
                     if (!empty($socials)):
                 ?>
                 <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-white mb-6">Redes Sociales</h3>
+                    <h3 class="text-xl font-bold text-gray-200 mb-6">Redes Sociales</h3>
                     <div class="flex flex-wrap gap-4">
                         <?php foreach ($socials as $key => $social): ?>
                         <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" 
@@ -283,7 +283,7 @@ get_header();
                     <blockquote class="text-gray-300 italic mb-6">
                         "Un gran profesional, seguimos trabajando con él ya que estamos muy contentos con su desempeño."
                     </blockquote>
-                    <div class="font-bold text-white">
+                    <div class="font-bold text-gray-200">
                         Khadim Cissé
                     </div>
                 </div>

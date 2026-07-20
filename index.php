@@ -11,7 +11,7 @@ get_header();
             
             <?php if (is_home() && !is_front_page()) : ?>
                 <header class="mb-16 text-center">
-                    <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight">Blog</h1>
+                    <h1 class="text-4xl md:text-5xl font-black text-gray-200 tracking-tight">Blog</h1>
                 </header>
             <?php endif; ?>
 
@@ -20,9 +20,9 @@ get_header();
                     <article id="post-<?php the_ID(); ?>" <?php post_class('bg-gray-900/40 p-8 md:p-10 rounded-3xl border border-gray-800/60 hover:border-brand-500/50 transition-colors duration-300'); ?>>
                         <header class="mb-6">
                             <?php if (is_singular()) : ?>
-                                <?php the_title('<h1 class="text-3xl md:text-5xl font-bold text-white leading-tight">', '</h1>'); ?>
+                                <?php the_title('<h1 class="text-3xl md:text-5xl font-bold text-gray-200 leading-tight">', '</h1>'); ?>
                             <?php else : ?>
-                                <?php the_title('<h2 class="text-2xl md:text-3xl font-bold text-white mb-4 leading-snug"><a href="' . esc_url(get_permalink()) . '" class="hover:text-brand-400 transition-colors">', '</a></h2>'); ?>
+                                <?php the_title('<h2 class="text-2xl md:text-3xl font-bold text-gray-200 mb-4 leading-snug"><a href="' . esc_url(get_permalink()) . '" class="hover:text-brand-400 transition-colors">', '</a></h2>'); ?>
                             <?php endif; ?>
                             
                             <?php if ('post' === get_post_type()) : ?>
@@ -35,7 +35,7 @@ get_header();
                             <?php endif; ?>
                         </header>
 
-                        <div class="text-gray-400 leading-relaxed text-lg mb-8">
+                        <div class="prose prose-invert prose-brand prose-headings:text-gray-100 prose-strong:text-gray-200 max-w-none text-gray-400 leading-relaxed text-lg mb-8">
                             <?php 
                             if (is_singular()) {
                                 the_content();
@@ -65,7 +65,7 @@ get_header();
                 <div class="w-20 h-20 mx-auto bg-gray-800/50 rounded-full flex items-center justify-center mb-6">
                     <svg class="w-10 h-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <h1 class="text-3xl font-bold text-white mb-4">Contenido no encontrado</h1>
+                <h1 class="text-3xl font-bold text-gray-200 mb-4">Contenido no encontrado</h1>
                 <p class="text-gray-400 text-lg max-w-md mx-auto">Parece que no podemos encontrar lo que estás buscando. Tal vez la búsqueda te ayude.</p>
                 <div class="mt-8 max-w-sm mx-auto">
                     <?php get_search_form(); ?>

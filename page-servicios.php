@@ -52,7 +52,7 @@ if ($servicios_query->have_posts()) {
             $hero_description = get_field('hero_description') ?: 'Servicios diseñados para resolver los cuellos de botella de agencias digitales. Integramos automatización, orquestación de LLMs y desarrollo de alto rendimiento sin deuda técnica.';
             ?>
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6"><?php echo esc_html($hero_kicker); ?></span>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight tracking-tight max-w-4xl">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-200 mb-8 leading-tight tracking-tight max-w-4xl">
                 <?php echo esc_html($hero_h1_normal); ?> <br class="hidden md:inline"><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 max-w-3xl leading-relaxed">
@@ -103,7 +103,7 @@ if ($servicios_query->have_posts()) {
                     </svg>
                 </div>
                 
-                <h3 class="text-2xl font-bold text-white mb-4"><?php the_title(); ?></h3>
+                <h3 class="text-2xl font-bold text-gray-200 mb-4"><?php the_title(); ?></h3>
                 <p class="text-gray-400 mb-8 leading-relaxed"><?php echo esc_html($desc); ?></p>
                 
                 <?php if (!empty($features)) : ?>
@@ -138,7 +138,7 @@ if ($servicios_query->have_posts()) {
                     <div class="w-12 h-12 rounded-full bg-brand-500/10 flex items-center justify-center">
                         <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     </div>
-                    <h2 class="text-2xl font-bold text-white">Esto es para ti si...</h2>
+                    <h2 class="text-2xl font-bold text-gray-200">Esto es para ti si...</h2>
                 </div>
                 <ul class="space-y-5 text-gray-300">
                     <?php 
@@ -188,7 +188,7 @@ if ($servicios_query->have_posts()) {
     <!-- Methodology / Process -->
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24 border-t border-gray-900 pt-24">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Cómo Trabajo</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-200 mb-4">Cómo Trabajo</h2>
             <p class="text-gray-400 max-w-2xl mx-auto">Un proceso claro y transparente de principio a fin, diseñado para agencias y proyectos serios.</p>
         </div>
         
@@ -214,8 +214,8 @@ if ($servicios_query->have_posts()) {
             ?>
             <!-- Step <?php echo $i; ?> -->
             <div class="relative">
-                <div class="w-16 h-16 rounded-full bg-brand-500/10 border-2 <?php echo $is_last ? 'border-brand-500 shadow-[0_0_20px_rgba(59,130,246,0.4)] text-white' : 'border-brand-500/50 shadow-[0_0_15px_rgba(59,130,246,0.2)] text-brand-400'; ?> flex items-center justify-center font-bold text-xl mb-6">0<?php echo $i; ?></div>
-                <h3 class="text-xl font-bold text-white mb-3"><?php echo esc_html($title); ?></h3>
+                <div class="w-16 h-16 rounded-full bg-brand-500/10 border-2 <?php echo $is_last ? 'border-brand-500 shadow-[0_0_20px_rgba(59,130,246,0.4)] text-gray-200' : 'border-brand-500/50 shadow-[0_0_15px_rgba(59,130,246,0.2)] text-brand-400'; ?> flex items-center justify-center font-bold text-xl mb-6">0<?php echo $i; ?></div>
+                <h3 class="text-xl font-bold text-gray-200 mb-3"><?php echo esc_html($title); ?></h3>
                 <p class="text-gray-400 text-sm leading-relaxed"><?php echo esc_html($desc); ?></p>
                 <?php if(!$is_last): ?>
                 <div class="hidden lg:block absolute top-8 left-20 right-0 h-[2px] bg-gradient-to-r from-brand-500/50 to-transparent border-t-2 border-dashed border-gray-800"></div>

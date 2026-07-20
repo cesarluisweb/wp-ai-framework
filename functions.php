@@ -371,7 +371,7 @@ function wp_ai_load_more_portfolio() {
                     
                     <!-- Content Area -->
                     <div class="flex flex-col flex-grow p-8 bg-gray-900/80 relative z-10">
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-brand-400 transition-colors duration-300">
+                        <h3 class="text-2xl font-bold text-gray-200 mb-4 group-hover:text-brand-400 transition-colors duration-300">
                             <?php the_title(); ?>
                         </h3>
                         <div class="text-gray-400 text-base leading-relaxed mb-6">

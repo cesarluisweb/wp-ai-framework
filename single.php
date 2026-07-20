@@ -61,7 +61,7 @@ $schema = [
                     </span>
                 <?php endif; ?>
 
-                <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-8">
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-200 leading-tight mb-8">
                     <?php echo esc_html($title); ?>
                 </h1>
 

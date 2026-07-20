@@ -62,7 +62,7 @@ $schema = [
                 <?php endif; ?>
 
                 <span class="inline-block text-brand-300 font-bold uppercase tracking-[0.2em] mb-4 text-sm">Servicio Especializado</span>
-                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-8">
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-gray-200 leading-tight mb-8">
                     <?php echo esc_html($title); ?>
                 </h1>
                 
@@ -97,7 +97,7 @@ $schema = [
                 <div class="sticky top-32">
                     <?php if (!empty($features)): ?>
                     <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-2xl mb-8">
-                        <h3 class="text-xl font-bold text-white mb-6 border-b border-gray-800 pb-4">¿Qué incluye?</h3>
+                        <h3 class="text-xl font-bold text-gray-200 mb-6 border-b border-gray-800 pb-4">¿Qué incluye?</h3>
                         
                         <ul class="space-y-4">
                             <?php foreach ($features as $feature): ?>
@@ -117,7 +117,7 @@ $schema = [
                     <!-- Tarjeta de Confianza -->
                     <div class="bg-gray-950 border border-brand-500/20 rounded-3xl p-8 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
-                        <h4 class="text-lg font-bold text-white mb-3">Enfoque B2B Técnico</h4>
+                        <h4 class="text-lg font-bold text-gray-200 mb-3">Enfoque B2B Técnico</h4>
                         <p class="text-gray-400 text-sm leading-relaxed mb-6">Soluciones diseñadas específicamente para agencias que necesitan resolver cuellos de botella técnicos sin acumular deuda técnica a futuro.</p>
                         <div class="flex items-center gap-3 text-sm font-semibold text-brand-400">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>

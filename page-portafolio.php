@@ -19,7 +19,7 @@ get_header();
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6">
                 <?php echo esc_html($hero_kicker); ?>
             </span>
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-8 leading-tight tracking-tight">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-200 mb-8 leading-tight tracking-tight">
                 <?php echo esc_html($hero_h1_normal); ?> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600"><?php echo esc_html($hero_h1_highlight); ?></span>
             </h1>
             <p class="text-xl text-gray-400 leading-relaxed">
@@ -166,7 +166,7 @@ get_header();
                             </span>
                         <?php endif; ?>
                         
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-brand-300 transition-colors duration-300 leading-snug">
+                        <h3 class="text-2xl font-bold text-gray-200 mb-4 group-hover:text-brand-300 transition-colors duration-300 leading-snug">
                             <?php the_title(); ?>
                         </h3>
                         
@@ -219,7 +219,7 @@ get_header();
                         data-max="<?php echo $portfolio_query->max_num_pages; ?>" 
                         data-nonce="<?php echo wp_create_nonce('portfolio_ajax_nonce'); ?>" 
                         data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>"
-                        class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group mx-auto cursor-pointer">
+                        class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-200 bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group mx-auto cursor-pointer">
                     <span class="btn-text">Cargar más proyectos</span>
                     <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
@@ -289,7 +289,7 @@ get_header();
         else :
         ?>
             <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
-                <h3 class="text-2xl font-bold text-white mb-2">No se encontraron proyectos</h3>
+                <h3 class="text-2xl font-bold text-gray-200 mb-2">No se encontraron proyectos</h3>
                 <p class="text-gray-400">Pronto añadiré más casos de estudio a mi portafolio.</p>
             </div>
         <?php endif; ?>

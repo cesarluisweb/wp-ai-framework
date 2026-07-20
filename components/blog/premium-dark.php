@@ -27,7 +27,7 @@ $posts          = $data['posts']          ?? [];
                     </span>
                 <?php endif; ?>
                 <?php if ( $section_title ) : ?>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight">
                         <?php echo esc_html( $section_title ); ?>
                     </h2>
                 <?php endif; ?>
@@ -76,7 +76,7 @@ $posts          = $data['posts']          ?? [];
                         <!-- Card body -->
                         <div class="p-6">
                             <?php if ( $title ) : ?>
-                                <h3 class="text-lg font-bold text-white leading-snug transition-colors duration-200 group-hover:text-brand-300">
+                                <h3 class="text-lg font-bold text-gray-200 leading-snug transition-colors duration-200 group-hover:text-brand-300">
                                     <?php echo esc_html( $title ); ?>
                                 </h3>
                             <?php endif; ?>
@@ -107,7 +107,7 @@ $posts          = $data['posts']          ?? [];
 
             <!-- View all link -->
             <div class="mt-14 text-center">
-                <a href="<?php echo esc_url(site_url('/blog')); ?>" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group">
+                <a href="<?php echo esc_url(site_url('/blog')); ?>" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-200 bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group">
                     Ver todos los artículos
                     <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>

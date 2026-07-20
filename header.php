@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body <?php body_class('bg-gray-950 text-white font-sans antialiased'); ?>>
+<body <?php body_class('bg-gray-950 text-gray-200 font-sans antialiased'); ?>>
 
 <?php
 // Megamenu Data - Servicios

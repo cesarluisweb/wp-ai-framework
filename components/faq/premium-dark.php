@@ -47,7 +47,7 @@ if ( ! empty( $questions ) ) :
             <?php endif; ?>
             
             <?php if ( ! empty( $section_title ) ) : ?>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight mb-6">
                     <?php echo esc_html( $section_title ); ?>
                 </h2>
             <?php endif; ?>
@@ -64,7 +64,7 @@ if ( ! empty( $questions ) ) :
             <div class="max-w-4xl mx-auto space-y-4">
                 <?php foreach ( $questions as $index => $item ) : ?>
                     <details class="group bg-gray-900/30 border border-gray-800/80 rounded-3xl transition-all duration-300 [&_summary::-webkit-details-marker]:hidden open:bg-gray-900/80 open:border-brand-500/30">
-                        <summary class="p-6 flex justify-between items-center font-bold text-white text-lg md:text-xl cursor-pointer select-none">
+                        <summary class="p-6 flex justify-between items-center font-bold text-gray-200 text-lg md:text-xl cursor-pointer select-none">
                             <span><?php echo esc_html( $item['question'] ); ?></span>
                             <span class="ml-4 transition-transform duration-300 group-open:-rotate-180 shrink-0">
                                 <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

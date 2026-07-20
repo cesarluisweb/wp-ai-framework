@@ -49,7 +49,7 @@ if (!empty($cats)) {
                 </span>
             <?php endif; ?>
             
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-brand-300 transition-colors duration-300 leading-snug relative z-10">
+            <h3 class="text-2xl font-bold text-gray-200 mb-4 group-hover:text-brand-300 transition-colors duration-300 leading-snug relative z-10">
                 <?php the_title(); ?>
             </h3>
             

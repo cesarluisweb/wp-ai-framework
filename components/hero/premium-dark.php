@@ -66,7 +66,7 @@ $metrics = $data['metrics'] ?? [];
 .hero-glow { animation: pulse-glow 5s ease-in-out infinite; }
 </style>
 
-<section class="relative bg-gray-950 text-white overflow-hidden lg:min-h-screen flex items-center pt-24 pb-12 lg:pt-20 lg:pb-0" id="hero">
+<section class="relative bg-gray-950 text-gray-200 overflow-hidden lg:min-h-screen flex items-center pt-24 pb-12 lg:pt-20 lg:pb-0" id="hero">
     <!-- Fondo: gradientes múltiples, simétricos y sutiles -->
     <div class="absolute inset-0">
         <!-- Grid sutil -->
@@ -101,7 +101,7 @@ $metrics = $data['metrics'] ?? [];
                     $headline_safe = wp_kses($headline, ['br' => []]);
                 ?>
                 <h1 class="w-full text-[clamp(2.75rem,12vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05] lg:opacity-0" data-hero-headline>
-                    <span class="block text-white"><?php echo $headline_safe; ?></span>
+                    <span class="block text-gray-200"><?php echo $headline_safe; ?></span>
                 </h1>
 
                 <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed lg:opacity-0" data-hero-subheadline>
@@ -120,7 +120,7 @@ $metrics = $data['metrics'] ?? [];
                     <?php endif; ?>
                     
                     <?php if ($cta_secondary): ?>
-                    <a href="<?php echo esc_url($cta_secondary['url']); ?>" class="group inline-flex items-center justify-center text-white font-semibold text-lg transition-colors duration-300 hover:text-brand-300 relative py-2 w-full sm:w-auto">
+                    <a href="<?php echo esc_url($cta_secondary['url']); ?>" class="group inline-flex items-center justify-center text-gray-200 font-semibold text-lg transition-colors duration-300 hover:text-brand-300 relative py-2 w-full sm:w-auto">
                         <span class="relative">
                             <?php echo esc_html($cta_secondary['label']); ?>
                             <span class="absolute left-0 bottom-0 w-full h-0.5 bg-brand-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>

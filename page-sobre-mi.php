@@ -34,7 +34,7 @@ get_header();
             <!-- Text Content -->
             <div class="order-2 md:order-1">
                 <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html(get_field('sobre_mi_hero_kicker') ?: 'Sobre Mí'); ?></span>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-200 mb-6 leading-tight">
                     <?php echo nl2br(esc_html(get_field('sobre_mi_hero_headline_prefix') ?: 'César Luis')); ?> <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html(get_field('sobre_mi_hero_headline_highlight') ?: 'Amundaray'); ?></span>
                 </h1>
                 <p class="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed">
@@ -93,7 +93,7 @@ get_header();
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-32 border-t border-gray-800/50 pt-16 md:pt-24">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div class="md:col-span-5">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight md:sticky md:top-32 pr-4">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight md:sticky md:top-32 pr-4">
                     <?php echo esc_html(get_field('sobre_mi_bio_headline_prefix') ?: 'De ingeniero electrónico a'); ?> <span class="text-brand-400 block mt-2"><?php echo esc_html(get_field('sobre_mi_bio_headline_highlight') ?: 'Arquitecto IA'); ?></span>
                 </h2>
             </div>
@@ -102,7 +102,7 @@ get_header();
                     <?php if (get_field('sobre_mi_bio_text_1')) : ?>
                         <?php echo get_field('sobre_mi_bio_text_1'); ?>
                     <?php else : ?>
-                        <p class="text-xl text-white font-medium">
+                        <p class="text-xl text-gray-200 font-medium">
                             Soy ingeniero en electrónica de formación, originario de Venezuela. Hace más de 8 años descubrí mi verdadera pasión en el desarrollo web, y desde entonces no he dejado de construir. He trabajado en remoto para agencias de marketing digital y empresas en Latinoamérica y Europa, participando en proyectos de todo tipo: desde landing pages hasta plataformas e-learning con miles de usuarios.
                         </p>
                         <p>
@@ -112,11 +112,11 @@ get_header();
 
                     <?php if (get_field('sobre_mi_bio_quote')) : ?>
                         <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
-                            <p class="text-white italic m-0">"<?php echo esc_html(get_field('sobre_mi_bio_quote')); ?>"</p>
+                            <p class="text-gray-200 italic m-0">"<?php echo esc_html(get_field('sobre_mi_bio_quote')); ?>"</p>
                         </div>
                     <?php else : ?>
                         <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
-                            <p class="text-white italic m-0">
+                            <p class="text-gray-200 italic m-0">
                                 "Mi enfoque combina la resolución de problemas reales con un estándar de calidad implacable. No me limito a ejecutar tareas: entiendo el contexto del proyecto, propongo soluciones y me aseguro de que todo funcione correctamente antes de entregar."
                             </p>
                         </div>
@@ -139,7 +139,7 @@ get_header();
         <div class="max-w-[1400px] mx-auto px-6 lg:px-8">
             <!-- Desktop/Tablet Version (Card) -->
             <div class="hidden md:block bg-gray-900/50 border border-gray-800 rounded-3xl p-8 lg:p-12">
-                <h2 class="text-2xl font-bold text-white mb-8 text-center">Ecosistema & Stack Core</h2>
+                <h2 class="text-2xl font-bold text-gray-200 mb-8 text-center">Ecosistema & Stack Core</h2>
                 <div class="flex flex-wrap gap-4 justify-center">
                     <?php
                     $tech_stack = function_exists('wp_ai_get_core_tech_stack') ? wp_ai_get_core_tech_stack() : [];
@@ -147,15 +147,15 @@ get_header();
                     foreach ($tech_stack as $tech) : ?>
                         <div class="bg-gray-950 border border-gray-800 rounded-full px-6 py-3 flex items-center gap-3 hover:border-brand-500/50 transition-colors">
                             <?php if ($tech['icon'] === 'learndash') : ?>
-                                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <svg class="h-6 w-6 text-gray-200" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.905 59.905 0 0 1 12 3.493a59.902 59.902 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
                                 </svg>
                             <?php elseif ($tech['icon'] === 'cloud') : ?>
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <svg class="h-6 w-6 text-gray-200" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
                                 </svg>
                             <?php elseif ($tech['icon'] === 'antigravity') : ?>
-                                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <svg class="h-6 w-6 text-gray-200" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0L7 10m5-5l5 5" />
                                     <ellipse cx="12" cy="15" rx="6" ry="2" stroke="currentColor" />
                                 </svg>
@@ -170,7 +170,7 @@ get_header();
 
             <!-- Mobile Version (Title Only) -->
             <div class="md:hidden">
-                <h2 class="text-2xl font-bold text-white mb-6 text-center">Ecosistema & Stack Core</h2>
+                <h2 class="text-2xl font-bold text-gray-200 mb-6 text-center">Ecosistema & Stack Core</h2>
             </div>
         </div>
 
@@ -187,7 +187,7 @@ get_header();
 
     <!-- Experiencia Laboral -->
     <section class="max-w-4xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 class="text-3xl font-bold text-white text-center mb-16"><?php echo esc_html(get_field('sobre_mi_trayectoria_headline') ?: 'Mi Trayectoria'); ?></h2>
+        <h2 class="text-3xl font-bold text-gray-200 text-center mb-16"><?php echo esc_html(get_field('sobre_mi_trayectoria_headline') ?: 'Mi Trayectoria'); ?></h2>
         
         <?php 
         $trayectoria = [];
@@ -221,7 +221,7 @@ get_header();
                     <div class="absolute left-[-9px] top-1 w-4 h-4 bg-brand-500 rounded-full border-4 border-gray-950 shadow-[0_0_10px_rgba(59,130,246,0.5)] transition-all duration-500 timeline-dot scale-0 group-hover:scale-125 group-hover:bg-brand-400"></div>
                     
                     <div class="text-brand-400 font-bold mb-2"><?php echo esc_html($item['period']); ?></div>
-                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-300 transition-colors"><?php echo esc_html($item['role']); ?></h3>
+                    <h3 class="text-2xl font-bold text-gray-200 mb-3 group-hover:text-brand-300 transition-colors"><?php echo esc_html($item['role']); ?></h3>
                     <div class="text-gray-400 leading-relaxed">
                         <?php echo wp_kses_post($item['desc']); ?>
                     </div>
@@ -274,7 +274,7 @@ get_header();
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center bg-gray-900/30 border border-gray-800/50 rounded-3xl p-8 lg:p-12">
             <div class="max-w-2xl order-2 md:order-1">
-                <h2 class="text-3xl font-bold text-white mb-6"><?php echo esc_html(get_field('sobre_mi_valores_headline') ?: 'Mis Valores'); ?></h2>
+                <h2 class="text-3xl font-bold text-gray-200 mb-6"><?php echo esc_html(get_field('sobre_mi_valores_headline') ?: 'Mis Valores'); ?></h2>
                 <div class="prose prose-invert text-gray-300">
                     <?php if (get_field('sobre_mi_valores_text')) : ?>
                         <?php echo get_field('sobre_mi_valores_text'); ?>
