@@ -65,27 +65,27 @@ $projects   = $data['projects']           ?? [];
                style="--sticky-top: <?php echo esc_attr( $top_offset ); ?>rem; z-index: <?php echo esc_attr( 10 + $index ); ?>;">
             
             <a href="<?php echo esc_url( $p_url ); ?>"
-               class="group flex flex-col md:flex-row w-full md:h-[650px] bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-brand-500/50">
+               class="group flex flex-col md:flex-row w-full md:h-[calc(100vh-var(--sticky-top)-2rem)] md:max-h-[650px] bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-brand-500/50">
 
               <!-- Left Side: Content -->
-              <div class="w-full md:w-5/12 p-8 md:p-10 lg:p-12 flex flex-col border-t md:border-t-0 md:border-r border-gray-800 relative overflow-hidden order-2 md:order-1">
+              <div class="w-full md:w-5/12 p-6 [@media(min-height:750px)]:p-8 md:p-8 [@media(min-height:750px)]:md:p-10 lg:p-10 [@media(min-height:750px)]:lg:p-12 flex flex-col border-t md:border-t-0 md:border-r border-gray-800 relative overflow-hidden order-2 md:order-1">
                 <!-- Subtle glow on hover -->
                 <div class="absolute inset-0 bg-gradient-to-br from-brand-500/0 to-brand-500/0 group-hover:from-brand-500/5 transition-all duration-500 pointer-events-none"></div>
 
                 <?php if ( $p_category ) : ?>
-                  <span class="inline-block text-brand-300 text-sm font-bold uppercase tracking-widest mb-4">
+                  <span class="inline-block text-brand-300 text-sm font-bold uppercase tracking-widest mb-2 [@media(min-height:750px)]:mb-4">
                     <?php echo esc_html( $p_category ); ?>
                   </span>
                 <?php endif; ?>
 
                 <?php if ( $p_title ) : ?>
-                  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-200 mb-6 leading-tight group-hover:text-brand-300 transition-colors duration-300">
+                  <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-200 mb-4 [@media(min-height:750px)]:mb-6 leading-tight group-hover:text-brand-300 transition-colors duration-300">
                     <?php echo esc_html( $p_title ); ?>
                   </h3>
                 <?php endif; ?>
 
                 <!-- Checkmarks from screenshot -->
-                <div class="mb-8 flex-grow overflow-hidden js-adaptive-clamp-container">
+                <div class="mb-4 [@media(min-height:750px)]:mb-8 flex-grow overflow-hidden js-adaptive-clamp-container relative [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
                   <?php if ( $p_desc ) : 
                     // Eliminar corchetes de excerpt
                     $clean_desc = str_replace( ['[&hellip;]', '[...]', '&hellip;'], '', $p_desc );
@@ -107,9 +107,10 @@ $projects   = $data['projects']           ?? [];
                 </div>
 
                 <!-- Footer of Card (Tech + Link) -->
-                <div class="mt-auto pt-8 border-t border-gray-800 shrink-0 flex flex-col">
+                <div class="mt-auto pt-6 [@media(min-height:750px)]:pt-8 border-t border-gray-800 shrink-0 flex flex-col">
                   <?php if ( ! empty( $p_tech ) ) : ?>
-                    <div class="flex flex-wrap gap-2 mb-6">
+                    <!-- Hidden on short screens to allow text to breathe -->
+                    <div class="flex flex-wrap gap-2 mb-6 [@media(max-height:750px)]:hidden">
                       <?php foreach ( $p_tech as $tech ) : ?>
                         <span class="inline-block bg-gray-950 border border-gray-700/60 rounded-full px-4 py-1.5 text-xs text-gray-400 font-medium">
                           <?php echo esc_html( $tech ); ?>

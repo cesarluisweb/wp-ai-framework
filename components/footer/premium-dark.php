@@ -124,7 +124,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
                         <input type="email" name="newsletter_email" placeholder="Tu email corporativo" required 
                             class="w-full bg-gray-950 border border-gray-800 hover:border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:outline-none transition-colors duration-300">
                     </div>
-                    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-gray-950 font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 shadow-lg shadow-brand-500/10 cursor-pointer">
+                    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-black font-extrabold py-3 px-4 rounded-xl text-sm transition-all duration-300 shadow-lg shadow-brand-500/10 cursor-pointer">
                         Suscribirme
                     </button>
                 </form>
@@ -139,10 +139,46 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
             if (form && msg) {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    msg.textContent = '¡Gracias por suscribirte!';
-                    msg.className = 'text-xs mt-2 text-green-400 font-medium';
-                    msg.classList.remove('hidden');
-                    form.reset();
+                    
+                    const emailInput = form.querySelector('input[name="newsletter_email"]');
+                    const email = emailInput ? emailInput.value : '';
+                    const btn = form.querySelector('button[type="submit"]');
+                    
+                    if (!email) return;
+
+                    // Loading state
+                    const originalBtnText = btn.innerHTML;
+                    btn.innerHTML = 'Procesando...';
+                    btn.disabled = true;
+
+                    fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'action=wp_ai_subscribe_newsletter&email=' + encodeURIComponent(email) + '&nonce=<?php echo wp_create_nonce('wp_ai_newsletter_nonce'); ?>'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.success) {
+                            msg.textContent = '¡Gracias! Te has suscrito con éxito.';
+                            msg.className = 'text-xs mt-2 text-brand-400 font-medium';
+                            form.reset();
+                        } else {
+                            msg.textContent = data.data || 'Error al suscribirse. Intenta de nuevo.';
+                            msg.className = 'text-xs mt-2 text-red-400 font-medium';
+                        }
+                        msg.classList.remove('hidden');
+                        btn.innerHTML = originalBtnText;
+                        btn.disabled = false;
+                    })
+                    .catch(error => {
+                        msg.textContent = 'Error de conexión.';
+                        msg.className = 'text-xs mt-2 text-red-400 font-medium';
+                        msg.classList.remove('hidden');
+                        btn.innerHTML = originalBtnText;
+                        btn.disabled = false;
+                    });
                 });
             }
         });

@@ -441,3 +441,52 @@ function wp_ai_custom_proyecto_column($column, $post_id) {
         }
     }
 }
+
+// ==========================================
+// Google Analytics 4 (GA4) - Inyección Limpia
+// ==========================================
+add_action('wp_head', 'wp_ai_insert_google_analytics', 20);
+function wp_ai_insert_google_analytics() {
+    ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9KDNFQE2Q4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-9KDNFQE2Q4');
+    </script>
+    <?php
+}
+
+// ==========================================
+// Newsletter AJAX Handler
+// ==========================================
+add_action('wp_ajax_wp_ai_subscribe_newsletter', 'wp_ai_handle_newsletter_subscription');
+add_action('wp_ajax_nopriv_wp_ai_subscribe_newsletter', 'wp_ai_handle_newsletter_subscription');
+
+function wp_ai_handle_newsletter_subscription() {
+    check_ajax_referer('wp_ai_newsletter_nonce', 'nonce');
+
+    $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+
+    if (!is_email($email)) {
+        wp_send_json_error('El correo no es válido.');
+    }
+
+    // Guardar en la base de datos (array de opciones)
+    $subscribers = get_option('wp_ai_newsletter_subscribers', []);
+    if (!in_array($email, $subscribers)) {
+        $subscribers[] = $email;
+        update_option('wp_ai_newsletter_subscribers', $subscribers);
+        
+        // Enviar notificación por correo al administrador usando wp_mail (SMTP configurado)
+        $admin_email = get_option('admin_email');
+        $subject = 'Nuevo suscriptor en cesarluis.com';
+        $message = "¡Felicidades!\n\nTienes un nuevo suscriptor al newsletter: " . $email . "\n\nPuedes ver todos tus suscriptores en la base de datos (tabla wp_options -> wp_ai_newsletter_subscribers).";
+        wp_mail($admin_email, $subject, $message);
+    }
+
+    wp_send_json_success('Suscripción exitosa');
+}

@@ -45,9 +45,9 @@ get_header();
             
             <!-- Visual Content -->
             <div class="relative order-1 md:order-2">
-                <div class="aspect-square rounded-3xl bg-gradient-to-br from-brand-500/20 to-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden relative group">
+                <div class="aspect-square rounded-3xl bg-gradient-to-br from-brand-500/20 to-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden relative">
                     <?php if (has_post_thumbnail()) : ?>
-                        <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105']); ?>
+                        <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover']); ?>
                     <?php else : ?>
                         <!-- Placeholder para fotografía futura. -->
                         <div class="text-center">

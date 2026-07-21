@@ -18,8 +18,9 @@ if(function_exists('wp_ai_render_component')) wp_ai_render_component('footer', '
         ['label' => 'Contacto',    'url' => site_url('/contacto')]
     ],
     'legal_links' => [
-        ['label' => 'Privacidad', 'url' => '#'],
-        ['label' => 'Aviso Legal', 'url' => '#']
+        ['label' => 'Privacidad', 'url' => site_url('/politica-de-privacidad')],
+        ['label' => 'Aviso Legal', 'url' => site_url('/aviso-legal')],
+        ['label' => 'Cookies', 'url' => site_url('/politica-de-cookies')]
     ],
     'copyright' => $copyright
 ]);
