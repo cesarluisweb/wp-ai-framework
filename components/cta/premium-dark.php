@@ -20,11 +20,10 @@ $btn_label = $button['label'] ?? '';
 $btn_url   = $button['url']   ?? '#';
 ?>
 
-<section class="cta-section relative bg-gray-950 py-24 lg:py-32 font-['Inter',sans-serif] overflow-hidden border-t border-gray-900">
+<section class="cta-section relative bg-gray-950 py-24 lg:py-32 font-sans overflow-hidden border-t border-gray-900">
 
-    <!-- Tech Grid Background (from Hero) -->
+    <!-- Ambient Surface Background -->
     <div class="absolute inset-0 z-0">
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(0,216,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,216,255,1) 1px, transparent 1px); background-size: 80px 80px;"></div>
         <!-- Viñeta para bordes idéntica al Hero -->
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_50%,_rgba(3,7,18,0.8)_100%)] pointer-events-none"></div>
     </div>

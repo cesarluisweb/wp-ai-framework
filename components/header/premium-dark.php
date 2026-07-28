@@ -159,7 +159,7 @@ $cta_button = $data['cta_button'] ?? null;
         <!-- Right Side (Navigation) -->
         <div class="w-full md:w-1/2 h-full flex flex-col justify-center px-8 sm:px-16 lg:px-24 relative">
             <!-- Close Button -->
-            <button class="absolute top-6 right-6 lg:top-8 lg:right-8 w-12 h-12 rounded-lg bg-gray-900/50 border border-gray-800/50 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer group z-50" id="mobile-menu-close">
+            <button class="absolute top-6 right-6 lg:top-8 lg:right-8 w-12 h-12 rounded-lg bg-gray-900/50 border border-gray-800/50 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer group z-50" id="mobile-menu-close" aria-label="Cerrar menú">
                 <svg class="w-8 h-8 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
