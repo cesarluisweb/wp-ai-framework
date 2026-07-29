@@ -67,20 +67,28 @@ $metrics = $data['metrics'] ?? [];
 </style>
 
 <section class="relative bg-gray-950 text-gray-200 overflow-hidden lg:min-h-screen flex items-center pt-24 pb-12 lg:pt-20 lg:pb-0" id="hero">
-    <!-- Fondo: gradientes sutiles y superficie pulida -->
-    <div class="absolute inset-0">
-        <!-- Blobs simétricos: distribuidos uniformemente -->
-        <div class="hero-blob-1 absolute top-[15%] left-[10%] w-[350px] h-[350px] rounded-full bg-brand-500/15 blur-[100px]"></div>
-        <div class="hero-blob-2 absolute top-[10%] right-[15%] w-[300px] h-[300px] rounded-full bg-brand-400/12 blur-[90px]"></div>
-        <div class="hero-blob-3 absolute bottom-[20%] left-[30%] w-[400px] h-[400px] rounded-full bg-brand-300/8 blur-[120px]"></div>
-        <div class="hero-blob-4 absolute bottom-[15%] right-[10%] w-[280px] h-[280px] rounded-full bg-brand-500/10 blur-[80px]"></div>
+    <!-- Fondo: Luxury Abstract Layers (Distribución desde Abajo-Derecha) -->
+    <div class="absolute inset-0 z-0 overflow-hidden bg-gray-950 pointer-events-none">
+        <!-- Layer 1: Más amplia y suave -->
+        <div class="absolute inset-0 bg-gradient-to-tl from-[#0a445e]/50 via-[#041a24]/20 to-transparent" style="clip-path: polygon(0 100%, 100% 0%, 100% 100%);"></div>
         
-        <!-- Gradiente radial central simétrico -->
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,169,204,0.06)_0%,_transparent_70%)]"></div>
+        <!-- Layer 2: Media -->
+        <div class="absolute inset-0 bg-gradient-to-tl from-[#0d5575]/60 via-[#052230]/30 to-transparent" style="clip-path: polygon(25% 100%, 100% 30%, 100% 100%);"></div>
         
-        <!-- Viñeta para bordes -->
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_50%,_rgba(3,7,18,0.8)_100%)]"></div>
+        <!-- Layer 3: Concentrada detrás de la terminal -->
+        <div class="absolute inset-0 bg-gradient-to-tl from-[#11668c]/80 via-[#072a3b]/40 to-transparent" style="clip-path: polygon(55% 100%, 100% 60%, 100% 100%);"></div>
+        
+        <!-- Layer 4: Foco intenso en la esquina inferior derecha -->
+        <div class="absolute inset-0 bg-gradient-to-tl from-[#1578a3] via-[#093247]/50 to-transparent" style="clip-path: polygon(80% 100%, 100% 85%, 100% 100%);"></div>
+
+        <!-- Foco Especular suave detrás del texto (para balancear) -->
+        <div class="absolute top-[15%] left-[-5%] w-[800px] h-[800px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(0,169,204,0.12)_0%,_transparent_75%)] blur-[120px] pointer-events-none"></div>
+
+        <!-- Sombra base inferior para fusionar con el texto y la página -->
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent"></div>
     </div>
+
+    <!-- Background is already defined above, removing leftover blobs -->
 
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 relative z-10 py-12 lg:py-0" data-hero-container>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center lg:min-h-[calc(100vh-80px)]">
@@ -88,10 +96,9 @@ $metrics = $data['metrics'] ?? [];
             <!-- Columna Izquierda: Contenido -->
             <div class="lg:col-span-7 pt-8 pb-0 lg:py-0 text-center lg:text-left flex flex-col items-center lg:items-start">
                 <?php if ($kicker): ?>
-                <div class="mb-8 inline-flex items-center px-4 py-1.5 rounded-full border border-brand-500/40 bg-brand-900/30 text-sm font-medium text-brand-300 backdrop-blur-sm" data-hero-kicker>
-                    <span class="flex w-2 h-2 rounded-full bg-brand-300 mr-2.5 animate-pulse"></span>
+                <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6" data-hero-kicker>
                     <?php echo esc_html($kicker); ?>
-                </div>
+                </span>
                 <?php endif; ?>
 
                 <?php 
