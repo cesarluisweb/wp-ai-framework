@@ -26,26 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
         // (Animaciones de entrada removidas para evitar problemas con capturas de bots y PageSpeed)
         // Sólo conservamos el efecto parallax con el movimiento del mouse.
 
-        // 5. MatchMedia (Mouse Parallax)
+        // 5. Animación Flotante (Sustituye al mouse parallax por seriedad B2B)
         if (terminal && terminalContainer) {
-            document.addEventListener("mousemove", (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 2;
-                const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-                gsap.to(terminal, {
-                    x: x * 30,
-                    y: y * 30,
-                    rotationY: x * 12,
-                    rotationX: -y * 12,
-                    ease: "power2.out",
-                    duration: 0.8
-                });
+            gsap.to(terminal, {
+                y: -15,
+                rotationX: 2,
+                rotationY: -2,
+                duration: 4,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1
             });
         }
         
         // Opcional: Función de limpieza si se desmonta el matchMedia (poco común en tema clásico, pero buena práctica)
         return () => {
-            document.removeEventListener("mousemove", null); // GSAP limpiará los tweens automáticamente
         };
     });
 });
