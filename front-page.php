@@ -5,7 +5,7 @@
 get_header();
 ?>
 
-
+<main id="main-content">
 <?php
 // 1. HEADER — Inyectado por get_header() arriba. No redefinir aquí.
 // El header.php ya incluye el componente con los enlaces a las páginas reales.
@@ -292,6 +292,8 @@ if(function_exists('wp_ai_render_component')) wp_ai_render_component('cta', 'pre
 
 // 12. FOOTER
 // Eliminado renderizado manual redundante. get_footer() se encarga globalmente.
-
+?>
+</main>
+<?php
 get_footer();
 ?>

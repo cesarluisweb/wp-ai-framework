@@ -35,7 +35,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-20 text-left">
             <!-- Brand / Bio -->
             <div class="col-span-2 md:col-span-3 lg:col-span-2">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight hover:text-brand-300 transition-colors duration-300 mb-6">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight mb-6">
                     <div class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
                         <span class="text-brand-300 font-black text-xl leading-none mt-0.5">C</span>
                     </div>

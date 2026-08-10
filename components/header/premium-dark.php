@@ -17,7 +17,7 @@ $cta_button = $data['cta_button'] ?? null;
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8 py-5 flex items-center justify-between">
         
         <!-- Logo / Name -->
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight hover:text-brand-300 transition-colors duration-300">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight">
             <!-- Monograma C -->
             <div class="relative w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
                 <span class="text-brand-300 font-black text-lg leading-none mt-0.5">C</span>
@@ -139,7 +139,7 @@ $cta_button = $data['cta_button'] ?? null;
     <div class="w-full h-full flex flex-col md:flex-row relative">
         
         <!-- Logo Top Left -->
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="absolute top-6 left-6 lg:top-8 lg:left-8 flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight hover:text-brand-300 transition-colors duration-300 z-50">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="absolute top-6 left-6 lg:top-8 lg:left-8 flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight z-50">
             <div class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
                 <span class="text-brand-300 font-black text-xl leading-none mt-0.5">C</span>
             </div>
