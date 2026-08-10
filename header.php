@@ -14,6 +14,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <!-- Speculation Rules API (Prerender nativo en hover) -->
+    <script type="speculationrules">
+    {
+      "prerender": [{
+        "where": {
+          "and": [
+            { "href_matches": "/*" },
+            { "not": { "href_matches": "/wp-admin/*" } },
+            { "not": { "href_matches": "/wp-login.php" } },
+            { "not": { "href_matches": "/*?*" } },
+            { "not": { "selector_matches": "[rel~=nofollow]" } }
+          ]
+        },
+        "eagerness": "moderate"
+      }]
+    }
+    </script>
 </head>
 <body <?php body_class('bg-gray-950 text-gray-200 font-sans antialiased'); ?>>
 

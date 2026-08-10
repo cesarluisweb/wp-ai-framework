@@ -68,24 +68,14 @@ $metrics = $data['metrics'] ?? [];
 
 <section class="relative bg-gray-950 text-gray-200 overflow-hidden lg:min-h-screen flex items-center pt-24 pb-12 lg:pt-20 lg:pb-0" id="hero">
     <!-- Fondo: Luxury Abstract Layers (Distribución desde Abajo-Derecha) -->
-    <div class="absolute inset-0 z-0 overflow-hidden bg-gray-950 pointer-events-none">
-        <!-- Layer 1: Más amplia y suave -->
-        <div class="absolute inset-0 bg-gradient-to-tl from-[#0a445e]/50 via-[#041a24]/20 to-transparent" style="clip-path: polygon(0 100%, 100% 0%, 100% 100%);"></div>
-        
-        <!-- Layer 2: Media -->
-        <div class="absolute inset-0 bg-gradient-to-tl from-[#0d5575]/60 via-[#052230]/30 to-transparent" style="clip-path: polygon(25% 100%, 100% 30%, 100% 100%);"></div>
-        
-        <!-- Layer 3: Concentrada detrás de la terminal -->
-        <div class="absolute inset-0 bg-gradient-to-tl from-[#11668c]/80 via-[#072a3b]/40 to-transparent" style="clip-path: polygon(55% 100%, 100% 60%, 100% 100%);"></div>
-        
-        <!-- Layer 4: Foco intenso en la esquina inferior derecha -->
-        <div class="absolute inset-0 bg-gradient-to-tl from-[#1578a3] via-[#093247]/50 to-transparent" style="clip-path: polygon(80% 100%, 100% 85%, 100% 100%);"></div>
-
-        <!-- Foco Especular suave detrás del texto (para balancear) -->
-        <div class="absolute top-[15%] left-[-5%] w-[800px] h-[800px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(0,169,204,0.12)_0%,_transparent_75%)] blur-[120px] pointer-events-none"></div>
-
-        <!-- Sombra base inferior para fusionar con el texto y la página -->
-        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent"></div>
+    <!-- Fondo: Aurora Mesh Gradient (Propuesta del Usuario) -->
+    <div class="absolute inset-0 z-0 pointer-events-none gradient-bg">
+        <div class="base"></div>
+        <div class="particles"></div>
+        <div class="treatment"></div>
+        <div class="glow"></div>
+        <div class="noise"></div>
+        <div class="vignette"></div>
     </div>
 
     <!-- Background is already defined above, removing leftover blobs -->
