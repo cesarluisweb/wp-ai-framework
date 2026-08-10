@@ -9,6 +9,7 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#03131c">
     <?php wp_head(); ?>
     <link rel="icon" type="image/svg+xml" href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/favicon.svg'); ?>">
     <link rel="icon" type="image/png" sizes="any" href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/favicon.png'); ?>">
