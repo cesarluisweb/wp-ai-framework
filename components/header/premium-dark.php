@@ -18,10 +18,7 @@ $cta_button = $data['cta_button'] ?? null;
         
         <!-- Logo / Name -->
         <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight">
-            <!-- Monograma C -->
-            <div class="relative w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
-                <span class="text-brand-300 font-black text-lg leading-none mt-0.5">C</span>
-            </div>
+            <img src="<?php echo esc_url(get_theme_file_uri('assets/img/favicon.svg')); ?>" alt="César Luis Logo" class="w-8 h-8 object-contain">
             <span>César Luis</span>
         </a>
 
@@ -140,9 +137,7 @@ $cta_button = $data['cta_button'] ?? null;
         
         <!-- Logo Top Left -->
         <a href="<?php echo esc_url(home_url('/')); ?>" class="absolute top-6 left-6 lg:top-8 lg:left-8 flex items-center gap-3 text-xl font-black text-gray-200 tracking-tight z-50">
-            <div class="relative w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-br from-brand-400/20 to-brand-600/10 border border-brand-500/30">
-                <span class="text-brand-300 font-black text-xl leading-none mt-0.5">C</span>
-            </div>
+            <img src="<?php echo esc_url(get_theme_file_uri('assets/img/favicon.svg')); ?>" alt="César Luis Logo" class="w-10 h-10 object-contain">
             <span class="md:hidden">César Luis</span>
         </a>
         
