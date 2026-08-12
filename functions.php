@@ -490,3 +490,46 @@ function wp_ai_handle_newsletter_subscription() {
 
     wp_send_json_success('Suscripción exitosa');
 }
+
+// -----------------------------------------------------------------------------
+// AGENT-READY STANDARDS (AI DISCOVERY)
+// -----------------------------------------------------------------------------
+
+// 1. Añadir Content Signals para AI Agents en robots.txt
+add_filter( 'robots_txt', 'wp_ai_content_signals', 9999, 2 );
+function wp_ai_content_signals( $output, $public ) {
+    $signals = "\n# AI Agent Standards (RFC)\n";
+    $signals .= "Content-Signal: ai-train=yes, search=yes, ai-input=no\n";
+    return $output . $signals;
+}
+
+// 2. Markdown Negotiation para AI Agents
+add_action( 'template_redirect', 'wp_ai_markdown_negotiation', 1 );
+function wp_ai_markdown_negotiation() {
+    if ( isset( $_SERVER['HTTP_ACCEPT'] ) && strpos( $_SERVER['HTTP_ACCEPT'], 'text/markdown' ) !== false ) {
+        if ( is_singular() ) {
+            $post = get_post();
+            $title = get_the_title();
+            $content = $post->post_content;
+            
+            // Limpiar bloques de Gutenberg
+            $content = preg_replace('/<!--(.|\s)*?-->/', '', $content);
+            
+            // Parseo ultra-ligero de HTML a Markdown
+            $content = preg_replace('/<h1[^>]*>(.*?)<\/h1>/i', "# $1\n\n", $content);
+            $content = preg_replace('/<h2[^>]*>(.*?)<\/h2>/i', "## $1\n\n", $content);
+            $content = preg_replace('/<h3[^>]*>(.*?)<\/h3>/i', "### $1\n\n", $content);
+            $content = preg_replace('/<p[^>]*>(.*?)<\/p>/i', "$1\n\n", $content);
+            $content = preg_replace('/<a href="(.*?)"[^>]*>(.*?)<\/a>/i', "[$2]($1)", $content);
+            $content = preg_replace('/<strong[^>]*>(.*?)<\/strong>/i', "**$1**", $content);
+            $content = preg_replace('/<li[^>]*>(.*?)<\/li>/i', "- $1\n", $content);
+            
+            $content = wp_strip_all_tags($content);
+            $markdown = "# " . $title . "\n\n" . $content;
+            
+            header( 'Content-Type: text/markdown; charset=utf-8' );
+            echo trim($markdown);
+            exit;
+        }
+    }
+}
