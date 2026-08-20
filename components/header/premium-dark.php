@@ -98,7 +98,11 @@ $cta_button = $data['cta_button'] ?? null;
                                             <?php endforeach; ?>
                                             <div class="col-span-2 mt-2 pt-4 border-t border-gray-800/50 flex justify-center">
                                                 <a href="<?php echo esc_url($link['url']); ?>" class="text-brand-400 text-sm font-semibold hover:text-brand-300 flex items-center gap-1 group/btn">
-                                                    <?php echo ($mega_type === 'portfolio') ? 'Explorar portafolio' : 'Leer todos los artículos'; ?> <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                                    <?php 
+                                                    $txt = ($mega_type === 'portfolio') ? 'Explorar portafolio' : 'Leer todos los artículos'; 
+                                                    echo function_exists('pll__') ? pll__($txt) : $txt;
+                                                    ?> 
+                                                    <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                                 </a>
                                             </div>
                                         </div>
@@ -111,21 +115,52 @@ $cta_button = $data['cta_button'] ?? null;
                 </ul>
             </nav>
             
+            <?php 
+            $languages = $data['languages'] ?? [];
+            if (!empty($languages)): 
+            ?>
+            <!-- Language Switcher (Desktop) -->
+            <div class="hidden lg:flex items-center gap-2 lg:pl-8 lg:border-l lg:border-gray-700/50">
+                <?php foreach ($languages as $lang): 
+                    $is_active = $lang['current_lang'] ?? false;
+                ?>
+                <a href="<?php echo esc_url($lang['url']); ?>" class="text-xs font-bold transition-colors <?php echo $is_active ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'; ?>">
+                    <?php echo esc_html(strtoupper($lang['slug'])); ?>
+                </a>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
             <!-- Global CTA Button -->
             <?php if ($cta_button): ?>
-            <div class="lg:pl-8 lg:border-l lg:border-gray-700/50 flex items-center">
+            <div class="flex items-center <?php echo empty($languages) ? 'lg:pl-8 lg:border-l lg:border-gray-700/50' : 'lg:pl-4'; ?>">
                 <a href="<?php echo esc_url($cta_button['url']); ?>" class="btn-primary-sm h-10 lg:h-auto flex items-center justify-center !px-3 text-xs sm:text-sm sm:!px-4 lg:!px-6">
                     <?php echo esc_html($cta_button['label']); ?>
                 </a>
             </div>
             <?php endif; ?>
 
-            <!-- Mobile Menu Button -->
-            <button class="lg:hidden w-10 h-10 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer focus:outline-none group" id="mobile-menu-btn" aria-label="Toggle menu">
-                <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+            <!-- Language Switcher (Mobile) + Menu Button -->
+            <div class="flex items-center gap-3 lg:hidden">
+                <?php if (!empty($languages)): ?>
+                <div class="flex items-center gap-2">
+                    <?php foreach ($languages as $lang): 
+                        $is_active = $lang['current_lang'] ?? false;
+                    ?>
+                    <a href="<?php echo esc_url($lang['url']); ?>" class="text-[10px] font-bold transition-colors <?php echo $is_active ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'; ?>">
+                        <?php echo esc_html(strtoupper($lang['slug'])); ?>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
+                
+                <!-- Mobile Menu Button -->
+                <button class="w-10 h-10 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer focus:outline-none group" id="mobile-menu-btn" aria-label="Toggle menu">
+                    <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 

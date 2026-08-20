@@ -103,12 +103,10 @@ $metrics = $data['metrics'] ?? [];
                     $headline_safe = wp_kses($headline, ['br' => []]);
                 ?>
                 <h1 class="relative w-full text-[clamp(2.75rem,12vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05] group" data-hero-headline data-glow-target>
-                    <!-- Capa 1: Borde de texto iluminado con núcleo blanco -->
+                    <!-- Capa 1: Borde de texto iluminado -->
                     <span class="pointer-events-none absolute inset-0 block text-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                           style="
-                             background-image: 
-                                radial-gradient(80px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,0.8) 0%, transparent 80%),
-                                linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400));
+                             background-image: linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400));
                              -webkit-background-clip: text;
                              -webkit-text-stroke: 2px transparent;
                              -webkit-mask-image: radial-gradient(200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 70%);
@@ -172,9 +170,7 @@ $metrics = $data['metrics'] ?? [];
                              <div class="absolute inset-0 rounded-xl"
                                   style="
                                      border: 1px solid transparent;
-                                     background: 
-                                        radial-gradient(100px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,0.7) 0%, transparent 80%),
-                                        linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400)) border-box;
+                                     background: linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400)) border-box;
                                      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
                                      -webkit-mask-composite: xor;
                                      mask-composite: exclude;
@@ -208,7 +204,7 @@ $metrics = $data['metrics'] ?? [];
                                 <span class="text-gray-600">$</span> <span class="text-brand-300">deploy</span> <span class="text-gray-400">--production</span>
                             </div>
                             <div class="mt-2">
-                                <span class="text-brand-400">→</span> <span class="text-gray-400">Sitio en producción.</span> <span class="text-amber-500">Sin sorpresas.</span>
+                                <span class="text-brand-400">→</span> <span class="text-gray-400">Sitio en producción.</span> <span class="text-brand-300">Sin sorpresas.</span>
                             </div>
                         </div>
                     </div>

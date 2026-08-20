@@ -533,3 +533,25 @@ function wp_ai_markdown_negotiation() {
         }
     }
 }
+
+// ==========================================
+// Polylang Support & String Registration
+// ==========================================
+add_action('init', function() {
+    if (function_exists('pll_register_string')) {
+        // Navigation Labels
+        pll_register_string('nav_sobre_mi', 'Sobre Mí', 'wp-ai-theme', false);
+        pll_register_string('nav_servicios', 'Servicios', 'wp-ai-theme', false);
+        pll_register_string('nav_portafolio', 'Portafolio', 'wp-ai-theme', false);
+        pll_register_string('nav_blog', 'Blog', 'wp-ai-theme', false);
+        pll_register_string('nav_contacto', 'Contacto', 'wp-ai-theme', false);
+        pll_register_string('nav_ver_todos_servicios', 'Ver todos los servicios', 'wp-ai-theme', false);
+        pll_register_string('nav_ver_todos_proyectos', 'Ver todos los proyectos', 'wp-ai-theme', false);
+        pll_register_string('nav_ver_todos_articulos', 'Ver todos los artículos', 'wp-ai-theme', false);
+        pll_register_string('cta_iniciar_proyecto', 'Iniciar Proyecto', 'wp-ai-theme', false);
+        
+        // Common Fallbacks
+        pll_register_string('btn_leer_mas', 'Leer más', 'wp-ai-theme', false);
+        pll_register_string('btn_ver_proyecto', 'Ver Proyecto', 'wp-ai-theme', false);
+    }
+});

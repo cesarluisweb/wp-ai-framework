@@ -102,21 +102,8 @@ $metrics = $data['metrics'] ?? [];
                 <?php 
                     $headline_safe = wp_kses($headline, ['br' => []]);
                 ?>
-                <h1 class="relative w-full text-[clamp(2.75rem,12vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05] group" data-hero-headline data-glow-target>
-                    <!-- Capa 1: Borde de texto iluminado con núcleo blanco -->
-                    <span class="pointer-events-none absolute inset-0 block text-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                          style="
-                             background-image: 
-                                radial-gradient(80px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,0.8) 0%, transparent 80%),
-                                linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400));
-                             -webkit-background-clip: text;
-                             -webkit-text-stroke: 2px transparent;
-                             -webkit-mask-image: radial-gradient(200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 70%);
-                             mask-image: radial-gradient(200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 70%);
-                          " aria-hidden="true"><?php echo $headline_safe; ?></span>
-                    
-                    <!-- Capa 2: Texto original superpuesto -->
-                    <span class="relative block text-gray-200"><?php echo $headline_safe; ?></span>
+                <h1 class="w-full text-[clamp(2.75rem,12vw,4.8rem)] font-black tracking-tight mb-8 leading-[1.05]" data-hero-headline>
+                    <span class="block text-gray-200"><?php echo $headline_safe; ?></span>
                 </h1>
 
                 <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed" data-hero-subheadline>
@@ -149,32 +136,24 @@ $metrics = $data['metrics'] ?? [];
 
             <!-- Columna Derecha: Terminal -->
             <div class="hidden lg:flex lg:col-span-5 justify-center items-center" data-hero-terminal-container>
-                <div class="relative w-full max-w-md group" data-hero-terminal data-glow-target>
+                <div class="relative w-full max-w-md group" data-hero-terminal>
                     <div class="relative rounded-xl border border-gray-800/80 bg-gray-900/60 backdrop-blur-xl shadow-2xl">
                         
                         <!-- Efecto Linterna: Brillo Interno -->
-                        <div class="pointer-events-none absolute -inset-px z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                             style="
-                                -webkit-mask-image: radial-gradient(350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 60%);
-                                mask-image: radial-gradient(350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 60%);
-                             ">
-                             <div class="absolute inset-0 rounded-xl opacity-20"
-                                  style="background: linear-gradient(135deg, var(--color-brand-300), var(--color-brand-900), var(--color-brand-400));">
-                             </div>
+                        <div class="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0 rounded-xl"
+                             style="background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(0, 169, 204, 0.05), transparent 40%);">
                         </div>
 
                         <!-- Efecto Linterna: Borde Luminoso Fijo Revelado por Ratón -->
                         <div class="pointer-events-none absolute -inset-px z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                              style="
-                                -webkit-mask-image: radial-gradient(300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 20%, transparent 80%);
-                                mask-image: radial-gradient(300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 20%, transparent 80%);
+                                -webkit-mask-image: radial-gradient(300px circle at var(--mouse-x, 0) var(--mouse-y, 0), black 20%, transparent 80%);
+                                mask-image: radial-gradient(300px circle at var(--mouse-x, 0) var(--mouse-y, 0), black 20%, transparent 80%);
                              ">
                              <div class="absolute inset-0 rounded-xl"
                                   style="
                                      border: 1px solid transparent;
-                                     background: 
-                                        radial-gradient(100px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,0.7) 0%, transparent 80%),
-                                        linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400)) border-box;
+                                     background: linear-gradient(135deg, #00e0ff, #052230, #00a9cc, #5b21b6) border-box;
                                      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
                                      -webkit-mask-composite: xor;
                                      mask-composite: exclude;
@@ -208,7 +187,7 @@ $metrics = $data['metrics'] ?? [];
                                 <span class="text-gray-600">$</span> <span class="text-brand-300">deploy</span> <span class="text-gray-400">--production</span>
                             </div>
                             <div class="mt-2">
-                                <span class="text-brand-400">→</span> <span class="text-gray-400">Sitio en producción.</span> <span class="text-amber-500">Sin sorpresas.</span>
+                                <span class="text-brand-400">→</span> <span class="text-gray-400">Sitio en producción.</span> <span class="text-brand-300">Sin sorpresas.</span>
                             </div>
                         </div>
                     </div>
@@ -236,24 +215,21 @@ $metrics = $data['metrics'] ?? [];
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const hero = document.getElementById('hero');
-    const glowTargets = document.querySelectorAll('[data-glow-target]');
-    if (!hero || glowTargets.length === 0) return;
+    const terminal = document.querySelector('[data-hero-terminal]');
+    if (!terminal) return;
 
     let rafId = null;
 
-    hero.addEventListener('mousemove', (e) => {
+    terminal.addEventListener('mousemove', (e) => {
         if (rafId) cancelAnimationFrame(rafId);
         
         rafId = requestAnimationFrame(() => {
-            glowTargets.forEach(target => {
-                const rect = target.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                target.style.setProperty('--mouse-x', `${x}px`);
-                target.style.setProperty('--mouse-y', `${y}px`);
-            });
+            const rect = terminal.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            terminal.style.setProperty('--mouse-x', `${x}px`);
+            terminal.style.setProperty('--mouse-y', `${y}px`);
         });
     });
 });

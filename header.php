@@ -91,18 +91,28 @@ if ($q_b->have_posts()) {
     wp_reset_postdata();
 }
 
-// Header Navigation — Consistente en toda la web
+$get_str = function($str, $fallback) {
+    return function_exists('pll__') ? pll__($fallback) : $fallback;
+};
+
+// Polylang Languages
+$languages = [];
+if (function_exists('pll_the_languages')) {
+    $languages = pll_the_languages(['raw' => 1, 'hide_if_empty' => 0]);
+}
+
 $header_data = [
     'site_name' => get_bloginfo('name') ?: 'César Luis',
+    'languages' => $languages,
     'nav_links' => [
-        ['label' => 'Sobre Mí',    'url' => site_url('/sobre-mi')],
-        ['label' => 'Servicios',   'url' => site_url('/servicios'), 'type' => 'services', 'megamenu' => $services_mega],
-        ['label' => 'Portafolio',  'url' => site_url('/portafolio'), 'type' => 'portfolio', 'megamenu' => $portfolio_mega],
-        ['label' => 'Blog',        'url' => site_url('/blog'), 'type' => 'blog', 'megamenu' => $blog_mega],
-        ['label' => 'Contacto',    'url' => site_url('/contacto')]
+        ['label' => $get_str('nav_sobre_mi', 'Sobre Mí'),    'url' => function_exists('pll_home_url') ? site_url('/sobre-mi') : site_url('/sobre-mi')],
+        ['label' => $get_str('nav_servicios', 'Servicios'),   'url' => site_url('/servicios'), 'type' => 'services', 'megamenu' => $services_mega],
+        ['label' => $get_str('nav_portafolio', 'Portafolio'),  'url' => site_url('/portafolio'), 'type' => 'portfolio', 'megamenu' => $portfolio_mega],
+        ['label' => $get_str('nav_blog', 'Blog'),        'url' => site_url('/blog'), 'type' => 'blog', 'megamenu' => $blog_mega],
+        ['label' => $get_str('nav_contacto', 'Contacto'),    'url' => site_url('/contacto')]
     ],
     'cta_button' => [
-        'label' => '¿Hablamos?',
+        'label' => $get_str('cta_iniciar_proyecto', 'Iniciar Proyecto'),
         'url'   => site_url('/contacto')
     ]
 ];
