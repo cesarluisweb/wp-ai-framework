@@ -21,7 +21,7 @@ $description = $data['section_description'] ?? '';
 $projects   = $data['projects']           ?? [];
 ?>
 
-<section id="portfolio" class="bg-gray-950 py-24 lg:py-32 font-['Inter',sans-serif] relative">
+<section id="portfolio" class="bg-gray-950 py-24 lg:py-32 relative">
   <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8">
 
     <!-- Section Header -->

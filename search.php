@@ -5,7 +5,7 @@
 get_header();
 ?>
 
-<main class="pt-32 bg-gray-950 min-h-screen font-['Inter',sans-serif] pb-20">
+<main class="pt-32 bg-gray-950 min-h-screen pb-20">
     <div class="max-w-[1000px] mx-auto px-6 lg:px-8">
         
         <header class="mb-16 text-center">

@@ -80,62 +80,6 @@ add_action('acf/init', function() {
             }
             set_transient('wp_ai_deleted_old_acf_portfolio_details_v2', true, YEAR_IN_SECONDS);
         }
-
-        // Detalles del Proyecto (Custom Post Type) 100% Programático
-        acf_add_local_field_group(array(
-            'ID' => '',
-            'ID' => '',
-            'key' => 'group_proyecto_detalles',
-            'title' => 'Detalles del Proyecto',
-            'fields' => array(
-                array(
-                    'key' => 'field_client_name',
-                    'label' => 'Nombre del Cliente',
-                    'name' => 'client_name',
-                    'type' => 'text',
-                    'instructions' => 'Nombre del cliente o empresa para este proyecto.',
-                ),
-                array(
-                    'key' => 'field_live_url',
-                    'label' => 'URL en Vivo',
-                    'name' => 'live_url',
-                    'type' => 'url',
-                    'instructions' => 'Enlace al proyecto publicado (opcional).',
-                ),
-                array(
-                    'key' => 'field_css_gradient',
-                    'label' => 'Gradiente CSS (Opcional)',
-                    'name' => 'css_gradient',
-                    'type' => 'text',
-                    'instructions' => 'Ej: linear-gradient(135deg, #0a1f28 0%, #144257 50%, #287799 100%)',
-                ),
-                array(
-                    'key' => 'field_website_status',
-                    'label' => 'Estado del Sitio Web',
-                    'name' => '_website_status',
-                    'type' => 'radio',
-                    'instructions' => 'Indica si el sitio está online o ha sido dado de baja.',
-                    'choices' => array(
-                        'online' => 'Online',
-                        'offline' => 'Offline (Mostrar nota aclaratoria)',
-                    ),
-                    'default_value' => 'online',
-                    'layout' => 'horizontal',
-                    'return_format' => 'value',
-                ),
-            ),
-            'location' => array(
-                array(
-                    array(
-                        'param' => 'post_type',
-                        'operator' => '==',
-                        'value' => 'proyecto',
-                    ),
-                ),
-            ),
-            'position' => 'normal',
-            'style' => 'default',
-        ));
     }
 });
 

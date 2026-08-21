@@ -133,6 +133,7 @@ if ($q->have_posts()) {
 
 if (!empty($services_arr)) {
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('services', 'premium-dark', [
+        'section_kicker' => wp_ai_get_field_fallback('home_services_kicker', 'Servicios'),
         'section_title' => wp_ai_get_field_fallback('home_services_title', 'Mis Soluciones'),
         'services' => $services_arr
     ]);
@@ -179,8 +180,8 @@ if ($q_t->have_posts()) {
 
 if (!empty($testi_arr)) {
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('testimonials', 'premium-dark', [
-        'section_kicker' => 'Opiniones',
-        'section_title' => 'Lo que dicen mis clientes',
+        'section_kicker' => wp_ai_get_field_fallback('home_testimonials_kicker', 'Opiniones'),
+        'section_title' => wp_ai_get_field_fallback('home_testimonials_title', 'Lo que dicen mis clientes'),
         'testimonials' => $testi_arr
     ]);
 }
@@ -231,9 +232,9 @@ if ( !empty($featured_faqs) ) {
 
 if (!empty($faq_arr)) {
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('faq', 'premium-dark', [
-        'section_kicker' => 'Preguntas frecuentes',
-        'section_title' => 'Resolvamos tus dudas',
-        'section_description' => 'Las preguntas más comunes que recibo de agencias y empresas antes de trabajar juntos.',
+        'section_kicker' => wp_ai_get_field_fallback('home_faq_kicker', 'Preguntas frecuentes'),
+        'section_title' => wp_ai_get_field_fallback('home_faq_title', 'Resolvamos tus dudas'),
+        'section_description' => wp_ai_get_field_fallback('home_faq_desc', 'Las preguntas más comunes que recibo de agencias y empresas antes de trabajar juntos.'),
         'questions' => $faq_arr
     ]);
 }
@@ -270,8 +271,8 @@ if ($q_b->have_posts()) {
 
 if (!empty($blog_arr)) {
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('blog', 'premium-dark', [
-        'section_kicker' => 'Blog',
-        'section_title' => 'Últimos artículos',
+        'section_kicker' => wp_ai_get_field_fallback('home_blog_kicker', 'Blog'),
+        'section_title' => wp_ai_get_field_fallback('home_blog_title', 'Últimos artículos'),
         'posts' => $blog_arr
     ]);
 }
@@ -286,7 +287,7 @@ if(function_exists('wp_ai_render_component')) wp_ai_render_component('cta', 'pre
     'headline' => $cta_headline,
     'subheadline' => $cta_subheadline,
     'button' => ['label' => $cta_btn_label, 'url' => $cta_btn_url],
-    'guarantee' => 'Respuesta en menos de 24 horas'
+    'guarantee' => wp_ai_get_field_fallback('cta_subtext', 'Respuesta en menos de 24 horas')
 ]);
 
 // 12. FOOTER

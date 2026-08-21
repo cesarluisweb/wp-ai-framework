@@ -6,17 +6,17 @@
 get_header();
 ?>
 
-<main class="pt-32 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
+<main class="pt-32 bg-gray-950 min-h-screen">
     <div class="max-w-[1400px] mx-auto px-6 lg:px-8" id="blog-container" data-nonce="<?php echo wp_create_nonce('blog_ajax_nonce'); ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">
         
         <!-- Header Section -->
         <div class="text-center max-w-3xl mx-auto mb-20">
             <?php
             $blog_page_id = get_option('page_for_posts');
-            $hero_kicker = get_field('hero_kicker', $blog_page_id) ?: 'Blog y Recursos';
-            $hero_h1_normal = get_field('hero_h1_normal', $blog_page_id) ?: 'Reflexiones sobre';
-            $hero_h1_highlight = get_field('hero_h1_highlight', $blog_page_id) ?: 'Ingeniería Web';
-            $hero_description = get_field('hero_description', $blog_page_id) ?: 'Artículos, tutoriales y análisis técnicos sobre rendimiento web, WordPress avanzado, y arquitecturas escalables.';
+            $hero_kicker = wp_ai_get_field_fallback('hero_kicker', 'Blog y Recursos', $blog_page_id);
+            $hero_h1_normal = wp_ai_get_field_fallback('hero_h1_normal', 'Reflexiones sobre', $blog_page_id);
+            $hero_h1_highlight = wp_ai_get_field_fallback('hero_h1_highlight', 'Ingeniería Web', $blog_page_id);
+            $hero_description = wp_ai_get_field_fallback('hero_description', 'Artículos, tutoriales y análisis técnicos sobre rendimiento web, WordPress avanzado, y arquitecturas escalables.', $blog_page_id);
             ?>
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6">
                 <?php echo esc_html($hero_kicker); ?>
@@ -31,8 +31,9 @@ get_header();
 
         <!-- Filter Navigation -->
         <div class="flex flex-wrap justify-center gap-3 mb-16">
+            <?php $filter_all_label = wp_ai_get_field_fallback('blog_filter_all_label', 'Todos los Artículos', $blog_page_id); ?>
             <button data-filter="*" class="filter-btn bg-brand-500 text-gray-950 font-bold border-brand-500 border rounded-full px-6 py-2.5 transition-all duration-300 cursor-pointer shadow-[0_0_20px_rgba(var(--brand-500-rgb),0.3)]">
-                Todos los Artículos
+                <?php echo esc_html($filter_all_label); ?>
             </button>
             <?php
             $categories = get_categories([
@@ -58,24 +59,29 @@ get_header();
                     get_template_part('components/blog/card');
                 endwhile;
             else :
+                $empty_title = wp_ai_get_field_fallback('blog_empty_title', 'No se encontraron artículos', $blog_page_id);
+                $empty_desc = wp_ai_get_field_fallback('blog_empty_desc', 'Aún no hay contenido publicado en el blog.', $blog_page_id);
             ?>
                 <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
-                    <h3 class="text-2xl font-bold text-gray-200 mb-2">No se encontraron artículos</h3>
-                    <p class="text-gray-400">Aún no hay contenido publicado en el blog.</p>
+                    <h3 class="text-2xl font-bold text-gray-200 mb-2"><?php echo esc_html($empty_title); ?></h3>
+                    <p class="text-gray-400"><?php echo esc_html($empty_desc); ?></p>
                 </div>
             <?php endif; ?>
         </div>
-        
-            
-
 
         <!-- Pagination (Load More Button) -->
+        <?php 
+        $load_more_label = wp_ai_get_field_fallback('blog_load_more_label', 'Cargar más artículos', $blog_page_id);
+        $loading_label = wp_ai_get_field_fallback('blog_loading_label', 'Cargando...', $blog_page_id);
+        ?>
         <div id="load-more-container" class="mt-20 text-center relative z-20 <?php echo ($wp_query->max_num_pages <= 1) ? 'hidden' : ''; ?>">
             <button id="load-more-blog" 
                     data-page="1" 
                     data-max="<?php echo $wp_query->max_num_pages; ?>" 
+                    data-load-more-text="<?php echo esc_attr($load_more_label); ?>"
+                    data-loading-text="<?php echo esc_attr($loading_label); ?>"
                     class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-200 bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group cursor-pointer">
-                <span class="btn-text">Cargar más artículos</span>
+                <span class="btn-text"><?php echo esc_html($load_more_label); ?></span>
                 <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                 </svg>
@@ -93,12 +99,17 @@ get_header();
     <!-- CTA Section Bottom -->
     <?php
     if(function_exists('wp_ai_render_component')) {
+        $cta_h2 = wp_ai_get_field_fallback('cta_h2', '¿Listo para escalar tu web?', $blog_page_id);
+        $cta_desc = wp_ai_get_field_fallback('cta_description', 'Deja que aplique todas estas técnicas de desarrollo en tu próximo proyecto para asegurar su éxito.', $blog_page_id);
+        $cta_btn_text = wp_ai_get_field_fallback('cta_button_text', 'Hablemos de tu proyecto', $blog_page_id);
+        $cta_btn_url = wp_ai_get_field_fallback('cta_button_url', '/contacto', $blog_page_id);
+
         wp_ai_render_component('cta', 'premium-dark', [
-            'headline' => '¿Listo para escalar tu web?',
-            'subheadline' => 'Deja que aplique todas estas técnicas de desarrollo en tu próximo proyecto para asegurar su éxito.',
+            'headline' => $cta_h2,
+            'subheadline' => $cta_desc,
             'button' => [
-                'label' => 'Hablemos de tu proyecto',
-                'url' => '/contacto'
+                'label' => $cta_btn_text,
+                'url' => $cta_btn_url
             ]
         ]);
     }
@@ -125,15 +136,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isFetching) return;
         isFetching = true;
 
+        const loadingText = loadMoreBtn ? (loadMoreBtn.getAttribute('data-loading-text') || 'Cargando...') : 'Cargando...';
+        const loadMoreText = loadMoreBtn ? (loadMoreBtn.getAttribute('data-load-more-text') || 'Cargar más artículos') : 'Cargar más artículos';
+
         if (!isLoadMore) {
             // Estado de carga inicial (Skeleton o Spinner visual para el grid)
             grid.style.opacity = '0.5';
-        } else {
+        } else if (loadMoreBtn) {
             // Estado de carga para el botón
             loadMoreBtn.classList.add('opacity-75', 'cursor-not-allowed');
             loadMoreBtn.querySelector('.btn-icon').classList.add('hidden');
             loadMoreBtn.querySelector('.btn-spinner').classList.remove('hidden');
-            loadMoreBtn.querySelector('.btn-text').textContent = 'Cargando...';
+            loadMoreBtn.querySelector('.btn-text').textContent = loadingText;
         }
 
         const formData = new FormData();
@@ -188,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         loadMoreBtn.classList.remove('opacity-75', 'cursor-not-allowed');
                         loadMoreBtn.querySelector('.btn-icon').classList.remove('hidden');
                         loadMoreBtn.querySelector('.btn-spinner').classList.add('hidden');
-                        loadMoreBtn.querySelector('.btn-text').textContent = 'Cargar más artículos';
+                        loadMoreBtn.querySelector('.btn-text').textContent = loadMoreText;
                     }
                 }
                 

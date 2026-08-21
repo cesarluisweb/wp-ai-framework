@@ -69,10 +69,10 @@ get_header();
         <!-- Hero Section -->
         <div class="text-center mb-16">
             <?php
-            $hero_kicker = get_field('hero_kicker') ?: 'Contacto';
-            $hero_h1_normal = get_field('hero_h1_normal') ?: 'Hablemos de tu';
-            $hero_h1_highlight = get_field('hero_h1_highlight') ?: 'proyecto';
-            $hero_description = get_field('hero_description') ?: 'Cuéntame qué necesitas. Ya sea un sitio web a medida, una integración con IA o mantenimiento web continuo, te responderé en menos de 24 horas.';
+            $hero_kicker = wp_ai_get_field_fallback('hero_kicker', 'Contacto');
+            $hero_h1_normal = wp_ai_get_field_fallback('hero_h1_normal', 'Hablemos de tu');
+            $hero_h1_highlight = wp_ai_get_field_fallback('hero_h1_highlight', 'proyecto');
+            $hero_description = wp_ai_get_field_fallback('hero_description', 'Cuéntame qué necesitas. Ya sea un sitio web a medida, una integración con IA o mantenimiento web continuo, te responderé en menos de 24 horas.');
             ?>
             <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html($hero_kicker); ?></span>
             <h1 class="text-4xl md:text-5xl font-bold text-gray-200 mb-4">
@@ -88,7 +88,7 @@ get_header();
             <!-- Left Side: Form -->
             <div class="lg:col-span-7 flex flex-col">
                 <div class="bg-gray-900/40 border border-gray-800 rounded-3xl p-8 lg:p-12 flex-1 flex flex-col">
-                    <h3 class="text-xl font-bold text-gray-200 mb-6">Formulario de contacto</h3>
+                    <h3 class="text-xl font-bold text-gray-200 mb-6"><?php echo esc_html(wp_ai_get_field_fallback('contacto_form_title', 'Formulario de contacto')); ?></h3>
                     
                     <?php if ($form_submitted): ?>
                         <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6 text-green-400 mb-8 flex items-start gap-4">
@@ -96,8 +96,8 @@ get_header();
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                             <div>
-                                <h3 class="font-bold text-lg mb-1">¡Mensaje enviado con éxito!</h3>
-                                <p>Gracias por contactarme. He recibido tu mensaje y me pondré en contacto contigo en menos de 24 horas.</p>
+                                <h3 class="font-bold text-lg mb-1"><?php echo esc_html(wp_ai_get_field_fallback('contacto_form_success_title', '¡Mensaje enviado con éxito!')); ?></h3>
+                                <p><?php echo esc_html(wp_ai_get_field_fallback('contacto_form_success_desc', 'Gracias por contactarme. He recibido tu mensaje y me pondré en contacto contigo en menos de 24 horas.')); ?></p>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -107,46 +107,65 @@ get_header();
                             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span>Hubo un error al enviar tu mensaje. Por favor, verifica los campos e inténtalo de nuevo.</span>
+                            <span><?php echo esc_html(wp_ai_get_field_fallback('contacto_form_error_text', 'Hubo un error al enviar tu mensaje. Por favor, verifica los campos e inténtalo de nuevo.')); ?></span>
                         </div>
                     <?php endif; ?>
+
+                    <?php
+                    $name_label = wp_ai_get_field_fallback('contacto_field_name_label', 'Nombre completo *');
+                    $name_placeholder = wp_ai_get_field_fallback('contacto_field_name_placeholder', 'Tu nombre o agencia');
+                    $email_label = wp_ai_get_field_fallback('contacto_field_email_label', 'Email profesional *');
+                    $email_placeholder = wp_ai_get_field_fallback('contacto_field_email_placeholder', 'tu@email.com');
+                    $company_label = wp_ai_get_field_fallback('contacto_field_company_label', 'Empresa (Opcional)');
+                    $company_placeholder = wp_ai_get_field_fallback('contacto_field_company_placeholder', 'Nombre de tu empresa');
+                    $service_label = wp_ai_get_field_fallback('contacto_field_service_label', 'Servicio de interés');
+                    $service_options_default = "Desarrollo Web a Medida\nMantenimiento Web\nIntegración de Agentes IA\nOptimización SEO/GEO\nMigración / Zero Downtime\nOtro requerimiento";
+                    $service_options_raw = wp_ai_get_field_fallback('contacto_field_service_options', $service_options_default);
+                    $service_options = array_filter(array_map('trim', explode("\n", $service_options_raw)));
+
+                    $budget_label = wp_ai_get_field_fallback('contacto_field_budget_label', 'Presupuesto Estimado');
+                    $budget_options_default = "No estoy seguro / Quiero consultarlo\nMenos de 1.000€\n1.000€ - 3.000€\n3.000€ - 10.000€\nMás de 10.000€";
+                    $budget_options_raw = wp_ai_get_field_fallback('contacto_field_budget_options', $budget_options_default);
+                    $budget_options = array_filter(array_map('trim', explode("\n", $budget_options_raw)));
+
+                    $message_label = wp_ai_get_field_fallback('contacto_field_message_label', 'Cuéntame sobre tu proyecto *');
+                    $message_placeholder = wp_ai_get_field_fallback('contacto_field_message_placeholder', 'Describe brevemente tus objetivos, plazos y cualquier restricción técnica...');
+                    $btn_label = wp_ai_get_field_fallback('contacto_form_btn_label', 'Enviar Mensaje');
+                    ?>
 
                     <form action="<?php echo esc_url(get_permalink()); ?>" method="POST" class="space-y-6 flex-1 flex flex-col">
                         <?php wp_nonce_field('contact_form_action', 'contact_nonce'); ?>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="contact_name" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Nombre completo *</label>
+                                <label for="contact_name" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2"><?php echo esc_html($name_label); ?></label>
                                 <input type="text" id="contact_name" name="contact_name" required
                                        class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-                                       placeholder="Tu nombre o agencia">
+                                       placeholder="<?php echo esc_attr($name_placeholder); ?>">
                             </div>
                             <div>
-                                <label for="contact_email" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Email profesional *</label>
+                                <label for="contact_email" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2"><?php echo esc_html($email_label); ?></label>
                                 <input type="email" id="contact_email" name="contact_email" required
                                        class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-                                       placeholder="tu@email.com">
+                                       placeholder="<?php echo esc_attr($email_placeholder); ?>">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="contact_company" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Empresa (Opcional)</label>
+                                <label for="contact_company" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2"><?php echo esc_html($company_label); ?></label>
                                 <input type="text" id="contact_company" name="contact_company"
                                        class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-                                       placeholder="Nombre de tu empresa">
+                                       placeholder="<?php echo esc_attr($company_placeholder); ?>">
                             </div>
                             <div>
-                                <label for="contact_type" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Servicio de interés</label>
+                                <label for="contact_type" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2"><?php echo esc_html($service_label); ?></label>
                                 <div class="relative">
                                     <select id="contact_type" name="contact_type"
                                             class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 appearance-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
-                                        <option value="Desarrollo Web">Desarrollo Web a Medida</option>
-                                        <option value="Mantenimiento Web">Mantenimiento Web</option>
-                                        <option value="Integración IA">Integración de Agentes IA</option>
-                                        <option value="Optimización SEO/GEO">Optimización SEO/GEO</option>
-                                        <option value="Migración">Migración / Zero Downtime</option>
-                                        <option value="Otro">Otro requerimiento</option>
+                                        <?php foreach ($service_options as $opt): ?>
+                                            <option value="<?php echo esc_attr($opt); ?>"><?php echo esc_html($opt); ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,15 +177,13 @@ get_header();
                         </div>
 
                         <div>
-                            <label for="contact_budget" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Presupuesto Estimado</label>
+                            <label for="contact_budget" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2"><?php echo esc_html($budget_label); ?></label>
                             <div class="relative">
                                 <select id="contact_budget" name="contact_budget"
                                         class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 appearance-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
-                                    <option value="No estoy seguro">No estoy seguro / Quiero consultarlo</option>
-                                    <option value="Menos de 1.000€">Menos de 1.000€</option>
-                                    <option value="1.000€ - 3.000€">1.000€ - 3.000€</option>
-                                    <option value="3.000€ - 10.000€">3.000€ - 10.000€</option>
-                                    <option value="Más de 10.000€">Más de 10.000€</option>
+                                    <?php foreach ($budget_options as $opt): ?>
+                                        <option value="<?php echo esc_attr($opt); ?>"><?php echo esc_html($opt); ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,15 +194,15 @@ get_header();
                         </div>
 
                         <div class="flex-1 flex flex-col">
-                            <label for="contact_message" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2">Cuéntame sobre tu proyecto *</label>
+                            <label for="contact_message" class="block text-sm text-gray-400 font-semibold uppercase tracking-wider mb-2"><?php echo esc_html($message_label); ?></label>
                             <textarea id="contact_message" name="contact_message" required
                                       class="w-full h-full min-h-[120px] bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors resize-none"
-                                      placeholder="Describe brevemente tus objetivos, plazos y cualquier restricción técnica..."></textarea>
+                                      placeholder="<?php echo esc_attr($message_placeholder); ?>"></textarea>
                         </div>
 
                         <div class="mt-auto pt-4">
                             <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-gray-200 font-bold py-4 px-8 rounded-xl transition-colors flex justify-center items-center gap-2 cursor-pointer">
-                                <span>Enviar Mensaje</span>
+                                <span><?php echo esc_html($btn_label); ?></span>
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                 </svg>
@@ -199,13 +216,13 @@ get_header();
             <div class="lg:col-span-5 flex flex-col gap-8 justify-between">
                 
                 <!-- Contact Info Card -->
-                <!-- Contact Info Card -->
                 <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-gray-200 mb-6">Contacto Directo</h3>
+                    <h3 class="text-xl font-bold text-gray-200 mb-6"><?php echo esc_html(wp_ai_get_field_fallback('contacto_direct_title', 'Contacto Directo')); ?></h3>
                     
                     <div class="space-y-4">
                         <?php
                         $contact_email = get_option('wp_ai_contact_email', 'info@cesarluis.com');
+                        $email_label = wp_ai_get_field_fallback('contacto_email_label', 'Email Profesional');
                         if (!empty($contact_email)):
                         ?>
                         <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="flex items-center gap-4 py-4 border-b border-gray-800 border-dashed group hover:border-brand-500/30 transition-colors">
@@ -215,7 +232,7 @@ get_header();
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-sm text-gray-500 mb-1">Email Profesional</div>
+                                <div class="text-sm text-gray-500 mb-1"><?php echo esc_html($email_label); ?></div>
                                 <div class="text-gray-200 font-medium"><?php echo esc_html($contact_email); ?></div>
                             </div>
                         </a>
@@ -227,6 +244,7 @@ get_header();
                         if (empty($wa_number)) {
                             $wa_number = $contact_phone;
                         }
+                        $wa_sublabel = wp_ai_get_field_fallback('contacto_whatsapp_sublabel', 'Chat Directo');
                         if (!empty($wa_number)): 
                             $wa_clean = preg_replace('/[^0-9]/', '', $wa_number);
                             $wa_link = 'https://wa.me/' . $wa_clean;
@@ -237,7 +255,7 @@ get_header();
                             </div>
                             <div>
                                 <div class="text-sm text-gray-500 mb-1">WhatsApp</div>
-                                <div class="text-gray-200 font-medium">Chat Directo</div>
+                                <div class="text-gray-200 font-medium"><?php echo esc_html($wa_sublabel); ?></div>
                             </div>
                         </a>
                         <?php endif; ?>
@@ -250,7 +268,7 @@ get_header();
                     if (!empty($socials)):
                 ?>
                 <div class="bg-gray-900 border border-gray-800 rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-gray-200 mb-6">Redes Sociales</h3>
+                    <h3 class="text-xl font-bold text-gray-200 mb-6"><?php echo esc_html(wp_ai_get_field_fallback('contacto_social_title', 'Redes Sociales')); ?></h3>
                     <div class="flex flex-wrap gap-4">
                         <?php foreach ($socials as $key => $social): ?>
                         <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener noreferrer" 
@@ -271,7 +289,11 @@ get_header();
                 endif; 
                 ?>
 
-                <!-- Hardcoded Testimonial Card -->
+                <!-- Dynamic Testimonial Card -->
+                <?php 
+                $test_quote = wp_ai_get_field_fallback('contacto_testimonial_quote', 'Un gran profesional, seguimos trabajando con él ya que estamos muy contentos con su desempeño.');
+                $test_author = wp_ai_get_field_fallback('contacto_testimonial_author', 'Khadim Cissé');
+                ?>
                 <div class="bg-gray-900/40 border border-gray-800 rounded-3xl p-8">
                     <div class="flex gap-1 text-yellow-500 mb-4">
                         <?php for ($i=0; $i<5; $i++): ?>
@@ -281,10 +303,10 @@ get_header();
                         <?php endfor; ?>
                     </div>
                     <blockquote class="text-gray-300 italic mb-6">
-                        "Un gran profesional, seguimos trabajando con él ya que estamos muy contentos con su desempeño."
+                        "<?php echo esc_html($test_quote); ?>"
                     </blockquote>
                     <div class="font-bold text-gray-200">
-                        Khadim Cissé
+                        <?php echo esc_html($test_author); ?>
                     </div>
                 </div>
 
@@ -314,9 +336,9 @@ get_header();
     
     if (!empty($faq_arr)) {
         if(function_exists('wp_ai_render_component')) wp_ai_render_component('faq', 'premium-dark', [
-            'section_kicker' => 'Preguntas Frecuentes',
-            'section_title' => get_field('contacto_faq_titulo') ?: 'Preguntas habituales antes de empezar', // Fallback
-            'section_description' => get_field('contacto_faq_desc') ?: 'Despeja tus dudas sobre tiempos, flujo de trabajo, comunicación y costes antes de enviar el formulario.',
+            'section_kicker' => wp_ai_get_field_fallback('contacto_faq_kicker', 'Preguntas Frecuentes'),
+            'section_title' => wp_ai_get_field_fallback('contacto_faq_titulo', 'Preguntas habituales antes de empezar'),
+            'section_description' => wp_ai_get_field_fallback('contacto_faq_desc', 'Despeja tus dudas sobre tiempos, flujo de trabajo, comunicación y costes antes de enviar el formulario.'),
             'questions' => $faq_arr
         ]);
     }

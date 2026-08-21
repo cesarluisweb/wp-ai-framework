@@ -6,10 +6,12 @@
  * 3-column elegant layout for B2B services.
  * 
  * Expected $data:
+ * - section_kicker (string)
  * - section_title (string)
  * - services (array of arrays: title, description, features[], icon)
  */
 
+$section_kicker = $data['section_kicker'] ?? 'Servicios';
 $section_title = $data['section_title'] ?? 'Mis Soluciones';
 $services = $data['services'] ?? [];
 
@@ -49,7 +51,7 @@ foreach($services as $svc) {
         
         <!-- Header -->
         <div class="mb-16">
-            <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Servicios</span>
+            <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4"><?php echo esc_html($section_kicker); ?></span>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight">
                 <?php echo esc_html($section_title); ?>
             </h2>

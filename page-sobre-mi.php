@@ -33,12 +33,12 @@ get_header();
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <!-- Text Content -->
             <div class="order-2 md:order-1">
-                <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html(get_field('sobre_mi_hero_kicker') ?: 'Sobre Mí'); ?></span>
+                <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block"><?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_hero_kicker', 'Sobre Mí')); ?></span>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-200 mb-6 leading-tight">
-                    <?php echo nl2br(esc_html(get_field('sobre_mi_hero_headline_prefix') ?: 'César Luis')); ?> <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html(get_field('sobre_mi_hero_headline_highlight') ?: 'Amundaray'); ?></span>
+                    <?php echo nl2br(esc_html(wp_ai_get_field_fallback('sobre_mi_hero_headline_prefix', 'César Luis'))); ?> <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500"><?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_hero_headline_highlight', 'Amundaray')); ?></span>
                 </h1>
                 <p class="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed">
-                    <?php echo esc_html(get_field('sobre_mi_hero_description') ?: 'Ingeniero en Electrónica convertido en Arquitecto de Soluciones Web e Inteligencia Artificial. Ayudo a agencias y empresas a construir infraestructuras digitales escalables, resolver cuellos de botella técnicos y automatizar flujos de trabajo con código a medida. Si buscas rendimiento extremo, fiabilidad y cero deuda técnica, estás en el lugar correcto.'); ?>
+                    <?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_hero_description', 'Ingeniero en Electrónica convertido en Arquitecto de Soluciones Web e Inteligencia Artificial. Ayudo a agencias y empresas a construir infraestructuras digitales escalables, resolver cuellos de botella técnicos y automatizar flujos de trabajo con código a medida. Si buscas rendimiento extremo, fiabilidad y cero deuda técnica, estás en el lugar correcto.')); ?>
                 </p>
                 <!-- Removed inline metrics to use full-width component below -->
             </div>
@@ -68,8 +68,8 @@ get_header();
     <?php
     $metrics_arr = [];
     for ($i = 1; $i <= 3; $i++) {
-        $val = function_exists('get_field') ? get_field('sobre_mi_metric_'.$i.'_number') : '';
-        $lab = function_exists('get_field') ? get_field('sobre_mi_metric_'.$i.'_label') : '';
+        $val = wp_ai_get_field_fallback('sobre_mi_metric_'.$i.'_number', '');
+        $lab = wp_ai_get_field_fallback('sobre_mi_metric_'.$i.'_label', '');
         if (!empty($val) && !empty($lab)) {
             $metrics_arr[] = ['value' => $val, 'label' => $lab];
         }
@@ -94,41 +94,24 @@ get_header();
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
             <div class="md:col-span-5">
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight md:sticky md:top-32 pr-4">
-                    <?php echo esc_html(get_field('sobre_mi_bio_headline_prefix') ?: 'De ingeniero electrónico a'); ?> <span class="text-brand-400 block mt-2"><?php echo esc_html(get_field('sobre_mi_bio_headline_highlight') ?: 'Arquitecto IA'); ?></span>
+                    <?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_bio_headline_prefix', 'De ingeniero electrónico a')); ?> <span class="text-brand-400 block mt-2"><?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_bio_headline_highlight', 'Arquitecto IA')); ?></span>
                 </h2>
             </div>
             <div class="md:col-span-7">
                 <div class="prose prose-base md:prose-lg prose-invert text-gray-300 leading-relaxed space-y-6 md:space-y-8">
-                    <?php if (get_field('sobre_mi_bio_text_1')) : ?>
-                        <?php echo get_field('sobre_mi_bio_text_1'); ?>
-                    <?php else : ?>
-                        <p class="text-xl text-gray-200 font-medium">
-                            Soy ingeniero en electrónica de formación, originario de Venezuela. Hace más de 8 años descubrí mi verdadera pasión en el desarrollo web, y desde entonces no he dejado de construir. He trabajado en remoto para agencias de marketing digital y empresas en Latinoamérica y Europa, participando en proyectos de todo tipo: desde landing pages hasta plataformas e-learning con miles de usuarios.
-                        </p>
-                        <p>
-                            En 2026, el desarrollo web cambió por completo. Hoy no escribo código línea por línea de forma manual: utilizo herramientas de inteligencia artificial de última generación para acelerar los procesos de desarrollo, garantizar la calidad del código y entregar resultados que antes habrían tomado semanas en cuestión de días. Esta evolución no reemplaza la experiencia técnica; la potencia. Mi conocimiento profundo de WordPress, PHP, JavaScript y arquitecturas web me permite dirigir estas herramientas con precisión quirúrgica.
-                        </p>
-                    <?php endif; ?>
+                    <?php 
+                    $bio_text_1_default = "<p class=\"text-xl text-gray-200 font-medium\">\nSoy ingeniero en electrónica de formación, originario de Venezuela. Hace más de 8 años descubrí mi verdadera pasión en el desarrollo web, y desde entonces no he dejado de construir. He trabajado en remoto para agencias de marketing digital y empresas en Latinoamérica y Europa, participando en proyectos de todo tipo: desde landing pages hasta plataformas e-learning con miles de usuarios.\n</p>\n<p>\nEn 2026, el desarrollo web cambió por completo. Hoy no escribo código línea por línea de forma manual: utilizo herramientas de inteligencia artificial de última generación para acelerar los procesos de desarrollo, garantizar la calidad del código y entregar resultados que antes habrían tomado semanas en cuestión de días. Esta evolución no reemplaza la experiencia técnica; la potencia. Mi conocimiento profundo de WordPress, PHP, JavaScript y arquitecturas web me permite dirigir estas herramientas con precisión quirúrgica.\n</p>";
+                    echo wp_kses_post(wp_ai_get_field_fallback('sobre_mi_bio_text_1', $bio_text_1_default)); 
+                    ?>
 
-                    <?php if (get_field('sobre_mi_bio_quote')) : ?>
-                        <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
-                            <p class="text-gray-200 italic m-0">"<?php echo esc_html(get_field('sobre_mi_bio_quote')); ?>"</p>
-                        </div>
-                    <?php else : ?>
-                        <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
-                            <p class="text-gray-200 italic m-0">
-                                "Mi enfoque combina la resolución de problemas reales con un estándar de calidad implacable. No me limito a ejecutar tareas: entiendo el contexto del proyecto, propongo soluciones y me aseguro de que todo funcione correctamente antes de entregar."
-                            </p>
-                        </div>
-                    <?php endif; ?>
+                    <div class="pl-6 border-l-2 border-brand-500/50 py-2 my-8">
+                        <p class="text-gray-200 italic m-0">"<?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_bio_quote', 'Mi enfoque combina la resolución de problemas reales con un estándar de calidad implacable. No me limito a ejecutar tareas: entiendo el contexto del proyecto, propongo soluciones y me aseguro de que todo funcione correctamente antes de entregar.')); ?>"</p>
+                    </div>
 
-                    <?php if (get_field('sobre_mi_bio_text_2')) : ?>
-                        <?php echo get_field('sobre_mi_bio_text_2'); ?>
-                    <?php else : ?>
-                        <p>
-                            Trabajo tanto solo como integrado en equipos de agencia, adaptándome a las herramientas y flujos de trabajo de cada cliente. Creo firmemente que el trabajo bien hecho es una forma de servicio. Cada proyecto es una oportunidad de crear algo útil, funcional y que genere resultados reales para mis clientes. Si buscas un desarrollador WordPress que combine experiencia sólida con las herramientas más avanzadas del mercado, estás en el lugar correcto.
-                        </p>
-                    <?php endif; ?>
+                    <?php 
+                    $bio_text_2_default = "<p>\nTrabajo tanto solo como integrado en equipos de agencia, adaptándome a las herramientas y flujos de trabajo de cada cliente. Creo firmemente que el trabajo bien hecho es una forma de servicio. Cada proyecto es una oportunidad de crear algo útil, funcional y que genere resultados reales para mis clientes. Si buscas un desarrollador WordPress que combine experiencia sólida con las herramientas más avanzadas del mercado, estás en el lugar correcto.\n</p>";
+                    echo wp_kses_post(wp_ai_get_field_fallback('sobre_mi_bio_text_2', $bio_text_2_default)); 
+                    ?>
                 </div>
             </div>
         </div>
@@ -139,7 +122,7 @@ get_header();
         <div class="max-w-[1400px] mx-auto px-6 lg:px-8">
             <!-- Desktop/Tablet Version (Card) -->
             <div class="hidden md:block bg-gray-900/50 border border-gray-800 rounded-3xl p-8 lg:p-12">
-                <h2 class="text-2xl font-bold text-gray-200 mb-8 text-center">Ecosistema & Stack Core</h2>
+                <h2 class="text-2xl font-bold text-gray-200 mb-8 text-center"><?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_stack_title', 'Ecosistema & Stack Core')); ?></h2>
                 <div class="flex flex-wrap gap-4 justify-center">
                     <?php
                     $tech_stack = function_exists('wp_ai_get_core_tech_stack') ? wp_ai_get_core_tech_stack() : [];
@@ -170,7 +153,7 @@ get_header();
 
             <!-- Mobile Version (Title Only) -->
             <div class="md:hidden">
-                <h2 class="text-2xl font-bold text-gray-200 mb-6 text-center">Ecosistema & Stack Core</h2>
+                <h2 class="text-2xl font-bold text-gray-200 mb-6 text-center"><?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_stack_title', 'Ecosistema & Stack Core')); ?></h2>
             </div>
         </div>
 
@@ -187,15 +170,15 @@ get_header();
 
     <!-- Experiencia Laboral -->
     <section class="max-w-4xl mx-auto px-6 lg:px-8 mb-24">
-        <h2 class="text-3xl font-bold text-gray-200 text-center mb-16"><?php echo esc_html(get_field('sobre_mi_trayectoria_headline') ?: 'Mi Trayectoria'); ?></h2>
+        <h2 class="text-3xl font-bold text-gray-200 text-center mb-16"><?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_trayectoria_headline', 'Mi Trayectoria')); ?></h2>
         
         <?php 
         $trayectoria = [];
         for ($i=1; $i<=5; $i++) {
-            $period = function_exists('get_field') ? get_field('sobre_mi_trayectoria_'.$i.'_period') : '';
-            $role = function_exists('get_field') ? get_field('sobre_mi_trayectoria_'.$i.'_role') : '';
-            $desc = function_exists('get_field') ? get_field('sobre_mi_trayectoria_'.$i.'_description') : '';
-            if ($period) {
+            $period = wp_ai_get_field_fallback('sobre_mi_trayectoria_'.$i.'_period', '');
+            $role = wp_ai_get_field_fallback('sobre_mi_trayectoria_'.$i.'_role', '');
+            $desc = wp_ai_get_field_fallback('sobre_mi_trayectoria_'.$i.'_description', '');
+            if (!empty($period) && !empty($role)) {
                 $trayectoria[] = ['period' => $period, 'role' => $role, 'desc' => $desc];
             }
         }
@@ -274,18 +257,12 @@ get_header();
     <section class="max-w-[1400px] mx-auto px-6 lg:px-8 mb-24">
         <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center bg-gray-900/30 border border-gray-800/50 rounded-3xl p-8 lg:p-12">
             <div class="max-w-2xl order-2 md:order-1">
-                <h2 class="text-3xl font-bold text-gray-200 mb-6"><?php echo esc_html(get_field('sobre_mi_valores_headline') ?: 'Mis Valores'); ?></h2>
+                <h2 class="text-3xl font-bold text-gray-200 mb-6"><?php echo esc_html(wp_ai_get_field_fallback('sobre_mi_valores_headline', 'Mis Valores')); ?></h2>
                 <div class="prose prose-invert text-gray-300">
-                    <?php if (get_field('sobre_mi_valores_text')) : ?>
-                        <?php echo get_field('sobre_mi_valores_text'); ?>
-                    <?php else : ?>
-                        <p>
-                            Tengo valores cristianos desde mi niñez. Aquel que dijo ser el Camino, la Verdad y la Vida, mi Señor Jesucristo, es el pilar fundamental de mi vida. Todo lo que hago, procuro hacerlo con excelencia para Su gloria.
-                        </p>
-                        <p>
-                            Como esposo, padre y profesional, prometo entregar mi máximo esfuerzo en cada proyecto. Mi compromiso es la calidad técnica y humana; no daré por terminado el trabajo hasta que el resultado funcione impecablemente para tu negocio.
-                        </p>
-                    <?php endif; ?>
+                    <?php 
+                    $valores_default = "<p>\nTengo valores cristianos desde mi niñez. Aquel que dijo ser el Camino, la Verdad y la Vida, mi Señor Jesucristo, es el pilar fundamental de mi vida. Todo lo que hago, procuro hacerlo con excelencia para Su gloria.\n</p>\n<p>\nComo esposo, padre y profesional, prometo entregar mi máximo esfuerzo en cada proyecto. Mi compromiso es la calidad técnica y humana; no daré por terminado el trabajo hasta que el resultado funcione impecablemente para tu negocio.\n</p>";
+                    echo wp_kses_post(wp_ai_get_field_fallback('sobre_mi_valores_text', $valores_default)); 
+                    ?>
                 </div>
             </div>
             <div class="flex-1 flex justify-start md:justify-center order-1 md:order-2 w-full md:w-auto">
@@ -302,13 +279,13 @@ get_header();
     <?php
     if(function_exists('wp_ai_render_component')) {
         wp_ai_render_component('cta', 'premium-dark', [
-            'headline' => get_field('sobre_mi_cta_headline') ?: '¿Listo para trabajar juntos?',
-            'subheadline' => get_field('sobre_mi_cta_subheadline') ?: 'Cuéntame sobre tu proyecto y veamos cómo puedo ayudarte a alcanzar tus objetivos con tecnología de primer nivel.',
+            'headline' => wp_ai_get_field_fallback('sobre_mi_cta_headline', '¿Listo para trabajar juntos?'),
+            'subheadline' => wp_ai_get_field_fallback('sobre_mi_cta_subheadline', 'Cuéntame sobre tu proyecto y veamos cómo puedo ayudarte a alcanzar tus objetivos con tecnología de primer nivel.'),
             'button' => [
-                'label' => get_field('sobre_mi_cta_btn_label') ?: '¿Hablamos?',
-                'url' => get_field('sobre_mi_cta_btn_url') ?: '/contacto'
+                'label' => wp_ai_get_field_fallback('sobre_mi_cta_btn_label', '¿Hablamos?'),
+                'url' => wp_ai_get_field_fallback('sobre_mi_cta_btn_url', '/contacto')
             ],
-            'guarantee' => get_field('sobre_mi_cta_guarantee') ?: 'Respuesta en menos de 24 horas'
+            'guarantee' => wp_ai_get_field_fallback('sobre_mi_cta_guarantee', 'Respuesta en menos de 24 horas')
         ]);
     }
     ?>

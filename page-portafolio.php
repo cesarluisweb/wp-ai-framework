@@ -5,16 +5,16 @@
 get_header();
 ?>
 
-<main class="pt-32 bg-gray-950 min-h-screen font-['Inter',sans-serif]">
+<main class="pt-32 bg-gray-950 min-h-screen">
     <div class="max-w-[1400px] mx-auto px-6 lg:px-8">
         
         <!-- Header Section -->
         <div class="text-center max-w-3xl mx-auto mb-20">
             <?php
-            $hero_kicker = get_field('hero_kicker') ?: 'Portafolio de Casos';
-            $hero_h1_normal = get_field('hero_h1_normal') ?: 'Ingeniería web orientada a';
-            $hero_h1_highlight = get_field('hero_h1_highlight') ?: 'resultados.';
-            $hero_description = get_field('hero_description') ?: 'Explora cómo he resuelto problemas técnicos complejos y escalado negocios mediante código estructurado, rendimiento extremo y automatización.';
+            $hero_kicker = wp_ai_get_field_fallback('hero_kicker', 'Portafolio de Casos');
+            $hero_h1_normal = wp_ai_get_field_fallback('hero_h1_normal', 'Ingeniería web orientada a');
+            $hero_h1_highlight = wp_ai_get_field_fallback('hero_h1_highlight', 'resultados.');
+            $hero_description = wp_ai_get_field_fallback('hero_description', 'Explora cómo he resuelto problemas técnicos complejos y escalado negocios mediante código estructurado, rendimiento extremo y automatización.');
             ?>
             <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-6">
                 <?php echo esc_html($hero_kicker); ?>
@@ -29,8 +29,9 @@ get_header();
 
         <!-- Filter Navigation -->
         <div class="flex flex-wrap justify-center gap-3 mb-16">
+            <?php $filter_all_label = wp_ai_get_field_fallback('portfolio_filter_all_label', 'Todos los Proyectos'); ?>
             <button data-filter="*" class="filter-btn bg-brand-500 text-gray-950 font-bold border-brand-500 border rounded-full px-6 py-2.5 transition-all duration-300 cursor-pointer shadow-[0_0_20px_rgba(var(--brand-500-rgb),0.3)]">
-                Todos los Proyectos
+                <?php echo esc_html($filter_all_label); ?>
             </button>
             <?php
             $categories = get_terms([
@@ -212,6 +213,8 @@ get_header();
         
         <?php
         if ($portfolio_query->max_num_pages > 1) :
+            $load_more_label = wp_ai_get_field_fallback('portfolio_load_more_label', 'Cargar más proyectos');
+            $loading_label = wp_ai_get_field_fallback('portfolio_loading_label', 'Cargando...');
         ?>
             <div class="mt-20 text-center relative z-20" id="load-more-container">
                 <button id="load-more-portfolio" 
@@ -219,8 +222,10 @@ get_header();
                         data-max="<?php echo $portfolio_query->max_num_pages; ?>" 
                         data-nonce="<?php echo wp_create_nonce('portfolio_ajax_nonce'); ?>" 
                         data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>"
+                        data-load-more-text="<?php echo esc_attr($load_more_label); ?>"
+                        data-loading-text="<?php echo esc_attr($loading_label); ?>"
                         class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-200 bg-gray-900 border border-gray-800 hover:border-brand-500/50 hover:bg-gray-800 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg group mx-auto cursor-pointer">
-                    <span class="btn-text">Cargar más proyectos</span>
+                    <span class="btn-text"><?php echo esc_html($load_more_label); ?></span>
                     <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                     </svg>
@@ -242,6 +247,8 @@ get_header();
                     const maxPages = parseInt(btn.getAttribute('data-max'));
                     const ajaxurl = btn.getAttribute('data-ajaxurl');
                     const nonce = btn.getAttribute('data-nonce');
+                    const loadingText = btn.getAttribute('data-loading-text') || 'Cargando...';
+                    const loadMoreText = btn.getAttribute('data-load-more-text') || 'Cargar más proyectos';
                     
                     if (currentPage >= maxPages) return;
                     
@@ -249,7 +256,7 @@ get_header();
                     btn.classList.add('opacity-75', 'cursor-not-allowed');
                     btn.querySelector('.btn-icon').classList.add('hidden');
                     btn.querySelector('.btn-spinner').classList.remove('hidden');
-                    btn.querySelector('.btn-text').textContent = 'Cargando...';
+                    btn.querySelector('.btn-text').textContent = loadingText;
                     
                     const nextPage = currentPage + 1;
                     
@@ -275,7 +282,7 @@ get_header();
                                 btn.classList.remove('opacity-75', 'cursor-not-allowed');
                                 btn.querySelector('.btn-icon').classList.remove('hidden');
                                 btn.querySelector('.btn-spinner').classList.add('hidden');
-                                btn.querySelector('.btn-text').textContent = 'Cargar más proyectos';
+                                btn.querySelector('.btn-text').textContent = loadMoreText;
                             }
                         }
                     })
@@ -287,10 +294,12 @@ get_header();
         <?php
             wp_reset_postdata();
         else :
+            $empty_title = wp_ai_get_field_fallback('portfolio_empty_title', 'No se encontraron proyectos');
+            $empty_desc = wp_ai_get_field_fallback('portfolio_empty_desc', 'Pronto añadiré más casos de estudio a mi portafolio.');
         ?>
             <div class="col-span-full text-center py-24 bg-gray-900/50 rounded-3xl border border-gray-800 border-dashed">
-                <h3 class="text-2xl font-bold text-gray-200 mb-2">No se encontraron proyectos</h3>
-                <p class="text-gray-400">Pronto añadiré más casos de estudio a mi portafolio.</p>
+                <h3 class="text-2xl font-bold text-gray-200 mb-2"><?php echo esc_html($empty_title); ?></h3>
+                <p class="text-gray-400"><?php echo esc_html($empty_desc); ?></p>
             </div>
         <?php endif; ?>
 
@@ -301,10 +310,10 @@ get_header();
     <!-- CTA Section Bottom -->
     <?php
     if(function_exists('wp_ai_render_component')) {
-        $cta_h2 = get_field('cta_h2') ?: '¿Listo para construir el tuyo?';
-        $cta_desc = get_field('cta_description') ?: 'Trabajemos juntos para llevar tu proyecto al siguiente nivel de rendimiento y escalabilidad.';
-        $cta_btn_text = get_field('cta_button_text') ?: 'Empezar Proyecto Ahora';
-        $cta_btn_url = get_field('cta_button_url') ?: '/contacto';
+        $cta_h2 = wp_ai_get_field_fallback('cta_h2', '¿Listo para construir el tuyo?');
+        $cta_desc = wp_ai_get_field_fallback('cta_description', 'Trabajemos juntos para llevar tu proyecto al siguiente nivel de rendimiento y escalabilidad.');
+        $cta_btn_text = wp_ai_get_field_fallback('cta_button_text', 'Empezar Proyecto Ahora');
+        $cta_btn_url = wp_ai_get_field_fallback('cta_button_url', '/contacto');
 
         wp_ai_render_component('cta', 'premium-dark', [
             'headline' => $cta_h2,

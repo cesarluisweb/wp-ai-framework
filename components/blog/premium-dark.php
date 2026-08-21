@@ -15,7 +15,7 @@ $section_title  = $data['section_title']  ?? '';
 $posts          = $data['posts']          ?? [];
 ?>
 
-<section class="bg-gray-950 py-24 lg:py-32 font-['Inter',sans-serif]">
+<section class="bg-gray-950 py-24 lg:py-32">
     <div class="w-full max-w-[1400px] mx-auto px-6 lg:px-8">
 
         <!-- ── Section header ── -->
