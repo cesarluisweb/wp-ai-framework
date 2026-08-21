@@ -54,7 +54,7 @@ $bio_paragraphs = $data['bio_paragraphs'] ?? [];
             <!-- RIGHT — Content -->
             <div class="md:col-span-8 lg:col-span-7 flex flex-col justify-center text-left md:mt-0">
 
-                <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4">Sobre mí</span>
+                <span class="inline-block uppercase tracking-[0.2em] text-brand-300 text-sm font-semibold mb-4"><?= esc_html($data['kicker'] ?? 'Sobre Mí') ?></span>
                 <?php if ( ! empty( $headline ) ) : ?>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-200 leading-tight mb-8">
                         <?php echo esc_html( $headline ); ?>

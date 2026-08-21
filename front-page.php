@@ -37,6 +37,7 @@ if (!empty($bio_text)) {
 
 if (!empty($bio_paragraphs)) {
     $about_data = [
+        'kicker' => wp_ai_get_field_fallback('about_kicker', 'Sobre Mí'),
         'headline' => wp_ai_get_field_fallback('about_headline', 'César Luis, desarrollador web WordPress'),
         'bio_paragraphs' => $bio_paragraphs,
         'image_url' => wp_ai_get_field_fallback('about_image', get_the_post_thumbnail_url(get_the_ID(), 'large')),
@@ -53,13 +54,11 @@ $featured_ids = function_exists('get_field') ? get_field('home_featured_projects
 $args_p = ['post_type' => 'proyecto', 'posts_per_page' => $portfolio_limit];
 
 if (!empty($featured_ids) && is_array($featured_ids)) {
-    // Si el campo devuelve objetos (Post Object) extraemos los IDs
     if (isset($featured_ids[0]->ID)) {
         $featured_ids = array_map(function($p) { return $p->ID; }, $featured_ids);
     }
     $args_p['post__in'] = $featured_ids;
     $args_p['orderby'] = 'post__in';
-    // Ignoramos el límite de $portfolio_limit si el usuario seleccionó manualmente
     $args_p['posts_per_page'] = count($featured_ids); 
 }
 
@@ -89,9 +88,9 @@ if ($q_p->have_posts()) {
 
 if (!empty($projects_arr)) {
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('portfolio', 'premium-dark', [
-        'section_kicker' => 'Portafolio',
-        'section_title' => 'Proyectos recientes',
-        'section_description' => 'Una selección de trabajos donde la calidad del código y el resultado final hablan por sí solos.',
+        'section_kicker' => wp_ai_get_field_fallback('home_portfolio_kicker', 'Portafolio de casos'),
+        'section_title' => wp_ai_get_field_fallback('home_portfolio_title', 'Ingeniería web orientada a resultados.'),
+        'section_description' => wp_ai_get_field_fallback('home_portfolio_desc', 'Explora cómo he resuelto problemas técnicos complejos y escalado negocios mediante código estructurado, rendimiento extremo y automatización.'),
         'projects' => $projects_arr
     ]);
 }
@@ -134,7 +133,7 @@ if ($q->have_posts()) {
 
 if (!empty($services_arr)) {
     if(function_exists('wp_ai_render_component')) wp_ai_render_component('services', 'premium-dark', [
-        'section_title' => 'Mis Soluciones',
+        'section_title' => wp_ai_get_field_fallback('home_services_title', 'Mis Soluciones'),
         'services' => $services_arr
     ]);
 }
