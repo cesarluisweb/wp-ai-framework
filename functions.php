@@ -70,31 +70,6 @@ add_action('acf/init', function() {
             'description' => '',
         ));
 
-        acf_add_local_field_group(array(
-            'key' => 'group_home_dynamic_texts',
-            'title' => 'Home - Textos Dinámicos (i18n)',
-            'fields' => array(
-                array('key' => 'field_hero_cta_2_label', 'label' => 'Texto del Botón Secundario (Hero)', 'name' => 'hero_cta_2_label', 'type' => 'text'),
-                array('key' => 'field_about_kicker', 'label' => 'Kicker Sobre Mí', 'name' => 'about_kicker', 'type' => 'text'),
-                array('key' => 'field_home_portfolio_kicker', 'label' => 'Kicker Portafolio', 'name' => 'home_portfolio_kicker', 'type' => 'text'),
-                array('key' => 'field_home_portfolio_title', 'label' => 'Título Portafolio', 'name' => 'home_portfolio_title', 'type' => 'text'),
-                array('key' => 'field_home_portfolio_desc', 'label' => 'Descripción Portafolio', 'name' => 'home_portfolio_desc', 'type' => 'textarea', 'rows' => 3),
-                array('key' => 'field_home_services_title', 'label' => 'Título Servicios', 'name' => 'home_services_title', 'type' => 'text'),
-            ),
-            'location' => array(
-                array(
-                    array('param' => 'page_type', 'operator' => '==', 'value' => 'front_page')
-                ),
-                array(
-                    array('param' => 'page_template', 'operator' => '==', 'value' => 'default')
-                )
-            ),
-            'menu_order' => 10,
-            'position' => 'normal',
-            'style' => 'default',
-            'label_placement' => 'top',
-        ));
-
         // Limpieza automática única para borrar el grupo manual de la BBDD y evitar duplicados
         if (!get_transient('wp_ai_deleted_old_acf_portfolio_details_v2')) {
             $old_groups = get_posts(array('post_type' => 'acf-field-group', 'posts_per_page' => -1, 'post_status' => 'any'));
