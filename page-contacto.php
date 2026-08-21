@@ -7,7 +7,7 @@ $form_submitted = false;
 $form_error = false;
 
 // Manejo básico de formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_nonce']) && wp_verify_nonce($_POST['contact_nonce'], 'contact_form_action')) {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['contact_nonce']) && wp_verify_nonce($_POST['contact_nonce'], 'contact_form_action')) {
     $name = sanitize_text_field($_POST['contact_name'] ?? '');
     $email = sanitize_email($_POST['contact_email'] ?? '');
     $company = sanitize_text_field($_POST['contact_company'] ?? '');

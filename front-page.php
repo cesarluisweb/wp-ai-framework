@@ -80,7 +80,7 @@ if ($q_p->have_posts()) {
             'image_url' => get_the_post_thumbnail_url(get_the_ID(), 'large'),
             'image_id' => get_post_thumbnail_id(get_the_ID()),
             'url' => get_permalink(),
-            'image_gradient' => function_exists('get_field') ? get_field('css_gradient') : 'linear-gradient(135deg, #0a1f2a 0%, #144257 50%, #287799 100%)'
+            'image_gradient' => wp_ai_get_field_fallback('css_gradient', 'linear-gradient(135deg, #0a1f2a 0%, #144257 50%, #287799 100%)', get_the_ID())
         ];
     }
     wp_reset_postdata();
@@ -113,10 +113,10 @@ $q = new WP_Query($args_s);
 if ($q->have_posts()) {
     while($q->have_posts()) {
         $q->the_post();
-        $icon = function_exists('get_field') ? get_field('icon') : '';
-        $desc = function_exists('get_field') ? get_field('desc') : '';
-        $features_raw = function_exists('get_field') ? get_field('features') : '';
-        $features = array_filter(array_map('trim', explode("\n", $features_raw)));
+        $icon = wp_ai_get_field_fallback('icon', 'code', get_the_ID());
+        $desc = wp_ai_get_field_fallback('desc', '', get_the_ID());
+        $features_raw = wp_ai_get_field_fallback('features', '', get_the_ID());
+        $features = array_filter(array_map('trim', explode("\n", (string) $features_raw)));
         
         $services_arr[] = [
             'title' => get_the_title(),
