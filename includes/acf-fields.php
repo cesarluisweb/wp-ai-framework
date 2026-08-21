@@ -633,6 +633,12 @@ acf_add_local_field_group(array (
       'name' => 'hero_cta_2_label',
       'type' => 'text',
     ),
+    53 => array (
+      'key' => 'field_hero_cta_2_url',
+      'label' => 'URL del Botón Secundario',
+      'name' => 'hero_cta_2_url',
+      'type' => 'text',
+    ),
     5 => 
     array (
       'key' => 'field_home_hero_kicker',
