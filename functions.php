@@ -84,6 +84,9 @@ add_action('acf/init', function() {
             'location' => array(
                 array(
                     array('param' => 'page_type', 'operator' => '==', 'value' => 'front_page')
+                ),
+                array(
+                    array('param' => 'page_template', 'operator' => '==', 'value' => 'default')
                 )
             ),
             'menu_order' => 10,
