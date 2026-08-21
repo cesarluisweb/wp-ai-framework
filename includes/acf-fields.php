@@ -627,6 +627,12 @@ acf_add_local_field_group(array (
       'prepend' => '',
       'append' => '',
     ),
+    44 => array (
+      'key' => 'field_hero_cta_2_label',
+      'label' => 'Texto del Botón Secundario',
+      'name' => 'hero_cta_2_label',
+      'type' => 'text',
+    ),
     5 => 
     array (
       'key' => 'field_home_hero_kicker',
@@ -887,6 +893,12 @@ acf_add_local_field_group(array (
       'placement' => 'top',
       'endpoint' => 0,
       'selected' => 0,
+    ),
+    45 => array (
+      'key' => 'field_about_kicker',
+      'label' => 'Kicker Sobre Mí',
+      'name' => 'about_kicker',
+      'type' => 'text',
     ),
     15 => 
     array (
@@ -1432,6 +1444,12 @@ acf_add_local_field_group(array (
       'placeholder' => '',
       'rows' => '',
     ),
+    46 => array('key' => 'field_tab_home_portfolio', 'label' => 'Portafolio', 'type' => 'tab'),
+    47 => array('key' => 'field_home_portfolio_kicker', 'label' => 'Kicker Portafolio', 'name' => 'home_portfolio_kicker', 'type' => 'text'),
+    48 => array('key' => 'field_home_portfolio_title', 'label' => 'Título Portafolio', 'name' => 'home_portfolio_title', 'type' => 'text'),
+    49 => array('key' => 'field_home_portfolio_desc', 'label' => 'Descripción Portafolio', 'name' => 'home_portfolio_desc', 'type' => 'textarea', 'rows' => 3),
+    50 => array('key' => 'field_tab_home_services', 'label' => 'Servicios', 'type' => 'tab'),
+    51 => array('key' => 'field_home_services_title', 'label' => 'Título Servicios', 'name' => 'home_services_title', 'type' => 'text'),
     36 => 
     array (
       'key' => 'field_tab_footer',
