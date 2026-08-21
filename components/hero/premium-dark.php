@@ -187,28 +187,28 @@ $metrics = $data['metrics'] ?? [];
                             <div class="w-3 h-3 rounded-full bg-red-500/70"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500/70"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500/70"></div>
-                            <span class="ml-3 text-xs text-gray-600 font-mono">~/proyecto-cliente</span>
+                            <span class="ml-3 text-xs text-gray-600 font-mono"><?= function_exists('pll__') ? pll__('~/proyecto-cliente') : '~/proyecto-cliente' ?></span>
                         </div>
                         <!-- Contenido -->
                         <div class="relative z-10 p-6 font-mono text-sm leading-relaxed rounded-b-xl">
-                            <div class="text-gray-500 mb-3">// Lo que hago en cada proyecto:</div>
+                            <div class="text-gray-500 mb-3"><?= function_exists('pll__') ? pll__('// Lo que hago en cada proyecto:') : '// Lo que hago en cada proyecto:' ?></div>
                             <div class="mb-4">
-                                <span class="text-brand-300">✓</span> <span class="text-gray-300">Entender el problema real</span>
+                                <span class="text-brand-300">✓</span> <span class="text-gray-300"><?= function_exists('pll__') ? pll__('Entender el problema real') : 'Entender el problema real' ?></span>
                             </div>
                             <div class="mb-4">
-                                <span class="text-brand-300">✓</span> <span class="text-gray-300">Diseñar la arquitectura</span>
+                                <span class="text-brand-300">✓</span> <span class="text-gray-300"><?= function_exists('pll__') ? pll__('Diseñar la arquitectura') : 'Diseñar la arquitectura' ?></span>
                             </div>
                             <div class="mb-4">
-                                <span class="text-brand-300">✓</span> <span class="text-gray-300">Construir la solución</span>
+                                <span class="text-brand-300">✓</span> <span class="text-gray-300"><?= function_exists('pll__') ? pll__('Construir la solución') : 'Construir la solución' ?></span>
                             </div>
                             <div class="mb-4">
-                                <span class="text-brand-300">✓</span> <span class="text-gray-300">Entregar funcionando</span>
+                                <span class="text-brand-300">✓</span> <span class="text-gray-300"><?= function_exists('pll__') ? pll__('Entregar funcionando') : 'Entregar funcionando' ?></span>
                             </div>
                             <div class="mt-6 pt-4 border-t border-gray-800/50">
                                 <span class="text-gray-600">$</span> <span class="text-brand-300">deploy</span> <span class="text-gray-400">--production</span>
                             </div>
                             <div class="mt-2">
-                                <span class="text-brand-400">→</span> <span class="text-gray-400">Sitio en producción.</span> <span class="text-amber-500">Sin sorpresas.</span>
+                                <span class="text-brand-400">→</span> <span class="text-gray-400"><?= function_exists('pll__') ? pll__('Sitio en producción.') : 'Sitio en producción.' ?></span> <span class="text-amber-500"><?= function_exists('pll__') ? pll__('Sin sorpresas.') : 'Sin sorpresas.' ?></span>
                             </div>
                         </div>
                     </div>

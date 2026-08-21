@@ -553,5 +553,15 @@ add_action('init', function() {
         // Common Fallbacks
         pll_register_string('btn_leer_mas', 'Leer más', 'wp-ai-theme', false);
         pll_register_string('btn_ver_proyecto', 'Ver Proyecto', 'wp-ai-theme', false);
+        
+        // Terminal Strings (Hero)
+        pll_register_string('term_client_project', '~/proyecto-cliente', 'wp-ai-theme', false);
+        pll_register_string('term_comment', '// Lo que hago en cada proyecto:', 'wp-ai-theme', false);
+        pll_register_string('term_task_1', 'Entender el problema real', 'wp-ai-theme', false);
+        pll_register_string('term_task_2', 'Diseñar la arquitectura', 'wp-ai-theme', false);
+        pll_register_string('term_task_3', 'Construir la solución', 'wp-ai-theme', false);
+        pll_register_string('term_task_4', 'Entregar funcionando', 'wp-ai-theme', false);
+        pll_register_string('term_result', 'Sitio en producción.', 'wp-ai-theme', false);
+        pll_register_string('term_highlight', 'Sin sorpresas.', 'wp-ai-theme', false);
     }
 });
