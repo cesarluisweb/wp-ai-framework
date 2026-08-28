@@ -107,7 +107,7 @@ $metrics = $data['metrics'] ?? [];
                     <span class="pointer-events-none absolute inset-0 block text-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                           style="
                              background-image: 
-                                radial-gradient(80px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,0.8) 0%, transparent 80%),
+                                radial-gradient(100px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%),
                                 linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400));
                              -webkit-background-clip: text;
                              -webkit-text-stroke: 2px transparent;
@@ -152,29 +152,31 @@ $metrics = $data['metrics'] ?? [];
                 <div class="relative w-full max-w-md group" data-hero-terminal data-glow-target>
                     <div class="relative rounded-xl border border-gray-800/80 bg-gray-900/60 backdrop-blur-xl shadow-2xl">
                         
-                        <!-- Efecto Linterna: Brillo Interno -->
-                        <div class="pointer-events-none absolute -inset-px z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                        <!-- Efecto Linterna: Brillo Interno (Alcance Global) -->
+                        <div class="pointer-events-none absolute -inset-px z-0 transition-opacity duration-500"
                              style="
-                                -webkit-mask-image: radial-gradient(350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 60%);
-                                mask-image: radial-gradient(350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 0%, transparent 60%);
+                                -webkit-mask-image: radial-gradient(1200px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), black 0%, transparent 100%);
+                                mask-image: radial-gradient(1200px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), black 0%, transparent 100%);
                              ">
                              <div class="absolute inset-0 rounded-xl opacity-20"
                                   style="background: linear-gradient(135deg, var(--color-brand-300), var(--color-brand-900), var(--color-brand-400));">
                              </div>
                         </div>
 
-                        <!-- Efecto Linterna: Borde Luminoso Fijo Revelado por Ratón -->
-                        <div class="pointer-events-none absolute -inset-px z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                        <!-- Efecto Linterna: Borde Luminoso Fijo Revelado por Ratón (Alcance Global) -->
+                        <div class="pointer-events-none absolute -inset-px z-20 transition-opacity duration-500"
                              style="
-                                -webkit-mask-image: radial-gradient(300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 20%, transparent 80%);
-                                mask-image: radial-gradient(300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), black 20%, transparent 80%);
+                                -webkit-mask-image: radial-gradient(1500px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), black 0%, transparent 100%);
+                                mask-image: radial-gradient(1500px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), black 0%, transparent 100%);
                              ">
                              <div class="absolute inset-0 rounded-xl"
                                   style="
                                      border: 1px solid transparent;
-                                     background: 
-                                        radial-gradient(100px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255,255,255,0.7) 0%, transparent 80%),
-                                        linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400)) border-box;
+                                     background-image: 
+                                        radial-gradient(120px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%),
+                                        linear-gradient(135deg, var(--color-brand-300), var(--color-brand-600), var(--color-brand-400));
+                                     background-origin: border-box;
+                                     background-clip: border-box;
                                      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
                                      -webkit-mask-composite: xor;
                                      mask-composite: exclude;

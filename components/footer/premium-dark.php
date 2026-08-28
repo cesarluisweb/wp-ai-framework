@@ -120,7 +120,7 @@ $copyright = $data['copyright'] ?? '© ' . date('Y') . ' Todos los derechos rese
                 <form action="#" method="POST" class="space-y-3" id="newsletter-form">
                     <div class="relative">
                         <input type="email" name="newsletter_email" placeholder="Tu email corporativo" aria-label="Tu email corporativo" required 
-                            class="w-full bg-gray-950 border border-gray-800 hover:border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 placeholder:text-gray-600 focus:border-brand-500 focus:outline-none transition-colors duration-300">
+                            class="w-full bg-gray-950 border border-gray-800 hover:border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 placeholder:text-gray-600 focus:border-brand-500 transition-colors duration-300">
                     </div>
                     <button type="submit" class="w-full bg-brand-400 hover:bg-brand-300 text-gray-950 font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 shadow-[0_0_30px_rgba(0,169,204,0.15)] hover:shadow-[0_0_30px_rgba(0,169,204,0.3)] cursor-pointer">
                         Suscribirme

@@ -26,18 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // (Animaciones de entrada removidas para evitar problemas con capturas de bots y PageSpeed)
         // Sólo conservamos el efecto parallax con el movimiento del mouse.
 
-        // 5. Animación Flotante (Sustituye al mouse parallax por seriedad B2B)
-        if (terminal && terminalContainer) {
-            gsap.to(terminal, {
-                y: -15,
-                rotationX: 2,
-                rotationY: -2,
-                duration: 4,
-                ease: "sine.inOut",
-                yoyo: true,
-                repeat: -1
-            });
-        }
+        // 5. Animación Flotante (Removida a petición del usuario para mayor estabilidad visual)
+        // if (terminal && terminalContainer) { ... }
         
         // Opcional: Función de limpieza si se desmonta el matchMedia (poco común en tema clásico, pero buena práctica)
         return () => {

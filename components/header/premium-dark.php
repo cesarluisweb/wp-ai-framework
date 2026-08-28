@@ -155,7 +155,7 @@ $cta_button = $data['cta_button'] ?? null;
                 <?php endif; ?>
                 
                 <!-- Mobile Menu Button -->
-                <button class="w-10 h-10 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer focus:outline-none group" id="mobile-menu-btn" aria-label="Toggle menu">
+                <button class="w-10 h-10 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-center text-gray-200 hover:text-brand-300 hover:border-brand-500/30 transition-all duration-300 cursor-pointer group" id="mobile-menu-btn" aria-label="Toggle menu">
                     <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
